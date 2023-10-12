@@ -1,0 +1,21 @@
+name: ansible-lint
+on:
+  - push
+  - pull_request
+
+jobs:
+  ansible-lint:
+    name: Ansible Lint
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/ansible/creator-ee:v0.20.0
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Run ansible-lint
+        run: |
+          ansible-lint --version
+          find . -iname requirements.yml -exec ansible-galaxy install -r {} \;
+          ansible-lint ansible/*.yml

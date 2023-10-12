@@ -1,0 +1,70 @@
+version: "3"
+
+vars:
+  ANSIBLE_VERSION: "8.5.0"
+
+tasks:
+  venv:source:
+    desc: Source Python virtual environment
+    internal: true
+    cmds:
+      - source ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/activate
+    preconditions:
+      - sh: test -f ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/activate
+        msg: Python virtual environment not found. Have you ran `task venv`?
+
+  ansible:hosts:
+    desc: List Ansible hosts
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - task: venv:source
+      - ansible all -i inventory.yml --list-hosts
+
+  ansible:adhoc:
+    desc: Run Ansible adhoc command
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - task: venv:source
+      - ansible all -i inventory.yml {{.CLI_ARGS}}
+
+  ansible:play:
+    desc: Run Ansible playbook
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - task: venv:source
+      - ansible-playbook {{.CLI_ARGS}} -i inventory.yml playbook.yml
+
+  ansible:encrypt:
+    desc: Encrypt Ansible vars/main.yml
+    dir: "{{.USER_WORKING_DIR}}"
+    interactive: true
+    cmds:
+      - task: venv:source
+      - ansible-vault encrypt vars/main.yml
+
+  ansible:requirements:
+    desc: Install Ansible requirements
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - task: venv:source
+      - ansible-galaxy install --force -r requirements.yml
+    preconditions:
+      - sh: command -v ansible-galaxy
+        msg: ansible-galaxy is not installed. Have you ran `task venv`?
+      - sh: test -f requirements.yml
+        msg: Ansible requirements.yml file not found.
+
+  venv:build:
+    desc: Build Python virtual environment
+    internal: true
+    cmds:
+      - mkdir -pv ~/.virtualenvs
+      - python -m venv ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})
+      - ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/pip install --upgrade pip
+      - ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/pip install ansible=={{.ANSIBLE_VERSION}}
+
+  venv:
+    desc: Create Python virtual environment
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - task: venv:build
