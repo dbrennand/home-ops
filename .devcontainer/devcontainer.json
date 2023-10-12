@@ -1,0 +1,21 @@
+{
+    "image": "ghcr.io/ansible/creator-ee:v0.20.0",
+    "mounts": [
+        "source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,type=bind"
+    ],
+    "containerEnv": {
+        "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "streetsidesoftware.code-spell-checker",
+                "redhat.ansible",
+                "github.copilot",
+                "yzhang.markdown-all-in-one",
+                "eamodio.gitlens"
+            ]
+        }
+    },
+    "postStartCommand": "git config --global --unset gpg.'ssh'.program"
+}
