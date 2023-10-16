@@ -1,0 +1,188 @@
+---
+# vars file for playbook
+
+# Additional apt packages to install
+apt_packages:
+  - htop
+  - tree
+# The domain of the network
+# The base/apex domain must be registered with Cloudflare
+domain: net.domain.tld
+# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+linuxserver_timezone: Europe/London
+# Obtained from the OMV web interface
+omv_mediarr_volume: /srv/dev-disk-by-uuid-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+# Generated via: https://t.me/BotFather
+telegram_bot_token: token
+# Obtained via: https://t.me/userinfobot
+telegram_chat_id: id
+
+# Transmission vars
+# Use dev due to issue: https://github.com/haugene/docker-transmission-openvpn/issues/2489
+transmission_image_tag: dev
+# https://haugene.github.io/docker-transmission-openvpn/supported-providers/#out-of-the-box_supported_providers
+transmission_openvpn_provider: provider
+# https://haugene.github.io/docker-transmission-openvpn/config-options/#required_environment_options
+transmission_openvpn_config: config
+transmission_openvpn_username: username
+transmission_openvpn_password: password
+transmission_local_network: 192.168.0.0/24
+# https://haugene.github.io/docker-transmission-openvpn/config-options/#timezone_option
+transmission_timezone: GMT
+# https://haugene.github.io/docker-transmission-openvpn/config-options/#alternative_web_uis
+transmission_web_ui: flood-for-transmission
+transmission_dns:
+  # Cloudflare DNS servers
+  - "1.1.1.1"
+  - "1.0.0.1"
+
+# Prowlarr vars
+# https://hub.docker.com/r/linuxserver/prowlarr
+prowlarr_image_tag: latest
+
+# Radarr vars
+# https://hub.docker.com/r/linuxserver/radarr
+radarr_image_tag: latest
+
+# Sonarr vars
+# https://hub.docker.com/r/linuxserver/sonarr
+sonarr_image_tag: latest
+
+# Jellyfin vars
+# https://hub.docker.com/r/linuxserver/jellyfin
+jellyfin_image_tag: latest
+
+# geerlingguy.pip role vars
+# https://github.com/geerlingguy/ansible-role-pip#role-variables
+pip_install_packages:
+  - name: docker
+
+# geerlingguy.docker role vars
+# https://github.com/geerlingguy/ansible-role-docker#role-variables
+docker_users:
+  - "{{ ansible_user }}"
+docker_daemon_options:
+  "data-root": "/var/lib/docker"
+  "log-driver": "json-file"
+  "log-opts":
+    "max-size": "10m"
+    "max-file": "3"
+
+# artis3n.tailscale role vars
+# https://github.com/artis3n/ansible-role-tailscale#role-variables
+# Generated via: https://login.tailscale.com/admin/settings/keys
+tailscale_authkey: key
+tailscale_args: --ssh
+
+# dbrennand.caddy_docker role vars
+# https://github.com/dbrennand/ansible-role-caddy-docker#role-variables
+caddy_docker_caddyfile: |-
+  {
+      email {$ACME_EMAIL}
+  }
+
+  # Cloudflare DNS-01 challenge
+  (cloudflare) {
+      tls {
+          dns cloudflare {$CLOUDFLARE_API_TOKEN}
+      }
+  }
+
+  # Tailscale
+  (tailscale) {
+      tls {
+          get_certificate tailscale
+      }
+  }
+
+  # OMV
+  nuc.{$DOMAIN} {
+      import cloudflare
+      reverse_proxy host.docker.internal:1080
+  }
+caddy_docker_plugins:
+  # Allows Caddy to obtain TLS certificates for a Cloudflare managed domain
+  - github.com/caddy-dns/cloudflare
+  # Allows Caddy to be configured via Docker container labels
+  - github.com/lucaslorentz/caddy-docker-proxy/v2
+caddy_docker_networks:
+  - name: caddy
+caddy_docker_command: caddy docker-proxy
+caddy_docker_etc_hosts:
+  host.docker.internal: host-gateway
+caddy_docker_extra_volumes:
+  # Required for Caddy to read Docker container labels
+  - /var/run/docker.sock:/var/run/docker.sock
+  # Required for Caddy to obtain TLS certificates for Tailscale
+  - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock
+caddy_docker_environment_variables:
+  # Variables used in the Caddyfile
+  DOMAIN: "{{ domain }}"
+  # https://github.com/dbrennand/ansible-role-caddy-docker/blob/main/README.md#example---cloudflare-dns-01-challenge
+  CLOUDFLARE_API_TOKEN: token
+  # The email address used to receive notifications from Let's Encrypt
+  ACME_EMAIL: email@domain.tld
+  # Name of the Tailnet
+  TAILNET: domain-alias.ts.net
+  # https://github.com/lucaslorentz/caddy-docker-proxy#caddy-cli
+  CADDY_INGRESS_NETWORKS: caddy
+  CADDY_DOCKER_CADDYFILE_PATH: /etc/caddy/Caddyfile
+
+# dbrennand.autorestic role vars
+# https://github.com/dbrennand/ansible-role-autorestic#role-variables
+autorestic_config: |-
+  version: 2
+
+  global:
+    all:
+      verbose: true
+    unlock:
+      cleanup-cache: true
+    forget:
+      # Always keep at least 5 snapshots
+      keep-last: 5
+
+  extras:
+    custom_hooks: &setup
+      hooks:
+        before:
+          - 'curl -F "text=Starting backup for location: ${AUTORESTIC_LOCATION}" "https://api.telegram.org/bot{{ telegram_bot_token }}/sendMessage?chat_id={{ telegram_chat_id }}"'
+          - 'docker stop $(docker ps -a -q)'
+        failure:
+          - 'curl -F "text=Backup failed for location: ${AUTORESTIC_LOCATION}" "https://api.telegram.org/bot{{ telegram_bot_token }}/sendMessage?chat_id={{ telegram_chat_id }}"'
+          - 'docker start transmission; sleep 30'
+          - 'docker start $(docker ps -a -q)'
+        success:
+          - 'curl -F "text=Backup successful for location: ${AUTORESTIC_LOCATION}" "https://api.telegram.org/bot{{ telegram_bot_token }}/sendMessage?chat_id={{ telegram_chat_id }}"'
+          - 'docker start transmission; sleep 30'
+          - 'docker start $(docker ps -a -q)'
+
+  locations:
+    ssd:
+      from: "{{ omv_mediarr_volume }}"
+      to: backblaze
+      <<: *setup
+      forget: prune
+      # https://crontab.guru/#0_0_*_*_MON
+      cron: "0 0 * * MON"
+      options:
+        backup:
+          exclude:
+            # Created by OMV
+            - 'aquota.group'
+            - 'aquota.user'
+            - 'lost+found'
+
+  backends:
+    backblaze:
+      type: b2
+      # Name of the B2 bucket
+      path: bucket
+      # Key used by restic to encrypt backups
+      key: key
+      # Backblaze B2 application ID and key
+      env:
+        B2_ACCOUNT_ID: id
+        B2_ACCOUNT_KEY: key
+autorestic_info: true
+autorestic_cron: true

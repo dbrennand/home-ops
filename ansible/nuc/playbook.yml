@@ -1,0 +1,62 @@
+---
+- name: Configure OpenMediaVault NUC
+  hosts: nuc
+  vars_files:
+    - vars/main.yml
+  handlers:
+    - name: Import handlers
+      ansible.builtin.import_tasks: handlers/main.yml
+  pre_tasks:
+    - name: "Get user info for {{ ansible_user }}"
+      tags: transmission
+      ansible.builtin.getent:
+        database: passwd
+        key: "{{ ansible_user }}"
+
+    - name: Install additional packages
+      ansible.builtin.apt:
+        name: "{{ apt_packages }}"
+        update_cache: true
+        cache_valid_time: 14400
+      become: true
+
+    # https://github.com/docker/for-linux/issues/1199#issuecomment-1431571192
+    - name: Install apparmor
+      ansible.builtin.apt:
+        name: apparmor
+        update_cache: true
+        cache_valid_time: 14400
+      become: true
+      notify: Reboot and wait
+  roles:
+    - role: geerlingguy.pip
+      become: true
+    - role: geerlingguy.docker
+      become: true
+    - role: artis3n.tailscale
+      tags: tailscale
+    - role: dbrennand.caddy_docker
+    - role: dbrennand.autorestic
+  tasks:
+    - name: Patch OpenMediaVault Monit Nginx config to check on docker0 interface port 1080
+      ansible.builtin.lineinfile:
+        path: /etc/monit/conf.d/openmediavault-nginx.conf
+        regexp: "^if failed host 127.0.0.1.*"
+        line: "if failed host 172.17.0.1 port 1080 protocol http timeout 15 seconds for 2 times within 3 cycles then restart"
+        backrefs: true
+        state: present
+      become: true
+      notify: Restart Monit systemd service
+
+    - name: Patch OpenMediaVault Nginx config to listen on docker0 interface port 1080
+      ansible.builtin.lineinfile:
+        path: /etc/nginx/sites-enabled/openmediavault-webgui
+        regexp: "^(.*)listen(.*)default_server;"
+        line: "listen 172.17.0.1:1080;"
+        backrefs: true
+        state: present
+      become: true
+      notify: Restart Nginx systemd service
+
+    - name: Import mediarr tasks
+      ansible.builtin.import_tasks: tasks/mediarr.yml

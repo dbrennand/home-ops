@@ -1,0 +1,208 @@
+---
+# tasks file for mediarr
+
+- name: Install packages for Intel QuickSync (QSV)
+  ansible.builtin.apt:
+    name:
+      - intel-media-va-driver
+      - vainfo
+    state: present
+  become: true
+
+- name: Capture vainfo output
+  ansible.builtin.command:
+    cmd: vainfo
+  register: vainfo
+  changed_when: false
+
+- name: Show vainfo output
+  ansible.builtin.debug:
+    var: vainfo.stdout_lines
+
+- name: Create Mediarr Docker network
+  community.docker.docker_network:
+    name: mediarr
+    state: present
+
+- name: Create Transmission Docker container
+  tags: transmission
+  community.docker.docker_container:
+    name: transmission
+    image: "haugene/transmission-openvpn:{{ transmission_image_tag }}"
+    pull: true
+    restart_policy: unless-stopped
+    networks:
+      - name: mediarr
+      - name: "{{ caddy_docker_networks[0].name }}"
+    exposed_ports:
+      # Port for Transmission UI
+      - 9091
+      # Port for Privoxy (web proxy)
+      - 8118
+    capabilities:
+      - NET_ADMIN
+    sysctls:
+      net.ipv6.conf.all.disable_ipv6: 0
+    volumes:
+      - "{{ omv_mediarr_volume }}/data/downloads:/data/downloads"
+    env:
+      TRANSMISSION_HOME: /data/downloads/transmission-home
+      TRANSMISSION_DOWNLOAD_DIR: /data/downloads/completed
+      TRANSMISSION_INCOMPLETE_DIR: /data/downloads/incomplete
+      TRANSMISSION_WATCH_DIR: /data/downloads/watch
+      OPENVPN_PROVIDER: "{{ transmission_openvpn_provider }}"
+      OPENVPN_CONFIG: "{{ transmission_openvpn_config }}"
+      OPENVPN_USERNAME: "{{ transmission_openvpn_username | string }}"
+      OPENVPN_PASSWORD: "{{ transmission_openvpn_password }}"
+      LOCAL_NETWORK: "{{ transmission_local_network }}"
+      TZ: "{{ transmission_timezone }}"
+      TRANSMISSION_WEB_UI: "{{ transmission_web_ui }}"
+      PUID: "{{ ansible_facts.getent_passwd[ansible_user].1 }}"
+      PGID: "{{ ansible_facts.getent_passwd[ansible_user].2 }}"
+      OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
+      CREATE_TUN_DEVICE: "true"
+      WEBPROXY_ENABLED: "true"
+      WEBPROXY_PORT: "8118"
+      TRANSMISSION_SCRAPE_PAUSED_TORRENTS_ENABLED: "false"
+    dns_servers: "{{ transmission_dns }}"
+    labels:
+      caddy: transmission.{$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{% raw %}{{ upstreams 9091}}{% endraw %}"
+    comparisons:
+      env: strict
+      networks: strict
+    state: started
+
+- name: Create Prowlarr Docker container
+  community.docker.docker_container:
+    name: prowlarr
+    image: "lscr.io/linuxserver/prowlarr:{{ prowlarr_image_tag }}"
+    pull: true
+    restart_policy: unless-stopped
+    networks:
+      - name: mediarr
+      - name: "{{ caddy_docker_networks[0].name }}"
+    exposed_ports:
+      - 9696
+    volumes:
+      - "{{ omv_mediarr_volume }}/appdata/prowlarr:/config"
+    env:
+      PUID: "{{ ansible_facts.getent_passwd[ansible_user].1 }}"
+      PGID: "{{ ansible_facts.getent_passwd[ansible_user].2 }}"
+      TZ: "{{ linuxserver_timezone }}"
+      UMASK: "022"
+    labels:
+      caddy: prowlarr.{$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{% raw %}{{ upstreams 9696}}{% endraw %}"
+    comparisons:
+      env: strict
+      networks: strict
+    state: started
+
+- name: Create Radarr Docker container
+  community.docker.docker_container:
+    name: radarr
+    image: "lscr.io/linuxserver/radarr:{{ radarr_image_tag }}"
+    pull: true
+    restart_policy: unless-stopped
+    networks:
+      - name: mediarr
+      - name: "{{ caddy_docker_networks[0].name }}"
+    exposed_ports:
+      - 7878
+    volumes:
+      - "{{ omv_mediarr_volume }}/appdata/radarr:/config"
+      - "{{ omv_mediarr_volume }}/data:/data"
+    env:
+      PUID: "{{ ansible_facts.getent_passwd[ansible_user].1 }}"
+      PGID: "{{ ansible_facts.getent_passwd[ansible_user].2 }}"
+      TZ: "{{ linuxserver_timezone }}"
+      UMASK: "022"
+    labels:
+      caddy: radarr.{$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{% raw %}{{ upstreams 7878}}{% endraw %}"
+    comparisons:
+      env: strict
+      networks: strict
+    state: started
+
+- name: Create Sonarr Docker container
+  community.docker.docker_container:
+    name: sonarr
+    image: "lscr.io/linuxserver/sonarr:{{ sonarr_image_tag }}"
+    pull: true
+    restart_policy: unless-stopped
+    networks:
+      - name: mediarr
+      - name: "{{ caddy_docker_networks[0].name }}"
+    exposed_ports:
+      - 8989
+    volumes:
+      - "{{ omv_mediarr_volume }}/appdata/sonarr:/config"
+      - "{{ omv_mediarr_volume }}/data:/data"
+    env:
+      PUID: "{{ ansible_facts.getent_passwd[ansible_user].1 }}"
+      PGID: "{{ ansible_facts.getent_passwd[ansible_user].2 }}"
+      TZ: "{{ linuxserver_timezone }}"
+      UMASK: "022"
+    labels:
+      caddy: sonarr.{$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{% raw %}{{ upstreams 8989}}{% endraw %}"
+    comparisons:
+      env: strict
+      networks: strict
+    state: started
+
+- name: "Add render and video groups for {{ ansible_user }}"
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups:
+      - render
+      - video
+    append: true
+  become: true
+
+- name: Create Jellyfin Docker container
+  community.docker.docker_container:
+    name: jellyfin
+    image: "lscr.io/linuxserver/jellyfin:{{ jellyfin_image_tag }}"
+    pull: true
+    restart_policy: unless-stopped
+    networks:
+      - name: mediarr
+      - name: "{{ caddy_docker_networks[0].name }}"
+    exposed_ports:
+      - 8096
+    ports:
+      # Allows clients to discover Jellyfin on the local network
+      - 7359:7359
+      # Service discovery used by DNLA and clients
+      - 1900:1900
+    volumes:
+      - "{{ omv_mediarr_volume }}/appdata/jellyfin:/config"
+      - "{{ omv_mediarr_volume }}/data/media:/data/media"
+    devices:
+      # Mount /dev/dri for hardware acceleration
+      - /dev/dri:/dev/dri
+    env:
+      PUID: "{{ ansible_facts.getent_passwd[ansible_user].1 }}"
+      PGID: "{{ ansible_facts.getent_passwd[ansible_user].2 }}"
+      TZ: "{{ linuxserver_timezone }}"
+      UMASK: "022"
+      JELLYFIN_PublishedServerUrl: "jellyfin.{{ domain }}"
+    labels:
+      caddy: jellyfin.{$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{% raw %}{{ upstreams 8096}}{% endraw %}"
+      # Tailscale
+      caddy_1: nuc.{$TAILNET}
+      caddy_1.import: tailscale
+      caddy_1.reverse_proxy: "{% raw %}{{ upstreams 8096}}{% endraw %}"
+    comparisons:
+      env: strict
+      networks: strict
+    state: started

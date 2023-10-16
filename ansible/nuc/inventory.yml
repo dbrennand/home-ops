@@ -1,0 +1,5 @@
+---
+nuc:
+  hosts:
+    nuc.net.domain.tld:
+      ansible_user: user
