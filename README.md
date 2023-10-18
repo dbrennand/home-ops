@@ -21,8 +21,6 @@ The goals of this repository are:
 
 Ansible playbooks used to configure my homelab infrastructure and deploy applications are located in the [ansible](ansible) directory.
 
-See [ansible/README.md](ansible/README.md) for more information.
-
 ### Kubernetes Cluster 🚀
 
 Under construction 🚧 👷
@@ -30,10 +28,6 @@ Under construction 🚧 👷
 ## Taskfile 📋
 
 This repository uses [Taskfile](https://taskfile.dev) to quickly perform repetitive [tasks](Taskfile.yml).
-
-## Contributors ✨
-
-[Daniel Brennand](https://github.com/dbrennand)
 
 ## License
 
