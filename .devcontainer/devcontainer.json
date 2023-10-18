@@ -17,5 +17,6 @@
             ]
         }
     },
-    "postStartCommand": "git config --global --unset gpg.'ssh'.program"
+    "postStartCommand": "git config --global --unset gpg.'ssh'.program",
+    "postCreateCommand": "pip install mkdocs-material"
 }
