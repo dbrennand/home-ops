@@ -17,11 +17,11 @@ The goals of this repository are:
 - Document my homelab setup and configuration for future reference and in case of disaster recovery.
 - Share knowledge and learnings with others.
 
-### Ansible Playbooks ▶️
+## Ansible Playbooks ▶️
 
 Ansible playbooks used to configure my homelab infrastructure and deploy applications are located in the [ansible](ansible) directory.
 
-### Kubernetes Cluster 🚀
+## Kubernetes Cluster 🚀
 
 Under construction 🚧 👷
 
