@@ -7,5 +7,6 @@
 exclude_paths:
   - .github/
   - .git/
+  - mkdocs.yml
 skip_list:
   - yaml[line-length]
