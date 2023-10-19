@@ -115,7 +115,11 @@ The variables for this playbook are located in [vars/main.yml](vars/main.yml).
 
 3. Select the `pihole` machine in the portal and under machine settings, select **Disable key expiry**.
 
-4. Go to your Tailnet's [DNS settings](https://login.tailscale.com/admin/dns) and under *Nameservers*, check **Override local DNS** and enter the Tailnet IP of the Raspberry Pi 3 as the global nameserver.
+4. Go to your Tailnet's [DNS settings](https://login.tailscale.com/admin/dns) and under *Nameservers*, choose **Add nameserver** > **Custom...**.
+
+5. Enter the Tailnet IP of the Raspberry Pi 3 as the nameserver and click **Save**.
+
+6. Check **Override local DNS**.
 
 Now when you connect to your Tailnet from your mobile device, you'll get Pi-hole ad-blocking! 🚀
 
