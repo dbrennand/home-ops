@@ -29,6 +29,10 @@ Under construction 🚧 👷
 
 This repository uses [Taskfile](https://taskfile.dev) to quickly perform repetitive [tasks](Taskfile.yml).
 
+## Acknowledgement 🙏
+
+I'd like to thank the members of the [K8s@Home](https://discord.gg/k8s-at-home) Discord community for their help and support, and sharing their Kubernetes cluster repositories.
+
 ## License
 
 [MIT](LICENSE)
