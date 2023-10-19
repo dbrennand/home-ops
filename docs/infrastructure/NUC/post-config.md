@@ -1,4 +1,6 @@
-﻿# Post Configuration Instructions
+﻿# NUC Ansible Playbook - Application Configuration
+
+This page contains instructions for configuring the applications deployed by the [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/nuc/README.md).
 
 ## Sonarr & Radarr
 
@@ -6,11 +8,13 @@
 
 2. Configure the following settings:
 
-    > Shoutout to TRaSH Guides for the naming formats and other settings:
-    >
-    > Radarr: https://trash-guides.info/Radarr/Radarr-recommended-naming-scheme/
-    >
-    > Sonarr: https://trash-guides.info/Sonarr/Sonarr-recommended-naming-scheme/
+    !!! tip
+
+        Shoutout to TRaSH Guides for the naming formats and other settings:
+
+        * [Radarr](https://trash-guides.info/Radarr/Radarr-recommended-naming-scheme/)
+
+        * [Sonarr](https://trash-guides.info/Sonarr/Sonarr-recommended-naming-scheme/)
 
     | Setting                         | Value                                                                                                                                                                                                                                                                                                             |
     | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

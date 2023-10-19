@@ -1,8 +1,14 @@
-# Configuration instructions for OpenMediaVault 6
+# OpenMediaVault 6
+
+!!! quote
+
+    [OpenMediaVault](https://www.openmediavault.org/) is the next generation network attached storage (NAS) solution based on Debian Linux. It contains services like SSH, (S)FTP, SMB/CIFS, RSync and many more ready to use.
+
+This page contains instructions for configuring OpenMediaVault 6 on my NUC prior to running the [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/nuc/README.md).
 
 ## Networking
 
-1. On the left menu, navigate to `Network > Interfaces` and edit the default interface.
+1. On the left menu, navigate to `Network > Interfaces` and edit the default interface:
 
     <!-- Create Markdown table with two columns named Setting and Value -->
 
@@ -59,19 +65,21 @@
         | `sonarr`    |                                          | `appdata/sonarr/`    |                                                                 | Sonarr           |
         | `tv`        |                                          | `data/media/tv/`     |                                                                 | TV               |
 
-    ```
-    .
-    ├── appdata
-    │   ├── jellyfin
-    │   ├── prowlarr
-    │   ├── radarr
-    │   ├── sonarr
-    ├── data
-    │   ├── downloads
-    │   └── media
-    │       ├── movies
-    │       └── tv
-   ```
+        Tree structure:
+
+        ```
+        .
+        ├── appdata
+        │   ├── jellyfin
+        │   ├── prowlarr
+        │   ├── radarr
+        │   ├── sonarr
+        ├── data
+        │   ├── downloads
+        │   └── media
+        │       ├── movies
+        │       └── tv
+        ```
 
 6. Click **Save** and then **Apply changes** for each shared folder.
 
