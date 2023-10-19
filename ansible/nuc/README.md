@@ -30,7 +30,7 @@ The Ansible [playbook.yml](playbook.yml) deploys the following containerised app
 
 > The assumption is made that you've already [flashed](https://docs.openmediavault.org/en/5.x/installation/via_iso.html) the [OMV ISO](https://www.openmediavault.org/?page_id=77) to a USB and performed the basic installation.
 
-See [docs/omv.md](docs/omv.md) for instructions on how to configure OMV 6 on the NUC.
+See [here](https://homeops.danielbrennand.com/infrastructure/NUC/openmediavault/) for instructions on how to configure OMV 6 on the NUC.
 
 ### DNS Records
 
@@ -122,6 +122,6 @@ The variables for this playbook are located in [vars/main.yml](vars/main.yml).
     task ansible:play -- --ask-vault-pass --tags tailscale
     ```
 
-## Post Configuration
+## Application Configuration
 
-See [docs/post-config.md](docs/post-config.md) for post configuration instructions for Sonarr, Radarr, Prowlarr and Jellyfin.
+See [NUC Ansible Playbook - Application Configuration](https://homeops.danielbrennand.com/infrastructure/NUC/post-config/) for instructions on configuring Sonarr, Radarr, Prowlarr and Jellyfin.
