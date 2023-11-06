@@ -1,0 +1,5 @@
+---
+proxmox:
+  hosts:
+    proxmox01.net.domain.tld:
+      ansible_user: user
