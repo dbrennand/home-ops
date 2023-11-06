@@ -4,14 +4,26 @@ vars:
   ANSIBLE_VERSION: "8.5.0"
 
 tasks:
-  venv:source:
-    desc: Source Python virtual environment
-    internal: true
+  k8s:tools:
+    desc: Install Kubernetes tooling
     cmds:
-      - source ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/activate
+      - brew install {{.TOOLS}}
     preconditions:
-      - sh: test -f ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/activate
-        msg: Python virtual environment not found. Have you ran `task venv`?
+      - sh: command -v brew
+        msg: Homebrew is not installed. See https://brew.sh/
+    vars:
+      TOOLS: >-
+        fluxcd/tap/flux
+        sops
+        age
+        helm
+        jq
+        yq
+        kubernetes-cli
+        kustomize
+        gettext
+        talhelper
+        siderolabs/talos/talosctl
 
   ansible:hosts:
     desc: List Ansible hosts
@@ -53,6 +65,15 @@ tasks:
         msg: ansible-galaxy is not installed. Have you ran `task venv`?
       - sh: test -f requirements.yml
         msg: Ansible requirements.yml file not found.
+
+  venv:source:
+    desc: Source Python virtual environment
+    internal: true
+    cmds:
+      - source ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/activate
+    preconditions:
+      - sh: test -f ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/activate
+        msg: Python virtual environment not found. Have you ran `task venv`?
 
   venv:build:
     desc: Build Python virtual environment
