@@ -44,7 +44,7 @@ tasks:
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
       - task: venv:source
-      - ansible-playbook {{.CLI_ARGS}} -i inventory.yml playbook.yml
+      - ansible-playbook {{.CLI_ARGS}} -i inventory.yml {{ .PLAYBOOK | default "playbook.yml" }}
 
   ansible:encrypt:
     desc: Encrypt Ansible vars/main.yml
