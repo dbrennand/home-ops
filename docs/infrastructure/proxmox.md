@@ -15,3 +15,9 @@
     ```bash
     bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install
     ```
+
+3. Extend the Proxmox `data` logical volume to use the remaining space on the disk:
+
+    ```bash
+    lvextend -l +100%FREE /dev/pve/data
+    ```
