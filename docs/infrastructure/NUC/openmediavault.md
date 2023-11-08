@@ -1,6 +1,6 @@
 # OpenMediaVault 6
 
-!!! quote
+!!! quote "What is OpenMediaVault?"
 
     [OpenMediaVault](https://www.openmediavault.org/) is the next generation network attached storage (NAS) solution based on Debian Linux. It contains services like SSH, (S)FTP, SMB/CIFS, RSync and many more ready to use.
 
