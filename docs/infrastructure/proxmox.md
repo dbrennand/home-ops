@@ -12,6 +12,7 @@
 | Memory             | 64GB DDR4 3200MHz SODIMM (2x32GB)                                                 |
 | Storage (Internal) | Samsung NVMe 970 EVO Plus 1TB                                                     |
 | Storage (External) | Crucial SSD MX500 2TB                                                             |
+| Storage (External) | Samsung SSD 870 QVO 1TB                                                           |
 | Storage (External) | 64GB USB                                                                          |
 
 ## Installation
@@ -63,19 +64,25 @@ ssh-copy-id -i root@proxmox01.net.domain.tld
 
     - Click `/dev/sda` and select `Initialize Disk with GPT`
     - Click `/dev/sdb` and select `Initialize Disk with GPT`
+    - Click `/dev/sdc` and select `Initialize Disk with GPT`
 
 3. Navigate to `Disks` > `LVM-Thin` > `Create: Thinpool`, enter the following details and click **Create**:
 
-      | Setting | Value      |
-      | ------- | ---------- |
-      | Disk    | `/dev/sda` |
-      | Name    | ssd        |
+      | Setting | Value       |
+      | ------- | ----------- |
+      | Disk    | `/dev/sda`  |
+      | Name    | ssd-crucial |
+
+      | Setting | Value       |
+      | ------- | ----------- |
+      | Disk    | `/dev/sdb`  |
+      | Name    | ssd-samsung |
 
 4. Navigate to `Disks` > `Directory` > `Create: Directory`, enter the following details and click **Create**:
 
       | Setting    | Value      |
       | ---------- | ---------- |
-      | Disk       | `/dev/sdb` |
+      | Disk       | `/dev/sdc` |
       | Filesystem | `xfs`      |
       | Name       | ISOs       |
 
