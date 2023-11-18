@@ -5,7 +5,7 @@
   gather_facts: false
   vars:
     # Proxmox directory to store ISOs
-    iso_directory: /mnt/pve/ISOs/template/iso
+    proxmox_iso_directory: /mnt/pve/ISOs/template/iso
     # ISO URLs to download
     iso_urls:
       - https://example.tld/example-amd64.iso
@@ -13,6 +13,6 @@
     - name: Download ISOs
       ansible.builtin.get_url:
         url: "{{ item }}"
-        dest: "{{ iso_directory }}/{{ item | basename }}"
+        dest: "{{ proxmox_iso_directory }}/{{ item | basename }}"
         mode: 755
       loop: "{{ iso_urls }}"
