@@ -12,6 +12,8 @@
     proxmox_storage_name: local-lvm
     # Cloud images to download or upload to Proxmox
     images:
+      # url to download directly to Proxmox
+      # local to upload from control node to Proxmox
       - name: ubuntu-server-2304
         url: https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64-disk-kvm.img
         install_qemu_guest_agent: true
@@ -32,7 +34,7 @@
         cache_valid_time: 3600
   tasks:
     - name: Get next Proxmox VM ID
-      # Credit for below block
+      # Credit for below block - minor modifications made
       # https://github.com/PragmaticEngineering/ansibleRole-proxmox-templates/blob/main/tasks/download-images.yaml
       block:
         - name: Read Proxmox VM list
