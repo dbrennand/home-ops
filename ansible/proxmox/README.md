@@ -2,7 +2,7 @@
 
 This directory contains the Ansible playbooks that I use to configure Proxmox VE in my Homelab.
 
-See [dbrennand | home-ops - Proxmox](https://homeops.danielbrennand.com/infrastructure/proxmox/) for further details.
+See [dbrennand | home-ops - Proxmox](https://homeops.danielbrennand.com/infrastructure/Proxmox/) for further details.
 
 ## Playbooks
 
