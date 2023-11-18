@@ -21,6 +21,6 @@ The guest image (`.qcow2`) will be created using the [Red Hat Image Builder](htt
 
 It should take a few minutes for the image to be created. Once created, download it to your local machine.
 
-## Loading the Guest Image into Proxmox
+## Using the Guest Image in Proxmox
 
-Use the [create-vm-template.yml] Ansible playbook to load the guest image into Proxmox. The playbook will create a new VM template from the guest image.
+Use the [create-vm-template.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/proxmox/create-vm-template.yml) Ansible playbook to load the guest image into Proxmox. The playbook will create a new VM template from the guest image.

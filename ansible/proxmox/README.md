@@ -7,6 +7,7 @@ See [dbrennand | home-ops - Proxmox](https://homeops.danielbrennand.com/infrastr
 ## Playbooks
 
 - [download-iso-playbook.yml](download-iso-playbook.yml): Download ISO files to Proxmox.
+- [create-vm-template.yml](create-vm-template.yml): Create Proxmox VM Templates.
 
 ## Dependencies
 
