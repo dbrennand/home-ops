@@ -1,5 +1,7 @@
 {
-    "image": "ghcr.io/ansible/creator-ee:v0.20.0",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
     "mounts": [
         "source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,type=bind"
     ],
@@ -13,10 +15,9 @@
                 "redhat.ansible",
                 "github.copilot",
                 "yzhang.markdown-all-in-one",
-                "eamodio.gitlens"
+                "hashicorp.terraform"
             ]
         }
     },
-    "postStartCommand": "git config --global --unset gpg.'ssh'.program",
-    "postCreateCommand": "pip install mkdocs-material"
+    "postStartCommand": "git config --global --unset gpg.'ssh'.program"
 }
