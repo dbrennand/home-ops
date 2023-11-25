@@ -36,12 +36,6 @@ variable "vm_name" {
   type        = string
 }
 
-variable "vm_description" {
-  description = "Description of the VM"
-  type        = string
-  default     = "Created by Terraform on ${local.date}"
-}
-
 variable "vm_tags" {
   description = "Tags for the VM"
   type        = list(string)

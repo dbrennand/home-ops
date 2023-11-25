@@ -7,6 +7,11 @@ terraform {
   }
 }
 
+locals {
+  datetime       = timestamp()
+  vm_description = "Created by Terraform on ${local.datetime}"
+}
+
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs
 provider "proxmox" {
   endpoint = var.virtual_environment_endpoint
@@ -29,7 +34,7 @@ data "external" "op_ssh_key" {
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm
 resource "proxmox_virtual_environment_vm" "common" {
   name        = var.vm_name
-  description = var.vm_description
+  description = local.vm_description
   tags        = var.vm_tags
   node_name   = var.virtual_environment_node
 
