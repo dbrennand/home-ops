@@ -60,6 +60,7 @@ resource "proxmox_virtual_environment_vm" "common" {
     datastore_id = var.virtual_environment_disk_datastore_id
     discard      = "on"
     size         = 50
+    file_format  = "raw"
   }
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#memory
   memory {
