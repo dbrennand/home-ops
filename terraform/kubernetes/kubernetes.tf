@@ -60,6 +60,8 @@ resource "proxmox_virtual_environment_vm" "k3s" {
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#clone
   clone {
     vm_id = var.virtual_environment_template_vm_id
+    # Equivalent to "Full Clone" and modifying the "Target Storage" in Proxmox UI
+    datastore_id = var.virtual_environment_os_disk_datastore_id
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#cpu
@@ -68,14 +70,7 @@ resource "proxmox_virtual_environment_vm" "k3s" {
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#disk
-  # Always provision nodes with 2 disks - one for the OS and one for the data
-  # OS disk
-  disk {
-    interface    = "virtio0"
-    datastore_id = var.virtual_environment_os_disk_datastore_id
-    discard      = "on"
-    size         = 50
-  }
+  # Proxmox VM template already contains an OS disk of 50GB
   # Data disk
   disk {
     interface    = "virtio1"
