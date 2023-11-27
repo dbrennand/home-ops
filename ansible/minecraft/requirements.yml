@@ -1,0 +1,13 @@
+---
+collections:
+  - name: community.docker
+    version: 3.4.8
+roles:
+  - name: artis3n.tailscale
+    version: v4.2.2
+  - name: geerlingguy.docker
+    version: 6.1.0
+  - name: geerlingguy.pip
+    version: 2.2.0
+  - name: geerlingguy.security
+    version: 2.2.0

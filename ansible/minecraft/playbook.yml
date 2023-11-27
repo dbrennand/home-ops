@@ -1,0 +1,95 @@
+---
+- name: Provision Minecraft Server
+  hosts: minecraft
+  vars_files:
+    - vars/main.yml
+  pre_tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      become: true
+
+    - name: "Get {{ ansible_user }} UID and GID"
+      ansible.builtin.getent:
+        database: passwd
+        key: "{{ ansible_user }}"
+      become: true
+      tags:
+        - minecraft
+  roles:
+    - role: geerlingguy.security
+      become: true
+    - role: geerlingguy.pip
+      become: true
+    - role: geerlingguy.docker
+      become: true
+    - role: artis3n.tailscale
+  tasks:
+    - name: Create Minecraft directory
+      ansible.builtin.file:
+        name: /home/{{ ansible_user }}/minecraft/
+        state: directory
+        mode: 0755
+
+    - name: Create Minecraft plugins directory
+      ansible.builtin.file:
+        name: /home/{{ ansible_user }}/minecraft/plugins/
+        state: directory
+        mode: 0755
+
+    - name: Create Minecraft Docker network
+      community.docker.docker_network:
+        name: minecraft
+        state: present
+
+    - name: Minecraft Docker container tasks
+      block:
+        - name: Create Minecraft Docker container
+          community.docker.docker_container:
+            name: minecraft
+            image: "itzg/minecraft-server:{{ minecraft_image_tag }}"
+            restart_policy: always
+            networks:
+              - name: minecraft
+            ports:
+              - "25565:25565"
+            volumes:
+              - /home/{{ ansible_user }}/minecraft/:/data
+            env:
+              "{{ minecraft_options }}"
+            user: "{{ getent_passwd[ansible_user].1 }}:{{ getent_passwd[ansible_user].2 }}"
+            comparisons:
+              env: strict
+              user: strict
+            state: started
+      tags:
+        - minecraft
+
+    - name: Minecraft backup Docker container tasks
+      block:
+        - name: Create Minecraft backup directory
+          ansible.builtin.file:
+            name: /home/{{ ansible_user }}/minecraft-backup/
+            state: directory
+            mode: 0755
+
+        - name: Create Minecraft backup Docker container
+          community.docker.docker_container:
+            name: minecraft-backup
+            image: "itzg/mc-backup:{{ minecraft_backup_image_tag }}"
+            restart_policy: always
+            networks:
+              - name: minecraft
+            volumes:
+              - /home/{{ ansible_user }}/minecraft/:/data:ro
+              - /home/{{ ansible_user }}/minecraft-backup/:/backups
+            env:
+              "{{ minecraft_backup_options }}"
+            hostname: minecraft-backup
+            comparisons:
+              env: strict
+            state: started
+      when: minecraft_backup
+      tags:
+        - backup
