@@ -25,6 +25,8 @@
     - role: geerlingguy.docker
       become: true
     - role: artis3n.tailscale
+      tags:
+        - tailscale
   tasks:
     - name: Create Minecraft directory
       ansible.builtin.file:
