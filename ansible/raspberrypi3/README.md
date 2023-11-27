@@ -53,7 +53,7 @@ The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https
 
 ### Tailscale
 
-- Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register the Raspberry Pi 3 with your Tailnet.
+Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register the Raspberry Pi 3 with your Tailnet.
 
 ## Dependencies
 
