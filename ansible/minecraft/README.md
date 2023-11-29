@@ -16,6 +16,19 @@ Deploy an Ubuntu Server 22.04 LTS instance on Proxmox VE using the [common](../.
 
 Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register the server with your Tailnet.
 
+### Backblaze B2 Bucket
+
+Create a [Backblaze B2 bucket](https://help.backblaze.com/hc/en-us/articles/1260803542610-Creating-a-B2-Bucket-using-the-Web-UI) with the following settings:
+
+  | Setting             | Value                                  |
+  | ------------------- | -------------------------------------- |
+  | Files in bucket are | Private                                |
+  | Default Encryption  | Disable                                |
+  | Object Lock         | Disable                                |
+  | Lifecycle Settings  | Keep only the last version of the file |
+
+- Generate a Backblaze B2 [application key](https://secure.backblaze.com/app_keys.htm) for the bucket with the following permissions: `deleteFiles`, `listBuckets`, `listFiles`, `readBucketEncryption`, `readBuckets`, `readFiles`, `shareFiles`, `writeBucketEncryption`, `writeFiles`.
+
 ## Dependencies
 
 - Python `>=3.11`
