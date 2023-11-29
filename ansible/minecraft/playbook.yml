@@ -28,25 +28,27 @@
       tags:
         - tailscale
   tasks:
-    - name: Create Minecraft directory
-      ansible.builtin.file:
-        name: /home/{{ ansible_user }}/minecraft/
-        state: directory
-        mode: 0755
-
-    - name: Create Minecraft plugins directory
-      ansible.builtin.file:
-        name: /home/{{ ansible_user }}/minecraft/plugins/
-        state: directory
-        mode: 0755
-
-    - name: Create Minecraft Docker network
-      community.docker.docker_network:
-        name: minecraft
-        state: present
-
     - name: Minecraft Docker container tasks
+      tags:
+        - minecraft
       block:
+        - name: Create Minecraft directory
+          ansible.builtin.file:
+            name: /home/{{ ansible_user }}/minecraft/
+            state: directory
+            mode: 0755
+
+        - name: Create Minecraft plugins directory
+          ansible.builtin.file:
+            name: /home/{{ ansible_user }}/minecraft/plugins/
+            state: directory
+            mode: 0755
+
+        - name: Create Minecraft Docker network
+          community.docker.docker_network:
+            name: minecraft
+            state: present
+
         - name: Create Minecraft Docker container
           community.docker.docker_container:
             name: minecraft
@@ -65,10 +67,11 @@
               env: strict
               user: strict
             state: started
-      tags:
-        - minecraft
 
     - name: Minecraft backup Docker container tasks
+      when: minecraft_backup
+      tags:
+        - backup
       block:
         - name: Create Minecraft backup directory
           ansible.builtin.file:
@@ -92,6 +95,3 @@
             comparisons:
               env: strict
             state: started
-      when: minecraft_backup
-      tags:
-        - backup
