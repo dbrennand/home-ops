@@ -18,7 +18,7 @@ Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys)
 
 ### Backblaze B2 Bucket
 
-Create a [Backblaze B2 bucket](https://help.backblaze.com/hc/en-us/articles/1260803542610-Creating-a-B2-Bucket-using-the-Web-UI) with the following settings:
+- Create a [Backblaze B2 bucket](https://help.backblaze.com/hc/en-us/articles/1260803542610-Creating-a-B2-Bucket-using-the-Web-UI) with the following settings:
 
   | Setting             | Value                                  |
   | ------------------- | -------------------------------------- |
