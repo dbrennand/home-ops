@@ -4,6 +4,10 @@ terraform {
       source  = "bpg/proxmox"
       version = "0.38.1"
     }
+    onepassword = {
+      source  = "1Password/onepassword"
+      version = "1.3.0"
+    }
   }
 }
 
@@ -12,11 +16,21 @@ locals {
   vm_description = "Created by Terraform on ${local.datetime}"
 }
 
+# https://registry.terraform.io/providers/1Password/onepassword/latest/docs
+provider "onepassword" {
+  service_account_token = var.op_sa_token
+}
+
+data "onepassword_item" "virtual_environment" {
+  vault = var.op_virtual_environment_vault_name
+  title = var.op_virtual_environment_item_name
+}
+
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs
 provider "proxmox" {
-  endpoint = var.virtual_environment_endpoint
+  endpoint = data.onepassword_item.virtual_environment.url
   username = var.virtual_environment_username
-  password = var.virtual_environment_password
+  password = data.onepassword_item.virtual_environment.password
   insecure = true
 }
 

@@ -1,3 +1,19 @@
+variable "op_sa_token" {
+  description = "1Password Service Account token"
+  type        = string
+  sensitive   = true
+}
+
+variable "op_virtual_environment_vault_name" {
+  description = "1Password vault name containing the virtual environment item"
+  type        = string
+}
+
+variable "op_virtual_environment_item_name" {
+  description = "1Password virtual environment item name"
+  type        = string
+}
+
 variable "op_ssh_vault_name" {
   description = "1Password vault name containing the SSH key"
   type        = string
@@ -8,21 +24,10 @@ variable "op_ssh_key_name" {
   type        = string
 }
 
-variable "virtual_environment_endpoint" {
-  description = "Proxmox VE API endpoint"
-  type        = string
-}
-
 variable "virtual_environment_username" {
   description = "Proxmox VE Username"
   type        = string
   default     = "root@pam"
-}
-
-variable "virtual_environment_password" {
-  description = "Proxmox VE Password"
-  type        = string
-  sensitive   = true
 }
 
 variable "virtual_environment_node" {
