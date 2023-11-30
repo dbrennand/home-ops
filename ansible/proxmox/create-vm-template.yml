@@ -109,7 +109,7 @@
 
     - name: Attach disk to Proxmox VM
       ansible.builtin.command:
-        cmd: "qm set {{ (proxmox_next_vm_id | int) + index }} --scsihw virtio-scsi-pci --scsi0 {{ proxmox_storage_name }}:vm-{{ (proxmox_next_vm_id | int) + index }}-disk-0"
+        cmd: "qm set {{ (proxmox_next_vm_id | int) + index }} --scsihw virtio-scsi-pci --scsi0 {{ proxmox_storage_name }}:vm-{{ (proxmox_next_vm_id | int) + index }}-disk-0,discard=on"
       loop: "{{ images }}"
       loop_control:
         index_var: index
