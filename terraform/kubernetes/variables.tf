@@ -60,8 +60,23 @@ variable "nodes_gateway" {
   default     = "192.168.0.1"
 }
 
-variable "nodes" {
-  description = "K3s nodes"
+variable "control_nodes" {
+  description = "K3s control nodes"
+  type = list(object({
+    name        = string
+    description = string
+    tags        = list(string)
+    ip          = string
+    memory      = number
+    cores       = number
+    username    = string
+    password    = string
+  }))
+  default = []
+}
+
+variable "worker_nodes" {
+  description = "K3s worker nodes"
   type = list(object({
     name        = string
     description = string
