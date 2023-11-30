@@ -65,6 +65,7 @@ variable "nodes" {
   type = list(object({
     name        = string
     description = string
+    tags        = list(string)
     ip          = string
     memory      = number
     cores       = number

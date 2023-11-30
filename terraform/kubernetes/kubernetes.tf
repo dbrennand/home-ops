@@ -48,7 +48,7 @@ resource "proxmox_virtual_environment_vm" "k3s" {
 
   name        = each.value.name
   description = each.value.description
-  tags        = ["k3s", "kubernetes"]
+  tags        = each.value.tags
   node_name   = var.virtual_environment_node
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#agent
