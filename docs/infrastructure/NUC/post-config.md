@@ -1,6 +1,6 @@
 ﻿# NUC Ansible Playbook - Application Configuration
 
-This page contains instructions for configuring the applications deployed by the [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/nuc/README.md).
+This page contains instructions for configuring the applications deployed by the [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/archive/nuc/README.md).
 
 ## Sonarr & Radarr
 

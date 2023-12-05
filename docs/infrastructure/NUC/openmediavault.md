@@ -4,7 +4,7 @@
 
     [OpenMediaVault](https://www.openmediavault.org/) is the next generation network attached storage (NAS) solution based on Debian Linux. It contains services like SSH, (S)FTP, SMB/CIFS, RSync and many more ready to use.
 
-This page contains instructions for configuring OpenMediaVault 6 on my NUC prior to running the [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/nuc/README.md).
+This page contains instructions for configuring OpenMediaVault 6 on my NUC prior to running the [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/archive/nuc/README.md).
 
 ## Networking
 
