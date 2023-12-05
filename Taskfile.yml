@@ -4,10 +4,11 @@ vars:
   ANSIBLE_VERSION: "8.5.0"
 
 tasks:
-  k8s:tools:
-    desc: Install Kubernetes tooling
+  tools:
+    desc: Install tooling
     cmds:
       - brew install {{.TOOLS}}
+      - brew install --cask {{.CASKS}}
     preconditions:
       - sh: command -v brew
         msg: Homebrew is not installed. See https://brew.sh/
@@ -22,8 +23,10 @@ tasks:
         kubernetes-cli
         kustomize
         gettext
-        talhelper
-        siderolabs/talos/talosctl
+        pyenv
+      CASKS: >-
+        1password-cli
+        orbstack
 
   ansible:hosts:
     desc: List Ansible hosts
