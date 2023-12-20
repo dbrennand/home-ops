@@ -10,3 +10,4 @@ exclude_paths:
   - mkdocs.yml
 skip_list:
   - yaml[line-length]
+  - no-relative-paths

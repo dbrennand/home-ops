@@ -17,5 +17,5 @@ jobs:
       - name: Run ansible-lint
         run: |
           ansible-lint --version
-          find . -iname requirements.yml -exec ansible-galaxy install -r {} \;
-          ansible-lint --syntax-check
+          ansible-galaxy install -r ansible/requirements.yml
+          ansible-lint

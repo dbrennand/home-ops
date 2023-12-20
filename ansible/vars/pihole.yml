@@ -20,7 +20,7 @@ pihole_local_dns:
   - domain: "minecraft.{{ pihole_domain }}"
     ip: "192.168.0.5"
 # CNAME records for local DNS
-#pihole_cname_records:
+# pihole_cname_records:
 #  - domain: "service.{{ pihole_domain }}"
 #    target: "device.{{ pihole_domain }}"
 # Pi-hole container image tag
