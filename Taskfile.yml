@@ -4,58 +4,44 @@ vars:
   ANSIBLE_VERSION: "8.5.0"
 
 tasks:
-  tools:
-    desc: Install tooling
-    cmds:
-      - brew install {{.TOOLS}}
-      - brew install --cask {{.CASKS}}
-    preconditions:
-      - sh: command -v brew
-        msg: Homebrew is not installed. See https://brew.sh/
-    vars:
-      TOOLS: >-
-        fluxcd/tap/flux
-        sops
-        age
-        helm
-        jq
-        yq
-        kubernetes-cli
-        kustomize
-        gettext
-        pyenv
-      CASKS: >-
-        1password-cli
-        orbstack
-
   ansible:hosts:
     desc: List Ansible hosts
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
       - task: venv:source
-      - ansible all -i inventory.yml --list-hosts
+      - ansible all --list-hosts
 
   ansible:adhoc:
-    desc: Run Ansible adhoc command
+    desc: |
+      Run Ansible adhoc command.
+      Example: task ansible:adhoc -- -m ping
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
       - task: venv:source
-      - ansible all -i inventory.yml {{.CLI_ARGS}}
+      - ansible all {{.CLI_ARGS}}
 
   ansible:play:
-    desc: Run Ansible playbook
+    desc: |
+      Run Ansible playbook.
+      Example: task ansible:play -- playbooks/minecraft-playbook.yml
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
       - task: venv:source
-      - ansible-playbook {{.CLI_ARGS}} -i inventory.yml {{ .PLAYBOOK | default "playbook.yml" }}
+      - ansible-playbook {{.CLI_ARGS}}
 
   ansible:encrypt:
-    desc: Encrypt Ansible vars/main.yml
+    desc: |
+      Encrypt Ansible variable.
+      Example: task ansible:encrypt -- 'Secret!' --name 'my_secret'
     dir: "{{.USER_WORKING_DIR}}"
     interactive: true
     cmds:
+      - chmod +x op-ansible-vault.sh
       - task: venv:source
-      - ansible-vault encrypt vars/main.yml
+      - ansible-vault encrypt_string {{ .CLI_ARGS }}
+    preconditions:
+      - sh: test -f op-ansible-vault.sh
+        msg: op-ansible-vault.sh file does not exist.
 
   ansible:requirements:
     desc: Install Ansible requirements
@@ -67,7 +53,7 @@ tasks:
       - sh: command -v ansible-galaxy
         msg: ansible-galaxy is not installed. Have you ran `task venv`?
       - sh: test -f requirements.yml
-        msg: Ansible requirements.yml file not found.
+        msg: requirements.yml does not exist.
 
   venv:source:
     desc: Source Python virtual environment
@@ -92,3 +78,27 @@ tasks:
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
       - task: venv:build
+
+  tools:
+    desc: Install tooling
+    cmds:
+      - brew install {{.TOOLS}}
+      - brew install --cask {{.CASKS}}
+    preconditions:
+      - sh: command -v brew
+        msg: Homebrew is not installed. See https://brew.sh/
+    vars:
+      TOOLS: >-
+        fluxcd/tap/flux
+        sops
+        age
+        helm
+        jq
+        yq
+        kubernetes-cli
+        kustomize
+        gettext
+        pyenv
+      CASKS: >-
+        1password-cli
+        orbstack
