@@ -29,14 +29,14 @@
 
 5. Follow the on-screen instructions to install Proxmox VE, when prompted enter the following details:
 
-      | Setting         | Value                      |
-      | --------------- | -------------------------- |
-      | Install Disk    | `/dev/nvme0n1`             |
-      | FQDN            | `proxmox01.net.domain.tld` |
-      | Email           | Enter email                |
-      | Password        | Enter password             |
-      | Default Gateway | `192.168.0.1`              |
-      | IP Address      | `192.168.0.4/24`           |
+      | Setting         | Value                    |
+      | --------------- | ------------------------ |
+      | Install Disk    | `/dev/nvme0n1`           |
+      | FQDN            | `proxmox01.net.dbren.uk` |
+      | Email           | Enter email              |
+      | Password        | Enter password           |
+      | Default Gateway | `192.168.0.1`            |
+      | IP Address      | `192.168.0.4/24`         |
 
 6. Once installation has completed, login to the web interface listening on port `8006` using the FQDN and credentials entered during installation.
 
@@ -47,7 +47,7 @@ Below are the post installation steps for configuring the Proxmox VE server.
 Copy SSH public key to the Proxmox VE server's `authorized_keys` file:
 
 ```bash
-ssh-copy-id -i root@proxmox01.net.domain.tld
+ssh-copy-id -i root@proxmox01.net.dbren.uk
 ```
 
 ### Storage
