@@ -8,6 +8,7 @@ exclude_paths:
   - .github/
   - .git/
   - mkdocs.yml
+  - ansible/archive/
 skip_list:
   - yaml[line-length]
   - no-relative-paths
