@@ -1,0 +1,19 @@
+---
+all:
+  vars:
+    ansible_user: daniel
+  hosts:
+    pihole.net.dbren.uk:
+      aliases:
+        - pihole
+    proxmox01.net.dbren.uk:
+      ansible_user: root
+    minecraft.net.dbren.uk:
+  children:
+    tailscale:
+      hosts:
+        pihole.net.dbren.uk:
+        minecraft.net.dbren.uk:
+    proxmox:
+      hosts:
+        proxmox01.net.dbren.uk:

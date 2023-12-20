@@ -1,0 +1,24 @@
+---
+# all group_vars
+# geerlingguy.pip vars
+# https://github.com/geerlingguy/ansible-role-pip#role-variables
+pip_install_packages:
+  - name: docker
+    version: "6.1.3"
+
+# geerlingguy.docker vars
+# https://github.com/geerlingguy/ansible-role-docker#role-variables
+docker_users:
+  - "{{ ansible_user }}"
+docker_daemon_options:
+  log-driver: "json-file"
+  log-opts:
+    max-size: "10m"
+    max-file: "3"
+
+# geerlingguy.security vars
+# https://github.com/geerlingguy/ansible-role-security#role-variables
+security_ssh_allowed_users:
+  - "{{ ansible_user }}"
+security_sudoers_passwordless:
+  - "{{ ansible_user }}"
