@@ -20,13 +20,13 @@ pihole_local_dns:
   - domain: "minecraft.{{ pihole_domain }}"
     ip: "192.168.0.5"
   - domain: "control01.{{ pihole_domain }}"
-    ip: "192.168.0.6"
-  - domain: "worker01.{{ pihole_domain }}"
     ip: "192.168.0.7"
-  - domain: "worker02.{{ pihole_domain }}"
+  - domain: "worker01.{{ pihole_domain }}"
     ip: "192.168.0.8"
-  - domain: "worker03.{{ pihole_domain }}"
+  - domain: "worker02.{{ pihole_domain }}"
     ip: "192.168.0.9"
+  - domain: "worker03.{{ pihole_domain }}"
+    ip: "192.168.0.10"
 # CNAME records for local DNS
 # pihole_cname_records:
 #  - domain: "service.{{ pihole_domain }}"
