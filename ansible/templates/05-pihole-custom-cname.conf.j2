@@ -1,0 +1,3 @@
+{% for record in pihole_cname_records %}
+cname={{ record.domain }},{{ record.target }}
+{% endfor %}

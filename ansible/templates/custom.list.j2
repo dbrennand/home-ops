@@ -1,0 +1,3 @@
+{% for record in pihole_local_dns %}
+{{ record.ip }} {{ record.domain }}
+{% endfor %}
