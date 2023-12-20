@@ -1,5 +1,0 @@
----
-minecraft:
-  hosts:
-    minecraft.net.domain.tld:
-      ansible_user: user
