@@ -1,0 +1,99 @@
+---
+# vars file for pihole-playbook.yml
+# Pi-hole data directory
+pihole_data_directory:
+  path: ~/.local/share/pihole
+# Pi-hole dnsmasq directory
+pihole_dnsmasq_directory:
+  path: ~/.local/share/dnsmasq
+# Domain name to be used by Pi-hole for the network
+# The base/apex domain must be registered with Cloudflare
+pihole_domain: net.dbren.uk
+# A/AAAA records for local DNS
+pihole_local_dns:
+  - domain: "pihole.{{ pihole_domain }}"
+    ip: "192.168.0.2"
+  - domain: "proxmoxbkp01.{{ pihole_domain }}"
+    ip: "192.168.0.3"
+  - domain: "proxmox01.{{ pihole_domain }}"
+    ip: "192.168.0.4"
+  - domain: "minecraft.{{ pihole_domain }}"
+    ip: "192.168.0.5"
+# CNAME records for local DNS
+#pihole_cname_records:
+#  - domain: "service.{{ pihole_domain }}"
+#    target: "device.{{ pihole_domain }}"
+# Pi-hole container image tag
+pihole_image_tag: latest
+# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+pihole_timezone: Europe/London
+# Pi-hole admin dashboard password
+pihole_webpassword: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  37636532633464656261656530306533633734316233383135353961373831646465636466373530
+  3537373339343633396433353630313166616634323937360a313961343666633236353136613834
+  38323332333938383461663536326136353235383930356465353361323035623737376666623962
+  3439666436363633370a376639663831373730313435343561393261663331393336303364646666
+  38613964313539353330633532313464316330363937356530636133636164636462
+# Set to the Pi-hole's local IP address
+pihole_ftlconf_local_ip: "192.168.0.2"
+# Pi-hole upstream DNS servers
+pihole_upstream_dns:
+  - "1.1.1.1"
+  - "1.0.0.1"
+# Pi-hole DHCP settings
+# pihole_dhcp_start: "192.168.0.21"
+# pihole_dhcp_end: "192.168.0.254"
+# pihole_dhcp_router: "192.168.0.1"
+# Pi-hole virtual host
+pihole_virtual_host: "pihole.{{ pihole_domain }}"
+# Whether to enable query logging or not in Pi-hole
+pihole_query_logging: "true"
+# Pi-hole admin dashboard theme
+pihole_web_theme: default-dark
+
+# artis3n.tailscale role vars
+# https://github.com/artis3n/ansible-role-tailscale
+tailscale_args: --accept-dns=false --ssh
+
+# dbrennand.caddy_docker role vars
+# https://github.com/dbrennand/ansible-role-caddy-docker
+caddy_docker_caddyfile: |-
+  {
+          email {$ACME_EMAIL}
+  }
+
+  # Cloudflare DNS-01 challenge
+  (cloudflare) {
+          tls {
+                  dns cloudflare {$CLOUDFLARE_API_TOKEN}
+          }
+  }
+
+  pihole.{$DOMAIN} {
+          import cloudflare
+          reverse_proxy pihole:80
+  }
+caddy_docker_plugins:
+  # Allows Caddy to obtain TLS certificates for a Cloudflare managed domain
+  - github.com/caddy-dns/cloudflare
+caddy_docker_environment_variables:
+  # Variables used in the Caddyfile
+  DOMAIN: "{{ domain }}"
+  # https://github.com/dbrennand/ansible-role-caddy-docker/blob/main/README.md#example---cloudflare-dns-01-challenge
+  CLOUDFLARE_API_TOKEN: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    38316330363336356630323963626331373435306630333961373364373537396266353035653866
+    3436363465356366313930373735633535633433363537320a366238326131633163653031393936
+    36346464656332303662323964373464376236313062313233386164623734316566383163643266
+    6561326238376237330a613936616136313033393337623361623132663332613137373665346463
+    37643730623564353030383938303330376435363662393235386332626530396531613236373438
+    6430353731653831663537646562313538323965323939613761
+  # The email address used to receive notifications from Let's Encrypt
+  ACME_EMAIL: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    36626261633739313534323734353332306230316461343064623562663238623639333463613962
+    3932336461663165613633383361663837383634313265620a373538633634623834626534386330
+    31353037306431623338653436376534363763333132323932373032663633653132303831646335
+    6535346133396366620a613064623433356164386563356462306261333261663766383966616332
+    39653835323562643130613666363633616138383861346464366537333930333463

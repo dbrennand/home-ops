@@ -4,6 +4,8 @@ The Ansible playbooks in this repository are used to configure my homelab server
 
 ## Playbooks
 
-- [minecraft](minecraft/README.md): Deploy Minecraft server.
-- [proxmox](proxmox/README.md): Configure Proxmox VE.
-- [raspberrypi3](raspberrypi3/README.md): Configure Raspberry Pi 3.
+- [minecraft-playbook.yml](playbooks/minecraft-playbook.yml): Deploy Minecraft server.
+- [proxmox-create-vm-template.yml](playbooks/proxmox-create-vm-template.yml): Create VM templates.
+- [proxmox-download-iso-playbook.yml](playbooks/proxmox-download-iso-playbook.yml): Create VM templates.
+- [pihole-playbook.yml](playbooks/pihole-playbook.yml): Deploy Pi-hole on Raspberry Pi 3.
+- [tailscale-playbook.yml](playbooks/tailscale-playbook.yml): Install or update Tailscale.
