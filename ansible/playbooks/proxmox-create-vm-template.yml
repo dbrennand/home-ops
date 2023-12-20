@@ -1,0 +1,154 @@
+---
+- name: Create Proxmox VM Templates
+  hosts: proxmox
+  become: true
+  gather_facts: false
+  vars:
+    # ID to start creating templates from
+    proxmox_template_start_id: 9000
+    # Proxmox directory to store images
+    proxmox_image_directory: /mnt/pve/ISOs/template/qcow
+    # Proxmox storage name
+    proxmox_storage_name: local-lvm
+    # Cloud images to download or upload to Proxmox
+    images:
+      # url to download directly to Proxmox
+      # local to upload from control node to Proxmox
+      - name: ubuntu-server-2304
+        url: https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64-disk-kvm.img
+        install_qemu_guest_agent: true
+      - name: rhel9
+        local: /path/to/rhel9.qcow2
+  pre_tasks:
+    - name: "Ensure image directory exists {{ proxmox_image_directory }}"
+      ansible.builtin.file:
+        path: "{{ proxmox_image_directory }}"
+        state: directory
+        mode: "0755"
+
+    - name: Ensure libguestfs-tools is installed
+      ansible.builtin.apt:
+        name: libguestfs-tools
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+  tasks:
+    - name: Get next Proxmox VM ID
+      # Credit for below block - minor modifications made
+      # https://github.com/PragmaticEngineering/ansibleRole-proxmox-templates/blob/main/tasks/download-images.yaml
+      block:
+        - name: Read Proxmox VM list
+          ansible.builtin.command:
+            cmd: qm list -full
+          changed_when: false
+          register: proxmox_qm_list
+
+        - name: Set default Proxmox VM ID
+          ansible.builtin.set_fact:
+            proxmox_next_vm_id: 100
+          when: not proxmox_qm_list.stdout
+
+        - name: Load Promox JSON VM list
+          ansible.builtin.slurp:
+            src: /etc/pve/.vmlist
+          register: proxmox_vmlist
+          when: proxmox_qm_list.stdout
+
+        - name: Identify next Proxmox VM ID
+          ansible.builtin.set_fact:
+            proxmox_next_vm_id: "{{ proxmox_vmlist.content | b64decode | from_json | json_query('ids') | dict2items | json_query('[].key') | map('int') | list | max + 1 }}"
+          when: proxmox_qm_list.stdout
+
+        - name: Check proxmox_next_vm_id against proxmox_template_start_id
+          ansible.builtin.set_fact:
+            proxmox_next_vm_id: "{{ proxmox_template_start_id | int }}"
+          when: proxmox_next_vm_id | int < proxmox_template_start_id
+
+        - name: Show next Proxmox VM ID
+          ansible.builtin.debug:
+            msg: "Proxmox next VM ID: {{ proxmox_next_vm_id }}"
+
+    - name: Download Images
+      ansible.builtin.get_url:
+        url: "{{ item.url }}"
+        dest: "{{ proxmox_image_directory }}/{{ item.name }}.qcow2"
+        mode: "0644"
+      loop: "{{ images }}"
+      when: item.url is defined
+
+    - name: Upload Images
+      ansible.builtin.copy:
+        src: "{{ item.local }}"
+        dest: "{{ proxmox_image_directory }}/{{ item.name }}.qcow2"
+        mode: "0644"
+      loop: "{{ images }}"
+      when: item.local is defined
+
+    - name: Install qemu-guest-agent
+      ansible.builtin.command:
+        cmd: "virt-customize -a {{ proxmox_image_directory }}/{{ item.name }}.qcow2 --install qemu-guest-agent"
+      loop: "{{ images }}"
+      changed_when: false
+      when: item.install_qemu_guest_agent is defined and item.install_qemu_guest_agent
+
+    - name: Create Proxmox VM
+      ansible.builtin.command:
+        cmd: "qm create {{ (proxmox_next_vm_id | int) + index }} --name {{ item.name }} --memory 1024 --net0 virtio,bridge=vmbr0"
+      loop: "{{ images }}"
+      loop_control:
+        index_var: index
+      changed_when: false
+
+    - name: Import disk image into Proxmox VM
+      ansible.builtin.command:
+        cmd: "qm importdisk {{ (proxmox_next_vm_id | int) + index }} {{ proxmox_image_directory }}/{{ item.name }}.qcow2 {{ proxmox_storage_name }}"
+      loop: "{{ images }}"
+      loop_control:
+        index_var: index
+      changed_when: false
+
+    - name: Attach disk to Proxmox VM
+      ansible.builtin.command:
+        cmd: "qm set {{ (proxmox_next_vm_id | int) + index }} --scsihw virtio-scsi-pci --scsi0 {{ proxmox_storage_name }}:vm-{{ (proxmox_next_vm_id | int) + index }}-disk-0,discard=on"
+      loop: "{{ images }}"
+      loop_control:
+        index_var: index
+      changed_when: false
+
+    - name: Enable cloud-init on Proxmox VM
+      ansible.builtin.command:
+        cmd: "qm set {{ (proxmox_next_vm_id | int) + index }} --ide2 {{ proxmox_storage_name }}:cloudinit"
+      loop: "{{ images }}"
+      loop_control:
+        index_var: index
+      changed_when: false
+
+    - name: Configure boot order, serial console and DHCP on Proxmox VM
+      ansible.builtin.command:
+        cmd: "qm set {{ (proxmox_next_vm_id | int) + index }} --boot c --bootdisk scsi0 --serial0 socket --vga serial0 --ipconfig0 ip=dhcp"
+      loop: "{{ images }}"
+      loop_control:
+        index_var: index
+      changed_when: false
+
+    - name: Resize Proxmox VM disk
+      ansible.builtin.command:
+        cmd: "qm resize {{ (proxmox_next_vm_id | int) + index }} scsi0 50G"
+      loop: "{{ images }}"
+      loop_control:
+        index_var: index
+      changed_when: false
+
+    - name: Create Proxmox VM template
+      ansible.builtin.command:
+        cmd: "qm template {{ (proxmox_next_vm_id | int) + index }}"
+      loop: "{{ images }}"
+      loop_control:
+        index_var: index
+      changed_when: false
+
+    - name: Cleanup images
+      ansible.builtin.file:
+        path: "{{ proxmox_image_directory }}/{{ item.name }}.qcow2"
+        state: absent
+      loop: "{{ images }}"
