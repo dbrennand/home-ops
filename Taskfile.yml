@@ -4,12 +4,19 @@ vars:
   ANSIBLE_VERSION: "8.5.0"
 
 tasks:
+  ansible-preconditions: &ansible-preconditions
+    preconditions:
+      - sh: command -v ansible
+        msg: ansible is not installed. Have you ran `task venv`?
+
   ansible:hosts:
     desc: List Ansible hosts
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
+      - task: op:vault
       - task: venv:source
       - ansible all --list-hosts
+    <<: *ansible-preconditions
 
   ansible:adhoc:
     desc: |
@@ -17,8 +24,10 @@ tasks:
       Example: task ansible:adhoc -- -m ping
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
+      - task: op:vault
       - task: venv:source
       - ansible all {{.CLI_ARGS}}
+    <<: *ansible-preconditions
 
   ansible:play:
     desc: |
@@ -26,8 +35,12 @@ tasks:
       Example: task ansible:play -- playbooks/minecraft-playbook.yml
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
+      - task: op:vault
       - task: venv:source
       - ansible-playbook {{.CLI_ARGS}}
+    preconditions:
+      - sh: command -v ansible-playbook
+        msg: ansible-playbook is not installed. Have you ran `task venv`?
 
   ansible:encrypt:
     desc: |
@@ -36,12 +49,12 @@ tasks:
     dir: "{{.USER_WORKING_DIR}}"
     interactive: true
     cmds:
-      - chmod +x op-ansible-vault.sh
+      - task: op:vault
       - task: venv:source
       - ansible-vault encrypt_string {{ .CLI_ARGS }}
     preconditions:
-      - sh: test -f op-ansible-vault.sh
-        msg: op-ansible-vault.sh file does not exist.
+      - sh: command -v ansible-vault
+        msg: ansible-vault is not installed. Have you ran `task venv`?
 
   ansible:requirements:
     desc: Install Ansible requirements
@@ -54,6 +67,17 @@ tasks:
         msg: ansible-galaxy is not installed. Have you ran `task venv`?
       - sh: test -f requirements.yml
         msg: requirements.yml does not exist.
+
+  op:vault:
+    desc: |
+      Ensure the op-ansible-vault.sh script is executable.
+    internal: true
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - chmod +x op-ansible-vault.sh
+    preconditions:
+      - sh: test -f op-ansible-vault.sh
+        msg: op-ansible-vault.sh file does not exist.
 
   venv:source:
     desc: Source Python virtual environment
