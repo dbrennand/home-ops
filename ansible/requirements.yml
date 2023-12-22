@@ -14,3 +14,5 @@ roles:
   - name: geerlingguy.security
     src: https://github.com/dbrennand/ansible-role-security
     version: refactor/ssh-regexp
+  - name: xanmanning.k3s
+    version: v3.4.3

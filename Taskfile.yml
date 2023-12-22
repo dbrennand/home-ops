@@ -61,7 +61,7 @@ tasks:
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
       - task: venv:source
-      - ansible-galaxy install --force -r requirements.yml
+      - ansible-galaxy install {{ .CLI_ARGS }} -r requirements.yml
     preconditions:
       - sh: command -v ansible-galaxy
         msg: ansible-galaxy is not installed. Have you ran `task venv`?
