@@ -1,0 +1,43 @@
+---
+- name: Provision Proxmox LVM Storage
+  hosts: proxmox
+  become: true
+  vars:
+    ssds:
+      # Crucial SSD
+      - device: /dev/sdb
+        partition_name: pv-ssd-crucial
+        vg_name: vg-ssd-crucial
+        lv_name: lv-ssd-crucial
+      # Samsung SSD
+      - device: /dev/sdc
+        partition_name: pv-ssd-samsung
+        vg_name: vg-ssd-samsung
+        lv_name: lv-ssd-samsung
+  tasks:
+    - name: Create | LVM Physical Volume Partition
+      loop: "{{ ssds }}"
+      community.general.parted:
+        device: "{{ item.device }}"
+        name: "{{ item.partition_name }}"
+        label: gpt
+        number: 1
+        part_start: 0%
+        part_end: 100%
+        flags: [ lvm ]
+        state: present
+
+    - name: Create | LVM Volume Group
+      loop: "{{ ssds }}"
+      community.general.lvg:
+        vg: "{{ item.vg_name }}"
+        pvs: "{{ item.device }}1"
+        state: present
+
+    - name: Create | LVM Logical Volume
+      loop: "{{ ssds }}"
+      community.general.lvol:
+        vg: "{{ item.vg_name }}"
+        thinpool: "{{ item.lv_name }}"
+        size: 100%FREE
+        state: present
