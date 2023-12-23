@@ -56,3 +56,4 @@
                   thinpool {{ item.lv_name }}
                   vgname {{ item.vg_name }}
                   content rootdir,images
+        state: present
