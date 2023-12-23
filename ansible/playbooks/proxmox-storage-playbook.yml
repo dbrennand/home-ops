@@ -34,20 +34,14 @@
         pvs: "{{ item.device }}1"
         state: present
 
-    #- name: Check | LVM Logical Volumes already exist
-    #  loop: "{{ ssds }}"
-    #  ansible.builtin.stat:
-    #    path: /dev/{{ item.vg_name }}/{{ item.lv_name }}
-    #  register: lv_exists
-
-    #- name: Create | LVM Logical Volume
-    #  loop: "{{ lv_exists.results }}"
-    #  when: not item.stat.exists
-    #  community.general.lvol:
-    #    vg: "{{ item.vg_name }}"
-    #    thinpool: "{{ item.lv_name }}"
-    #    size: 100%FREE
-    #    state: present
+    - name: Create | LVM Logical Volume
+      loop: "{{ ssds }}"
+      when: item.lv_name not in ansible_lvm.lvs
+      community.general.lvol:
+        vg: "{{ item.vg_name }}"
+        thinpool: "{{ item.lv_name }}"
+        size: 100%FREE
+        state: present
 
     - name: Proxmox | Configure LVM Logical Volumes
       loop: "{{ ssds }}"
