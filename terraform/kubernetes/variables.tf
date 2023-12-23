@@ -45,13 +45,13 @@ variable "virtual_environment_template_vm_id" {
 variable "virtual_environment_os_disk_datastore_id" {
   description = "ID of the Proxmox VE datastore used for the OS disk"
   type        = string
-  default     = "ssd-samsung"
+  default     = "lv-ssd-samsung"
 }
 
 variable "virtual_environment_data_disk_datastore_id" {
   description = "ID of the Proxmox VE datastore used for the data disk"
   type        = string
-  default     = "ssd-crucial"
+  default     = "lv-ssd-crucial"
 }
 
 variable "nodes_gateway" {
