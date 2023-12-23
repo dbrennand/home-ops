@@ -30,6 +30,7 @@ See [dbrennand | home-ops - Proxmox](https://homeops.danielbrennand.com/infrastr
 4. Run the playbook(s):
 
     ```bash
+    task ansible:play -- playbooks/proxmox-storage-playbook.yml
     task ansible:play -- playbooks/proxmox-download-iso-playbook.yml
     task ansible:play -- playbooks/proxmox-create-vm-template.yml
     ```

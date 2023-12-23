@@ -52,41 +52,13 @@ ssh-copy-id -i root@proxmox01.net.dbren.uk
 
 ### Storage
 
-!!! info
-
-    I chose not to automate this process because it only has to be done one time and takes only a few minutes to complete.
-
 1. Extend the Proxmox `data` logical volume to use the remaining space in the volume group:
 
     ```bash
     lvextend -l +100%FREE /dev/pve/data
     ```
 
-2. Login to the Proxmox web interface and navigate to `Datacenter` > `proxmox01` > `Disks`:
-
-    - Click `/dev/sda` and select `Initialize Disk with GPT`
-    - Click `/dev/sdb` and select `Initialize Disk with GPT`
-    - Click `/dev/sdc` and select `Initialize Disk with GPT`
-
-3. Navigate to `Disks` > `LVM-Thin` > `Create: Thinpool`, enter the following details and click **Create**:
-
-      | Setting | Value       |
-      | ------- | ----------- |
-      | Disk    | `/dev/sda`  |
-      | Name    | ssd-crucial |
-
-      | Setting | Value       |
-      | ------- | ----------- |
-      | Disk    | `/dev/sdb`  |
-      | Name    | ssd-samsung |
-
-4. Navigate to `Disks` > `Directory` > `Create: Directory`, enter the following details and click **Create**:
-
-      | Setting    | Value      |
-      | ---------- | ---------- |
-      | Disk       | `/dev/sdc` |
-      | Filesystem | `xfs`      |
-      | Name       | ISOs       |
+2. Use the [proxmox-storage-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml) to configure the Proxmox storage.
 
 ### Scripts
 
