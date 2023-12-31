@@ -8,7 +8,7 @@ jobs:
     name: Ansible Lint
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/ansible/creator-ee:v0.20.0
+      image: ghcr.io/ansible/creator-ee:v0.21.0
     steps:
       - uses: actions/checkout@v3
         with:
