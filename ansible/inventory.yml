@@ -14,6 +14,10 @@ all:
     worker02.net.dbren.uk:
     worker03.net.dbren.uk:
   children:
+    docker:
+      hosts:
+        pihole.net.dbren.uk:
+        minecraft.net.dbren.uk:
     tailscale:
       hosts:
         pihole.net.dbren.uk:
