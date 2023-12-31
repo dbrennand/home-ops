@@ -1,4 +1,4 @@
-# Ansible - Minecraft
+# Minecraft
 
 The Ansible [minecraft-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/minecraft-playbook.yml) is used to deploy a Minecraft server on Ubuntu Server 22.04 LTS in my Homelab.
 

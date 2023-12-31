@@ -1,4 +1,4 @@
-# Ansible - Proxmox VE
+# Proxmox VE
 
 The following playbooks are used to configure Proxmox VE in my Homelab:
 
