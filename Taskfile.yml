@@ -21,12 +21,12 @@ tasks:
   ansible:adhoc:
     desc: |
       Run Ansible adhoc command.
-      Example: task ansible:adhoc -- -m ping
+      Example: task ansible:adhoc -- proxmox -m ping
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
       - task: op:vault
       - task: venv:source
-      - ansible all {{.CLI_ARGS}}
+      - ansible {{.CLI_ARGS}}
     <<: *ansible-preconditions
 
   ansible:play:
@@ -61,7 +61,7 @@ tasks:
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
       - task: venv:source
-      - ansible-galaxy install --force -r requirements.yml
+      - ansible-galaxy install {{ .CLI_ARGS }} -r requirements.yml
     preconditions:
       - sh: command -v ansible-galaxy
         msg: ansible-galaxy is not installed. Have you ran `task venv`?

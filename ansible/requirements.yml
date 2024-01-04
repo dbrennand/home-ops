@@ -2,6 +2,8 @@
 collections:
   - name: community.docker
     version: 3.4.8
+  - name: community.general
+    version: 8.1.0
 roles:
   - name: dbrennand.caddy_docker
     version: 3.0.2
@@ -14,3 +16,5 @@ roles:
   - name: geerlingguy.security
     src: https://github.com/dbrennand/ansible-role-security
     version: refactor/ssh-regexp
+  - name: xanmanning.k3s
+    version: v3.4.3

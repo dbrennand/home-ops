@@ -1,4 +1,4 @@
-# Ansible - Pi-hole on Raspberry Pi 3
+# Pi-hole
 
 The Ansible [pihole-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/pihole-playbook.yml) is used to deploy and configure Pi-hole on my Raspberry Pi 3 in my Homelab.
 
@@ -77,7 +77,7 @@ The variables for this playbook are located in [ansible/vars/pihole.yml](https:/
 3. Verify Ansible can connect to the server:
 
     ```bash
-    task ansible:adhoc -- -m ping
+    task ansible:adhoc -- pihole.net.dbren.uk -m ping
     ```
 
 4. Run the playbook:

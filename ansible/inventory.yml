@@ -8,12 +8,37 @@ all:
         - pihole
     proxmox01.net.dbren.uk:
       ansible_user: root
+    proxmox02.net.dbren.uk:
+      ansible_user: root
     minecraft.net.dbren.uk:
+    control01.net.dbren.uk:
+    worker01.net.dbren.uk:
+    worker02.net.dbren.uk:
+    worker03.net.dbren.uk:
   children:
-    tailscale:
+    docker:
       hosts:
         pihole.net.dbren.uk:
         minecraft.net.dbren.uk:
+    tailscale:
+      hosts:
+        pihole.net.dbren.uk:
+          # Overrides group_vars/tailscale.yml
+          tailscale_args: --accept-dns=false --ssh
+        minecraft.net.dbren.uk:
+        proxmox01.net.dbren.uk:
+        proxmox02.net.dbren.uk:
     proxmox:
       hosts:
         proxmox01.net.dbren.uk:
+        proxmox02.net.dbren.uk:
+    k3s:
+      children:
+        control:
+          hosts:
+            control01.net.dbren.uk:
+        workers:
+          hosts:
+            worker01.net.dbren.uk:
+            worker02.net.dbren.uk:
+            worker03.net.dbren.uk:

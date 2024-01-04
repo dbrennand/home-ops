@@ -13,7 +13,7 @@ pihole_domain: net.dbren.uk
 pihole_local_dns:
   - domain: "pihole.{{ pihole_domain }}"
     ip: "192.168.0.2"
-  - domain: "proxmoxbkp01.{{ pihole_domain }}"
+  - domain: "proxmox02.{{ pihole_domain }}"
     ip: "192.168.0.3"
   - domain: "proxmox01.{{ pihole_domain }}"
     ip: "192.168.0.4"
@@ -60,9 +60,17 @@ pihole_query_logging: "true"
 # Pi-hole admin dashboard theme
 pihole_web_theme: default-dark
 
-# artis3n.tailscale role vars
-# https://github.com/artis3n/ansible-role-tailscale
-tailscale_args: --accept-dns=false --ssh
+# geerlingguy.security vars - Overrides group_vars/docker.yml
+# https://github.com/geerlingguy/ansible-role-security#role-variables
+security_ssh_password_authentication: "yes"
+security_ssh_permit_root_login: "yes"
+security_ssh_allowed_users:
+  - root
+  - "{{ ansible_user }}"
+security_sudoers_passwordless:
+  - "{{ ansible_user }}"
+
+# artis3n.tailscale role vars - group_vars/tailscale.yml is overridden in inventory.yml
 
 # dbrennand.caddy_docker role vars
 # https://github.com/dbrennand/ansible-role-caddy-docker

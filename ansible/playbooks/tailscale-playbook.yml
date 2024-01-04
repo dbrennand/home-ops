@@ -3,3 +3,30 @@
   hosts: tailscale
   roles:
     - role: artis3n.tailscale
+  post_tasks:
+    # https://tailscale.com/kb/1133/proxmox
+    - name: Proxmox | Enable HTTPS Access for Proxmox Web UI
+      when: inventory_hostname in groups['proxmox']
+      tags:
+        - proxmox
+      block:
+        - name: Proxmox | Install jq
+          ansible.builtin.apt:
+            name: jq
+            state: present
+
+        - name: Proxmox | Copy Tailscale script to Proxmox node
+          ansible.builtin.copy:
+            src: ../files/proxmox_tailscale_cert.sh
+            dest: /usr/local/bin/proxmox_tailscale_cert.sh
+            owner: root
+            group: root
+            mode: "0755"
+
+        - name: Proxmox | Create cronjob to generate HTTPS certificate for Proxmox Tailscale FQDN
+          ansible.builtin.cron:
+            name: "Generate HTTPS Certificate for Proxmox Tailscale FQDN"
+            minute: "0"
+            hour: "0"
+            job: /usr/local/bin/proxmox_tailscale_cert.sh
+            state: present

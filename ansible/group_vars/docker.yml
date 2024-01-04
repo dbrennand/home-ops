@@ -1,5 +1,5 @@
 ---
-# all group_vars
+# docker group_vars
 # geerlingguy.pip vars
 # https://github.com/geerlingguy/ansible-role-pip#role-variables
 pip_install_packages:

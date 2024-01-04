@@ -6,10 +6,12 @@
 
 ## Proxmox VE Specs
 
+### Node 1 (Primary)
+
 [Minisforum Venus Series UN1265](https://store.minisforum.uk/collections/intel/products/un1265)
 
 | Component          | Details                                                                           |
-| :----------------- | :-------------------------------------------------------------------------------- |
+| ------------------ | --------------------------------------------------------------------------------- |
 | CPU                | Intel® Core™ i7-12650H Processor, 10 Cores/16 Threads (24M Cache, up to 4.70 GHz) |
 | Memory             | 64GB DDR4 3200MHz SODIMM (2x32GB)                                                 |
 | Storage (Internal) | Samsung NVMe 970 EVO Plus 1TB                                                     |
@@ -17,7 +19,22 @@
 | Storage (External) | Samsung SSD 870 QVO 1TB                                                           |
 | Storage (External) | 64GB USB                                                                          |
 
+
+### Node 2 (Secondary)
+
+[Intel NUC6CAYB](https://www.intel.com/content/dam/support/us/en/documents/boardsandkits/NUC6CAYB_TechProdSpec.pdf)
+
+| Component          | Details                       |
+| ------------------ | ----------------------------- |
+| CPU                | Intel Celeron J3455 @ 1.50Ghz |
+| Memory             | 8GB                           |
+| Storage (Internal) | 240GB SSD                     |
+
 ## Installation
+
+!!! note
+
+    The following instructions are for Node 1 (Primary). Modify the *install disk*, *FQDN* and *IP Address* values for Node 2 (Secondary).
 
 1. Power on the server and enter the BIOS.
 
@@ -47,14 +64,10 @@ Below are the post installation steps for configuring the Proxmox VE server.
 Copy SSH public key to the Proxmox VE server's `authorized_keys` file:
 
 ```bash
-ssh-copy-id -i root@proxmox01.net.dbren.uk
+ssh-copy-id root@proxmox01.net.dbren.uk
 ```
 
 ### Storage
-
-!!! info
-
-    I chose not to automate this process because it only has to be done one time and takes only a few minutes to complete.
 
 1. Extend the Proxmox `data` logical volume to use the remaining space in the volume group:
 
@@ -62,31 +75,7 @@ ssh-copy-id -i root@proxmox01.net.dbren.uk
     lvextend -l +100%FREE /dev/pve/data
     ```
 
-2. Login to the Proxmox web interface and navigate to `Datacenter` > `proxmox01` > `Disks`:
-
-    - Click `/dev/sda` and select `Initialize Disk with GPT`
-    - Click `/dev/sdb` and select `Initialize Disk with GPT`
-    - Click `/dev/sdc` and select `Initialize Disk with GPT`
-
-3. Navigate to `Disks` > `LVM-Thin` > `Create: Thinpool`, enter the following details and click **Create**:
-
-      | Setting | Value       |
-      | ------- | ----------- |
-      | Disk    | `/dev/sda`  |
-      | Name    | ssd-crucial |
-
-      | Setting | Value       |
-      | ------- | ----------- |
-      | Disk    | `/dev/sdb`  |
-      | Name    | ssd-samsung |
-
-4. Navigate to `Disks` > `Directory` > `Create: Directory`, enter the following details and click **Create**:
-
-      | Setting    | Value      |
-      | ---------- | ---------- |
-      | Disk       | `/dev/sdc` |
-      | Filesystem | `xfs`      |
-      | Name       | ISOs       |
+2. Use the [proxmox-storage-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml) to configure the Proxmox storage on Node 1 (Primary).
 
 ### Scripts
 

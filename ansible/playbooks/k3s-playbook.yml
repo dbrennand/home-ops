@@ -1,0 +1,83 @@
+---
+- name: Build K3s cluster
+  hosts: k3s
+  vars_files:
+    - ../vars/k3s.yml
+  pre_tasks:
+    - name: Longhorn tasks
+      when: not k3s_control_node
+      tags:
+        - longhorn
+      block:
+        - name: Install open-iscsi and nfs-common for Longhorn
+          ansible.builtin.apt:
+            name:
+              - open-iscsi
+              - nfs-common
+            state: present
+          become: true
+
+        - name: Create /mnt/longhorn directory
+          ansible.builtin.file:
+            path: /mnt/longhorn
+            state: directory
+            mode: u=rwx,g=rx,o=rx
+          become: true
+
+        - name: "Ensure disk partition exists on {{ longhorn_disk }}"
+          community.general.parted:
+            device: "{{ longhorn_disk }}"
+            number: 1
+            label: gpt
+            part_start: 0%
+            part_end: 100%
+            part_type: primary
+            fs_type: ext4
+            state: present
+          become: true
+
+        - name: "Ensure ext4 filesystem exists on {{ longhorn_disk }}1" # noqa name[template]
+          community.general.filesystem:
+            fstype: ext4
+            dev: "{{ longhorn_disk }}1"
+          become: true
+
+        - name: "Get UUID for {{ longhorn_disk }}1" # noqa name[template]
+          ansible.builtin.command:
+            cmd: "blkid {{ longhorn_disk }}1 -s UUID -o value"
+          register: longhorn_block_device_part_uuid
+          changed_when: false
+          become: true
+
+        - name: "Mount /mnt/longhorn on {{ longhorn_block_device_part_uuid.stdout }}"
+          ansible.posix.mount:
+            path: /mnt/longhorn
+            src: "UUID={{ longhorn_block_device_part_uuid.stdout }}"
+            fstype: ext4
+            state: mounted
+          become: true
+  roles:
+    - role: xanmanning.k3s
+  post_tasks:
+    - name: Copy kubeconfig to local machine
+      when: k3s_control_node
+      block:
+        - name: Ensure ~/.kube directory exists
+          ansible.builtin.file:
+            path: ~/.kube
+            state: directory
+            mode: u=rwx,g=,o=
+          delegate_to: localhost
+
+        - name: Copy kubeconfig from control node to local machine
+          ansible.builtin.fetch:
+            src: /etc/rancher/k3s/k3s.yaml
+            dest: ~/.kube/config
+            flat: true
+
+        - name: Replace localhost with control node IP
+          ansible.builtin.replace:
+            path: ~/.kube/config
+            regexp: '127.0.0.1'
+            replace: "{{ kube_vip_address }}"
+          delegate_to: localhost
