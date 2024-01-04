@@ -1,6 +1,6 @@
 ---
 - name: Create Proxmox VM Templates
-  hosts: proxmox
+  hosts: proxmox01.net.dbren.uk
   become: true
   gather_facts: false
   vars:
