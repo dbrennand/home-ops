@@ -8,6 +8,8 @@ all:
         - pihole
     proxmox01.net.dbren.uk:
       ansible_user: root
+    proxmox02.net.dbren.uk:
+      ansible_user: root
     minecraft.net.dbren.uk:
     control01.net.dbren.uk:
     worker01.net.dbren.uk:
@@ -25,6 +27,7 @@ all:
     proxmox:
       hosts:
         proxmox01.net.dbren.uk:
+        proxmox02.net.dbren.uk:
     k3s:
       children:
         control:
