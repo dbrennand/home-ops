@@ -60,7 +60,17 @@ pihole_query_logging: "true"
 # Pi-hole admin dashboard theme
 pihole_web_theme: default-dark
 
-# artis3n.tailscale role vars
+# geerlingguy.security vars - Overrides group_vars/docker.yml
+# https://github.com/geerlingguy/ansible-role-security#role-variables
+security_ssh_password_authentication: "yes"
+security_ssh_permit_root_login: "yes"
+security_ssh_allowed_users:
+  - root
+  - "{{ ansible_user }}"
+security_sudoers_passwordless:
+  - "{{ ansible_user }}"
+
+# artis3n.tailscale role vars - Overrides group_vars/tailscale.yml
 # https://github.com/artis3n/ansible-role-tailscale
 tailscale_args: --accept-dns=false --ssh
 
