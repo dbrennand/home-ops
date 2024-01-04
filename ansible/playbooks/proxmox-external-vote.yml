@@ -1,0 +1,27 @@
+---
+# https://pve.proxmox.com/wiki/Cluster_Manager#_corosync_external_vote_support
+- name: Proxmox Nodes - Cluster External Vote Support
+  hosts: proxmox
+  become: true
+  tasks:
+    - name: Install corosync-qdevice
+      ansible.builtin.apt:
+        name:
+          - corosync-qdevice
+        state: present
+
+- name: Raspberry Pi - Cluster External Vote Support
+  hosts: pihole.net.dbren.uk
+  become: true
+  tasks:
+    - name: Install corosync-qnetd
+      ansible.builtin.apt:
+        name:
+          - corosync-qnetd
+        state: present
+
+    - name: Next steps
+      ansible.builtin.debug:
+        msg: |
+          Run the following command on the Proxmox primary node:
+          pvecm qdevice setup <QDEVICE-IP>
