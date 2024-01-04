@@ -1,5 +1,6 @@
 ---
 # https://pve.proxmox.com/wiki/Cluster_Manager#_corosync_external_vote_support
+# https://www.apalrd.net/posts/2022/cluster_qdevice/
 - name: Proxmox Nodes - Cluster External Vote Support
   hosts: proxmox
   become: true
