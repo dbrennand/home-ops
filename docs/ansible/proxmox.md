@@ -23,10 +23,10 @@ See [dbrennand | home-ops - Proxmox](https://homeops.danielbrennand.com/infrastr
     task venv
     ```
 
-3. Verify Ansible can connect to the Proxmox VE server:
+3. Verify Ansible can connect to the Proxmox VE servers:
 
     ```bash
-    task ansible:adhoc -- -m ping
+    task ansible:adhoc -- proxmox -m ping
     ```
 
 4. Run the playbook(s):

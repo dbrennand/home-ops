@@ -77,7 +77,7 @@ The variables for this playbook are located in [ansible/vars/pihole.yml](https:/
 3. Verify Ansible can connect to the server:
 
     ```bash
-    task ansible:adhoc -- -m ping
+    task ansible:adhoc -- pihole.net.dbren.uk -m ping
     ```
 
 4. Run the playbook:

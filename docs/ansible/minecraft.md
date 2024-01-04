@@ -51,7 +51,7 @@ The variables for this playbook are located in [ansible/vars/minecraft.yml](http
 3. Verify Ansible can connect to the server:
 
     ```bash
-    task ansible:adhoc -- -m ping
+    task ansible:adhoc -- minecraft.net.dbren.uk -m ping
     ```
 
 4. Run the playbook:
