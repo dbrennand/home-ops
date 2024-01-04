@@ -64,7 +64,7 @@ Below are the post installation steps for configuring the Proxmox VE server.
 Copy SSH public key to the Proxmox VE server's `authorized_keys` file:
 
 ```bash
-ssh-copy-id -i root@proxmox01.net.dbren.uk
+ssh-copy-id root@proxmox01.net.dbren.uk
 ```
 
 ### Storage
