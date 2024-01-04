@@ -70,9 +70,7 @@ security_ssh_allowed_users:
 security_sudoers_passwordless:
   - "{{ ansible_user }}"
 
-# artis3n.tailscale role vars - Overrides group_vars/tailscale.yml
-# https://github.com/artis3n/ansible-role-tailscale
-tailscale_args: --accept-dns=false --ssh
+# artis3n.tailscale role vars - group_vars/tailscale.yml is overridden in inventory.yml
 
 # dbrennand.caddy_docker role vars
 # https://github.com/dbrennand/ansible-role-caddy-docker
