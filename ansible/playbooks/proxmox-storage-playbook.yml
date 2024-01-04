@@ -1,6 +1,6 @@
 ---
 - name: Provision Proxmox LVM Storage
-  hosts: proxmox
+  hosts: proxmox01.net.dbren.uk
   become: true
   vars:
     ssds:
