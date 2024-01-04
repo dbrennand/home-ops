@@ -6,10 +6,12 @@
 
 ## Proxmox VE Specs
 
+### Node 1 (Primary)
+
 [Minisforum Venus Series UN1265](https://store.minisforum.uk/collections/intel/products/un1265)
 
 | Component          | Details                                                                           |
-| :----------------- | :-------------------------------------------------------------------------------- |
+| ------------------ | --------------------------------------------------------------------------------- |
 | CPU                | Intel® Core™ i7-12650H Processor, 10 Cores/16 Threads (24M Cache, up to 4.70 GHz) |
 | Memory             | 64GB DDR4 3200MHz SODIMM (2x32GB)                                                 |
 | Storage (Internal) | Samsung NVMe 970 EVO Plus 1TB                                                     |
@@ -17,7 +19,22 @@
 | Storage (External) | Samsung SSD 870 QVO 1TB                                                           |
 | Storage (External) | 64GB USB                                                                          |
 
+
+### Node 2 (Secondary)
+
+[Intel NUC6CAYB](https://www.intel.com/content/dam/support/us/en/documents/boardsandkits/NUC6CAYB_TechProdSpec.pdf)
+
+| Component          | Details                       |
+| ------------------ | ----------------------------- |
+| CPU                | Intel Celeron J3455 @ 1.50Ghz |
+| Memory             | 8GB                           |
+| Storage (Internal) | 240GB SSD                     |
+
 ## Installation
+
+!!! note
+
+    The following instructions are for Node 1 (Primary). Modify the *install disk*, *FQDN* and *IP Address* values for Node 2 (Secondary).
 
 1. Power on the server and enter the BIOS.
 
@@ -58,7 +75,7 @@ ssh-copy-id -i root@proxmox01.net.dbren.uk
     lvextend -l +100%FREE /dev/pve/data
     ```
 
-2. Use the [proxmox-storage-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml) to configure the Proxmox storage.
+2. Use the [proxmox-storage-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml) to configure the Proxmox storage on Node 1 (Primary).
 
 ### Scripts
 
