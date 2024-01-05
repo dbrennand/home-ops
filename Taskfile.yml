@@ -2,72 +2,9 @@ version: "3"
 
 vars:
   ANSIBLE_VERSION: "8.5.0"
+  VENV_PATH: "~/.virtualenvs/home-ops"
 
 tasks:
-  ansible-preconditions: &ansible-preconditions
-    preconditions:
-      - sh: command -v ansible
-        msg: ansible is not installed. Have you ran `task venv`?
-
-  ansible:hosts:
-    desc: List Ansible hosts
-    dir: "{{.USER_WORKING_DIR}}"
-    cmds:
-      - task: op:vault
-      - task: venv:source
-      - ansible all --list-hosts
-    <<: *ansible-preconditions
-
-  ansible:adhoc:
-    desc: |
-      Run Ansible adhoc command.
-      Example: task ansible:adhoc -- proxmox -m ping
-    dir: "{{.USER_WORKING_DIR}}"
-    cmds:
-      - task: op:vault
-      - task: venv:source
-      - ansible {{.CLI_ARGS}}
-    <<: *ansible-preconditions
-
-  ansible:play:
-    desc: |
-      Run Ansible playbook.
-      Example: task ansible:play -- playbooks/minecraft-playbook.yml
-    dir: "{{.USER_WORKING_DIR}}"
-    cmds:
-      - task: op:vault
-      - task: venv:source
-      - ansible-playbook {{.CLI_ARGS}}
-    preconditions:
-      - sh: command -v ansible-playbook
-        msg: ansible-playbook is not installed. Have you ran `task venv`?
-
-  ansible:encrypt:
-    desc: |
-      Encrypt Ansible variable.
-      Example: task ansible:encrypt -- 'Secret!' --name 'my_secret'
-    dir: "{{.USER_WORKING_DIR}}"
-    interactive: true
-    cmds:
-      - task: op:vault
-      - task: venv:source
-      - ansible-vault encrypt_string {{ .CLI_ARGS }}
-    preconditions:
-      - sh: command -v ansible-vault
-        msg: ansible-vault is not installed. Have you ran `task venv`?
-
-  ansible:requirements:
-    desc: Install Ansible requirements
-    dir: "{{.USER_WORKING_DIR}}"
-    cmds:
-      - task: venv:source
-      - ansible-galaxy install {{ .CLI_ARGS }} -r requirements.yml
-    preconditions:
-      - sh: command -v ansible-galaxy
-        msg: ansible-galaxy is not installed. Have you ran `task venv`?
-      - sh: test -f requirements.yml
-        msg: requirements.yml does not exist.
-
   op:vault:
     desc: |
       Ensure the op-ansible-vault.sh script is executable.
@@ -77,31 +14,79 @@ tasks:
       - chmod +x op-ansible-vault.sh
     preconditions:
       - sh: test -f op-ansible-vault.sh
-        msg: op-ansible-vault.sh file does not exist.
-
-  venv:source:
-    desc: Source Python virtual environment
-    internal: true
-    cmds:
-      - source ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/activate
-    preconditions:
-      - sh: test -f ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/activate
-        msg: Python virtual environment not found. Have you ran `task venv`?
+        msg: op-ansible-vault.sh file does not exist {{.USER_WORKING_DIR}}.
 
   venv:build:
     desc: Build Python virtual environment
     internal: true
     cmds:
-      - mkdir -pv ~/.virtualenvs
-      - python -m venv ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})
-      - ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/pip install --upgrade pip
-      - ~/.virtualenvs/$(basename {{.USER_WORKING_DIR}})/bin/pip install ansible=={{.ANSIBLE_VERSION}}
+      - mkdir -pv $(dirname {{.VENV_PATH}})
+      - python -m venv {{.VENV_PATH}}
+      - "{{.VENV_PATH}}/bin/pip install --upgrade pip"
+      - "{{.VENV_PATH}}/bin/pip install ansible=={{.ANSIBLE_VERSION}}"
 
   venv:
-    desc: Create Python virtual environment
-    dir: "{{.USER_WORKING_DIR}}"
+    desc: Create Python virtual environment in {{.VENV_PATH}}
     cmds:
       - task: venv:build
+
+  ansible:hosts:
+    desc: List Ansible hosts
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - task: op:vault
+      - "{{.VENV_PATH}}/bin/ansible all --list-hosts"
+    preconditions:
+      - sh: command -v {{.VENV_PATH}}/bin/ansible
+        msg: ansible is not installed. Have you ran 'task venv'?
+
+  ansible:adhoc:
+    desc: |
+      Run Ansible adhoc command.
+      Example: task ansible:adhoc -- proxmox -m ping
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - task: op:vault
+      - "{{.VENV_PATH}}/bin/ansible {{.CLI_ARGS}}"
+    preconditions:
+      - sh: command -v {{.VENV_PATH}}/bin/ansible
+        msg: ansible is not installed. Have you ran 'task venv'?
+
+  ansible:play:
+    desc: |
+      Run Ansible playbook.
+      Example: task ansible:play -- playbooks/minecraft-playbook.yml
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - task: op:vault
+      - "{{.VENV_PATH}}/bin/ansible-playbook {{.CLI_ARGS}}"
+    preconditions:
+      - sh: command -v {{.VENV_PATH}}/bin/ansible-playbook
+        msg: ansible-playbook is not installed. Have you ran 'task venv'?
+
+  ansible:encrypt:
+    desc: |
+      Encrypt Ansible variable.
+      Example: task ansible:encrypt -- 'Secret!' --name 'my_secret'
+    interactive: true
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - task: op:vault
+      - "{{.VENV_PATH}}/bin/ansible-vault encrypt_string {{ .CLI_ARGS }}"
+    preconditions:
+      - sh: command -v {{.VENV_PATH}}/bin/ansible-vault
+        msg: ansible-vault is not installed. Have you ran 'task venv'?
+
+  ansible:requirements:
+    desc: Install Ansible requirements
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - "{{.VENV_PATH}}/bin/ansible-galaxy install {{ .CLI_ARGS }} -r requirements.yml"
+    preconditions:
+      - sh: command -v {{.VENV_PATH}}/bin/ansible-galaxy
+        msg: ansible-galaxy is not installed. Have you ran 'task venv'?
+      - sh: test -f requirements.yml
+        msg: requirements.yml does not exist.
 
   tools:
     desc: Install tooling
