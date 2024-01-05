@@ -36,13 +36,13 @@
 
     The following instructions are for Node 1 (Primary). Modify the *install disk*, *FQDN* and *IP Address* values for Node 2 (Secondary).
 
-1. Power on the server and enter the BIOS.
+1. Power on the node and enter the BIOS.
 
 2. Go to `Advanced` > `System Devices Configuration` and set `VT-d` and `SR-IOV` to `Enabled`.
 
 3. Download the [Proxmox VE ISO](https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso) and flash it to a USB drive using a tool such as [Etcher](https://etcher.balena.io/).
 
-4. Insert the USB drive into the server and boot to the USB by pressing the `DELETE` key during boot.
+4. Insert the USB drive into the node and boot to the USB by pressing the `DELETE` key during boot.
 
 5. Follow the on-screen instructions to install Proxmox VE, when prompted enter the following details:
 
@@ -59,9 +59,9 @@
 
 ## Post Installation
 
-Below are the post installation steps for configuring the Proxmox VE server.
+Below are the post installation steps for configuring the Proxmox VE nodes.
 
-Copy SSH public key to the Proxmox VE server's `authorized_keys` file:
+Copy SSH public key to the Proxmox VE node's `authorized_keys` file:
 
 ```bash
 ssh-copy-id root@proxmox01.net.dbren.uk
@@ -83,13 +83,21 @@ ssh-copy-id root@proxmox01.net.dbren.uk
 
     Proceed with caution, before running any of the scripts below, make sure to review the code to ensure it is safe to run.
 
-1. Run the [Proxmox VE post install](https://github.com/tteck/Proxmox) script:
+1. Run the [Proxmox VE post install](https://github.com/tteck/Proxmox) script on both PVE nodes:
+
+    !!! quote
+
+        This script provides options for managing Proxmox VE repositories, including disabling the Enterprise Repo, adding or correcting PVE sources, enabling the No-Subscription Repo, adding the test Repo, disabling the subscription nag, updating Proxmox VE, and rebooting the system.
 
     ```bash
     bash -c "$(wget -qLO - https://github.com/tteck/Proxmox/raw/main/misc/post-pve-install.sh)"
     ```
 
 2. Run the [Proxmox Dark Theme](https://github.com/Weilbyte/PVEDiscordDark) script:
+
+    !!! quote
+
+        A dark theme for the Proxmox VE Web UI is a custom theme created by [Weilbyte](https://github.com/Weilbyte/PVEDiscordDark) that changes the look and feel of the Proxmox web-based interface to a dark color scheme. This theme can improve the visual experience and make the interface easier on the eyes, especially when used in low-light environments.
 
     ```bash
     bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install
