@@ -28,6 +28,9 @@ all:
         pihole.net.dbren.uk:
           # Overrides group_vars/tailscale.yml
           tailscale_args: --accept-dns=false --ssh
+          tailscale_tags:
+            - home-ops
+            - dns
         minecraft.net.dbren.uk:
           tailscale_tags:
             - external
