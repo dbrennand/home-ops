@@ -1,11 +1,14 @@
 #!/bin/bash
 # Used on Proxmox node(s) to generate a certificate for the node's Tailscale FQDN
 # This allows for the Proxmox Web GUI to be accessed via the Tailscale FQDN
-# Requires jq and tailscale to be installed
+# Requires jq, curl and tailscale to be installed
 # Checks every 60 days if the certificate needs to be renewed
 
 # File where the last run date is stored
 LAST_RUN_FILE="${HOME}/proxmox_tailscale_cert.last_run"
+
+# Discord webhook to send update notifications to
+discord_webhook="{{ discord_webhook }}"
 
 # Read the last run date from the file
 if [[ -f "${LAST_RUN_FILE}" ]]; then
@@ -26,4 +29,5 @@ if [[ "${today}" == "${next_run}" ]]; then
     pvenode cert set "${NAME}.crt" "${NAME}.key" --force --restart
     # Update the last run date
     echo "${today}" > "${LAST_RUN_FILE}"
+    curl -X POST -H "Content-Type: application/json" -d '{"content": "Updated Proxmox Tailscale certificate on $(hostname)"}' "${discord_webhook}"
 fi
