@@ -3,6 +3,20 @@
   hosts: tailscale
   roles:
     - role: artis3n.tailscale
+  vars:
+    # Used in templates/proxmox_tailscale_cert.sh.j2
+    discord_webhook: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          39386163316239333536623963383839353563323263386137636537646335626630363766383661
+          3363326231393535643766373161373263616138386365630a383431613066343536646635646230
+          62633639313965366265326539306535373731666232626133353435396463623332313937353035
+          6361336464313533320a323961626332653762343232643133653162643431353830316565383739
+          66323765373532623264383830623737306336623535313163653663626134373964656632363066
+          39653735396635313536306538396232376530623432376663663163656130333637333534306235
+          30646430383139323361333361336430386538626366303437313034613739356266636135663561
+          64373933336437323332666566386666376137323765613932626538346163633332363430393734
+          39386661306364393533643633336562366466383431343562313864663161363136383462626530
+          3138623431353663353163663835363564303338663339343966
   post_tasks:
     # https://tailscale.com/kb/1133/proxmox
     - name: Proxmox | Enable HTTPS Access for Proxmox Web UI
@@ -10,14 +24,16 @@
       tags:
         - proxmox
       block:
-        - name: Proxmox | Install jq
+        - name: Proxmox | Ensure jq and curl are installed
           ansible.builtin.apt:
-            name: jq
+            name:
+              - jq
+              - curl
             state: present
 
-        - name: Proxmox | Copy Tailscale script to Proxmox node
-          ansible.builtin.copy:
-            src: ../files/proxmox_tailscale_cert.sh
+        - name: Proxmox | Template Tailscale script to Proxmox node
+          ansible.builtin.template:
+            src: ../templates/proxmox_tailscale_cert.sh.j2
             dest: /usr/local/bin/proxmox_tailscale_cert.sh
             owner: root
             group: root
