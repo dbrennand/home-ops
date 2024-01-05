@@ -7,7 +7,7 @@ Mono repository for managing my Homelab 🏠 🛠 infrastructure and Kubernetes 
 
 ## Overview 📝
 
-> **Note**
+> [!NOTE]
 > This repository is a constant work in progress and I will continue to update it as I learn more.
 
 The goals of this repository are:
