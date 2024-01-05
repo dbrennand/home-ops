@@ -21,11 +21,16 @@ all:
         pihole.net.dbren.uk:
         minecraft.net.dbren.uk:
     tailscale:
+      vars:
+        tailscale_tags:
+          - home-ops
       hosts:
         pihole.net.dbren.uk:
           # Overrides group_vars/tailscale.yml
           tailscale_args: --accept-dns=false --ssh
         minecraft.net.dbren.uk:
+          tailscale_tags:
+            - external
         proxmox01.net.dbren.uk:
         proxmox02.net.dbren.uk:
     proxmox:
