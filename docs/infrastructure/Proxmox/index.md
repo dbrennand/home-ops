@@ -69,13 +69,72 @@ ssh-copy-id root@proxmox01.net.dbren.uk
 
 ### Storage
 
-1. Extend the Proxmox `data` logical volume to use the remaining space in the volume group:
+1. Extend the Proxmox `data` logical volume on each node to use the remaining space in the volume group:
 
     ```bash
     lvextend -l +100%FREE /dev/pve/data
     ```
 
 2. Use the [proxmox-storage-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml) to configure the Proxmox storage on Node 1 (Primary).
+
+### Establish Proxmox Cluster
+
+!!! note
+
+    I chose to not automate the following steps because it only needs to be done once.
+
+1. Navigate to the Proxmox GUI on Node 1 (Primary) and go to `Datacenter` > `Cluster` > `Create Cluster`:
+
+    | Setting | Value      |
+    | ------- | ---------- |
+    | Name    | `home-ops` |
+
+2. Once the cluster has been created, click **Join Information** and copy the alphanumeric string to the clipboard.
+
+3. Navigate to the Proxmox GUI on Node 2 (Secondary) and go to `Datacenter` > `Cluster` > `Join Cluster` and paste the alphanumeric string into the text box.
+
+4. Enter Node 1's root password for the *peer's root password* field and click **Join 'home-ops'**.
+
+5. Wait for the cluster to establish. You will know when this has completed as on each node's GUIs you should now see the other node listed under `Datacenter`.
+
+#### Create External Vote Server
+
+Due to the Proxmox cluster only consisting of two nodes, there is no way to establish quorum.
+
+!!! quote "What's Quroum?"
+
+    A [quorum](https://pve.proxmox.com/wiki/Cluster_Manager#_quorum) is the minimum number of votes that a distributed transaction has to obtain in order to be allowed to perform an operation in a distributed system.
+
+Without quorum, if one node goes down, the other node will not be able to determine if it is the only node left in the cluster or if the other node is still running. This is often referred to as a *split-brain* scenario. Luckily, Proxmox's Corosync supports an external vote server (known as a Corosync Quorum Device (QDevice)) to act as a tie-breaker. This lightweight daemon can be run on a device such as a Raspberry Pi.
+
+1. Execute the [proxmox-external-vote.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-external-vote.yml) playbook to configure the Proxmox nodes and external vote server on the Raspberry Pi:
+
+    ```bash
+    task ansible:play -- proxmox-external-vote.yml
+    ```
+
+2. On Proxmox Node 1 (Primary), execute the following command to add the QDevice to the cluster:
+
+    ```bash
+    pvecm qdevice setup 192.168.0.3
+    ```
+
+3. Once added, verify the QDevice is online:
+
+    ```bash
+    pvecm status
+    ```
+
+If the QDevice is successfully added, you should see the following:
+
+```
+Membership information
+----------------------
+    Nodeid      Votes    Qdevice Name
+0x00000001          1    A,V,NMW 192.168.0.4 (local)
+0x00000002          1    A,V,NMW 192.168.0.3
+0x00000000          1            Qdevice
+```
 
 ### Scripts
 
