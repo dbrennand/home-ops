@@ -35,7 +35,9 @@ all:
           tailscale_tags:
             - external
         proxmox01.net.dbren.uk:
+          tailscale_args: --accept-dns=false --ssh
         proxmox02.net.dbren.uk:
+          tailscale_args: --accept-dns=false --ssh
     proxmox:
       hosts:
         proxmox01.net.dbren.uk:
