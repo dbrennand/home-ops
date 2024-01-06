@@ -29,6 +29,19 @@ This script creates a Debian LXC container named `piholebak` and configures it t
 | IP Address        | 192.168.0.5     |
 | DNS Server        | 1.1.1.1         |
 
+## Tailscale
+
+Both Pi-hole instances are configured to use [Tailscale](https://tailscale.com/) to provide ad-blocking whilst on the go.
+
+For the secondary Pi-hole, the LXC container must be [configured](https://tailscale.com/kb/1130/lxc-unprivileged#instructions) to allow Tailscale to run in an unprivileged container. This is done by adding the following lines to the `/etc/pve/lxc/<container-id>.conf` file on Proxmox Node 2:
+
+```bash
+lxc.cgroup2.devices.allow: c 10:200 rwm
+lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+```
+
+Once complete, restart the LXC container and perform the Tailscale installation using the [tailscale-playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/tailscale-playbook.yml).
+
 ## Synchronising Pi-hole Configuration
 
 [Gravity-sync](https://github.com/vmstan/gravity-sync) is used to synchronise the Pi-hole configuration between the primary and secondary Pi-hole instances.
