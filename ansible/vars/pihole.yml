@@ -17,7 +17,7 @@ pihole_local_dns:
     ip: "192.168.0.3"
   - domain: "proxmox01.{{ pihole_domain }}"
     ip: "192.168.0.4"
-  - domain: "piholebak.{{ pihole_domain }}"
+  - domain: "pihole02.{{ pihole_domain }}"
     ip: "192.168.0.5"
   - domain: "minecraft.{{ pihole_domain }}"
     ip: "192.168.0.6"

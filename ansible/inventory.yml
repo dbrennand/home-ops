@@ -4,7 +4,7 @@ all:
     ansible_user: daniel
   hosts:
     pihole.net.dbren.uk:
-    piholebak.net.dbren.uk:
+    pihole02.net.dbren.uk:
       ansible_user: root
     proxmox01.net.dbren.uk:
       ansible_user: root
@@ -31,7 +31,7 @@ all:
           tailscale_tags:
             - home-ops
             - dns
-        piholebak.net.dbren.uk:
+        pihole02.net.dbren.uk:
           tailscale_args: --accept-dns=false --ssh
           tailscale_tags:
             - home-ops
