@@ -4,6 +4,7 @@
   roles:
     - role: artis3n.tailscale
   vars:
+    tailscale_proxmox_https_cert_generate: false
     # Used in templates/proxmox_tailscale_cert.sh.j2
     discord_webhook: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -20,7 +21,9 @@
   post_tasks:
     # https://tailscale.com/kb/1133/proxmox
     - name: Proxmox | Enable HTTPS Access for Proxmox Web UI
-      when: inventory_hostname in groups['proxmox']
+      when:
+        - inventory_hostname in groups['proxmox']
+        - tailscale_proxmox_https_cert_generate
       tags:
         - proxmox
       block:
