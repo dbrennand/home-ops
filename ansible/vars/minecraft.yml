@@ -8,7 +8,7 @@ minecraft_options:
   TYPE: PAPER
   # Modify the below variables
   # https://docker-minecraft-server.readthedocs.io/en/latest/configuration/jvm-options/#memory-limit
-  MEMORY: 2G
+  MEMORY: 5G
   # https://docker-minecraft-server.readthedocs.io/en/latest/versions/java/
   VERSION: "1.20.1"
   # https://docker-minecraft-server.readthedocs.io/en/latest/configuration/server-properties
@@ -33,6 +33,7 @@ minecraft_options:
     6534326434396564650a343465333937366435363339303961333836633233393034313434643737
     35313637386632653736643064376530303135353334613537646332313830313330
   MAX_PLAYERS: "20"
+  VIEW_DISTANCE: "16"
   ALLOW_NETHER: "true"
   ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
   GENERATE_STRUCTURES: "true"
