@@ -51,7 +51,7 @@
           community.docker.docker_container:
             name: minecraft
             image: "itzg/minecraft-server:{{ minecraft_image_tag }}"
-            restart_policy: always
+            restart_policy: unless-stopped
             networks:
               - name: minecraft
             ports:
@@ -84,7 +84,7 @@
           community.docker.docker_container:
             name: minecraft-backup
             image: "itzg/mc-backup:{{ minecraft_backup_image_tag }}"
-            restart_policy: always
+            restart_policy: unless-stopped
             networks:
               - name: minecraft
             volumes:
