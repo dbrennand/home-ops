@@ -27,12 +27,13 @@ all:
       hosts:
         pihole.net.dbren.uk:
           # Overrides group_vars/tailscale.yml
-          tailscale_args: --accept-dns=false --ssh
+          tailscale_args: &tailscale_dns |-
+            --accept-dns=false --ssh --advertise-routes=192.168.0.2/32,192.168.0.3/32,192.168.0.4/32,192.168.0.5/32
           tailscale_tags:
             - home-ops
             - dns
         pihole02.net.dbren.uk:
-          tailscale_args: --accept-dns=false --ssh
+          tailscale_args: *tailscale_dns
           tailscale_tags:
             - home-ops
             - dns
