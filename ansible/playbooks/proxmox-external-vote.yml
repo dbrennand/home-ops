@@ -12,7 +12,7 @@
         state: present
 
 - name: Raspberry Pi - Cluster External Vote Support
-  hosts: pihole.net.dbren.uk
+  hosts: pihole01.net.dbren.uk
   become: true
   tasks:
     - name: Install corosync-qnetd

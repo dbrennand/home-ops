@@ -14,7 +14,7 @@ The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https
 
 2. Click the **cog icon** on the bottom right to open the *Advanced options* menu and configure the following options:
 
-    - Set hostname to `pihole`.
+    - Set hostname to `pihole01`.
     - Enable SSH and allow public key authentication only. Enter your public key in the `authorized_keys` field.
     - Set a username and password.
     - Set locale settings as appropriate.
@@ -28,7 +28,7 @@ The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https
     > If you experience issues with hostname resolution on MacOS, try restarting the [mDNSResponder service](https://stackoverflow.com/questions/20252294/ssh-could-not-resolve-hostname-hostname-nodename-nor-servname-provided-or-n): `sudo killall -HUP mDNSResponder`.
 
     ```bash
-    ssh <user>@pihole
+    ssh <user>@pihole01
     ```
 
 5. Run the following commands on the Raspberry Pi to set a static IP address, update the system and expand the filesystem:
@@ -77,7 +77,7 @@ The variables for this playbook are located in [ansible/vars/pihole.yml](https:/
 3. Verify Ansible can connect to the server:
 
     ```bash
-    task ansible:adhoc -- pihole.net.dbren.uk -m ping
+    task ansible:adhoc -- pihole01.net.dbren.uk -m ping
     ```
 
 4. Run the playbook:
@@ -90,9 +90,9 @@ The variables for this playbook are located in [ansible/vars/pihole.yml](https:/
 
 1. Login to the Tailscale [admin portal](https://login.tailscale.com/admin/machines).
 
-2. Copy the Tailnet IP of the Raspberry Pi 3. The hostname should be `pihole`.
+2. Copy the Tailnet IP of the Raspberry Pi 3. The hostname should be `pihole01`.
 
-3. Select the `pihole` machine in the portal and under machine settings, select **Disable key expiry**.
+3. Select the `pihole01` machine in the portal and under machine settings, select **Disable key expiry**.
 
 4. Go to your Tailnet's [DNS settings](https://login.tailscale.com/admin/dns) and under *Nameservers*, choose **Add nameserver** > **Custom...**.
 
