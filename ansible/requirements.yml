@@ -6,7 +6,7 @@ collections:
     version: 8.1.0
 roles:
   - name: dbrennand.caddy_docker
-    version: 3.0.2
+    version: 3.1.0
   - name: artis3n.tailscale
     version: v4.2.2
   - name: geerlingguy.docker
