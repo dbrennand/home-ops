@@ -3,7 +3,7 @@ all:
   vars:
     ansible_user: daniel
   hosts:
-    pihole.net.dbren.uk:
+    pihole01.net.dbren.uk:
     pihole02.net.dbren.uk:
       ansible_user: root
     proxmox01.net.dbren.uk:
@@ -18,14 +18,14 @@ all:
   children:
     docker:
       hosts:
-        pihole.net.dbren.uk:
+        pihole01.net.dbren.uk:
         minecraft.net.dbren.uk:
     tailscale:
       vars:
         tailscale_tags:
           - home-ops
       hosts:
-        pihole.net.dbren.uk:
+        pihole01.net.dbren.uk:
           # Overrides group_vars/tailscale.yml
           tailscale_args: &tailscale_dns |-
             --accept-dns=false --ssh --advertise-routes=192.168.0.2/32,192.168.0.3/32,192.168.0.4/32,192.168.0.5/32
