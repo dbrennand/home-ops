@@ -3,15 +3,19 @@
 # Pi-hole data directory
 pihole_data_directory:
   path: ~/.local/share/pihole
+  owner: daniel
+  group: daniel
 # Pi-hole dnsmasq directory
 pihole_dnsmasq_directory:
   path: ~/.local/share/dnsmasq
+  owner: daniel
+  group: daniel
 # Domain name to be used by Pi-hole for the network
 # The base/apex domain must be registered with Cloudflare
 pihole_domain: net.dbren.uk
 # A/AAAA records for local DNS
 pihole_local_dns:
-  - domain: "pihole.{{ pihole_domain }}"
+  - domain: "pihole01.{{ pihole_domain }}"
     ip: "192.168.0.2"
   - domain: "proxmox02.{{ pihole_domain }}"
     ip: "192.168.0.3"
@@ -34,7 +38,7 @@ pihole_local_dns:
 #  - domain: "service.{{ pihole_domain }}"
 #    target: "device.{{ pihole_domain }}"
 # Pi-hole container image tag
-pihole_image_tag: latest
+pihole_image_tag: "2024.01.0"
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 pihole_timezone: Europe/London
 # Pi-hole admin dashboard password
@@ -56,7 +60,7 @@ pihole_upstream_dns:
 # pihole_dhcp_end: "192.168.0.254"
 # pihole_dhcp_router: "192.168.0.1"
 # Pi-hole virtual host
-pihole_virtual_host: "pihole.{{ pihole_domain }}"
+pihole_virtual_host: "pihole01.{{ pihole_domain }}"
 # Whether to enable query logging or not in Pi-hole
 pihole_query_logging: "true"
 # Pi-hole admin dashboard theme
@@ -64,6 +68,7 @@ pihole_web_theme: default-dark
 
 # geerlingguy.security vars - Overrides group_vars/docker.yml
 # https://github.com/geerlingguy/ansible-role-security#role-variables
+security_fail2ban_enabled: false
 security_ssh_password_authentication: "yes"
 security_ssh_permit_root_login: "yes"
 security_ssh_allowed_users:
@@ -88,16 +93,18 @@ caddy_docker_caddyfile: |-
           }
   }
 
-  pihole.{$DOMAIN} {
+  pihole01.{$DOMAIN} {
           import cloudflare
           reverse_proxy pihole:80
   }
+caddy_docker_image: caddy:2.7.6-alpine
+caddy_docker_builder_image: caddy:2.7.6-builder
 caddy_docker_plugins:
   # Allows Caddy to obtain TLS certificates for a Cloudflare managed domain
   - github.com/caddy-dns/cloudflare
 caddy_docker_environment_variables:
   # Variables used in the Caddyfile
-  DOMAIN: "{{ domain }}"
+  DOMAIN: "{{ pihole_domain }}"
   # https://github.com/dbrennand/ansible-role-caddy-docker/blob/main/README.md#example---cloudflare-dns-01-challenge
   CLOUDFLARE_API_TOKEN: !vault |
     $ANSIBLE_VAULT;1.1;AES256

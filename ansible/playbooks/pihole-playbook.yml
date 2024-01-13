@@ -1,10 +1,11 @@
 ---
 - name: Configure Pi-hole
-  hosts: pihole.net.dbren.uk
+  hosts: pihole01.net.dbren.uk
   vars_files:
     - ../vars/pihole.yml
   pre_tasks:
     - name: Create Pi-hole directories
+      become: true
       ansible.builtin.file:
         path: "{{ item.path }}"
         state: directory
