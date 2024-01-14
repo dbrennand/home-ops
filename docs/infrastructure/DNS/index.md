@@ -48,11 +48,11 @@ The `systemd-journald` service can fill up the `/var/log/journal` directory quic
 
 1. Modify the `/etc/systemd/journald.conf` file and add the following line:
 
-   ```bash
-   ...
-   SystemMaxUse=100M
-   ...
-   ```
+    ```bash
+    ...
+    SystemMaxUse=100M
+    ...
+    ```
 
 2. Restart the `systemd-journald` service:
 
