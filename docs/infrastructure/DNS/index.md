@@ -42,6 +42,24 @@ lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
 
 Once complete, restart the LXC container and perform the Tailscale installation using the [tailscale-playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/tailscale-playbook.yml).
 
+## Reduce `systemd-journald` Disk Usage
+
+The `systemd-journald` service can fill up the `/var/log/journal` directory quickly. To only store `100MB` of logs:
+
+1. Modify the `/etc/systemd/journald.conf` file and add the following line:
+
+   ```bash
+   ...
+   SystemMaxUse=100M
+   ...
+   ```
+
+2. Restart the `systemd-journald` service:
+
+    ```bash
+    systemctl restart systemd-journald
+    ```
+
 ## Synchronising Pi-hole Configuration
 
 [Gravity-sync](https://github.com/vmstan/gravity-sync) is used to synchronise the Pi-hole configuration between the primary and secondary Pi-hole instances.
