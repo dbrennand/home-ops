@@ -13,7 +13,7 @@ terraform {
 
 locals {
   datetime       = timestamp()
-  vm_description = "Created by Terraform on ${local.datetime}"
+  vm_description = "Created by Terraform at ${local.datetime}"
 }
 
 # https://registry.terraform.io/providers/1Password/onepassword/latest/docs
@@ -31,7 +31,7 @@ provider "proxmox" {
   endpoint = data.onepassword_item.virtual_environment.url
   username = var.virtual_environment_username
   password = data.onepassword_item.virtual_environment.password
-  insecure = true
+  insecure = false
 }
 
 # https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external
@@ -46,7 +46,7 @@ data "external" "op_ssh_key" {
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm
-resource "proxmox_virtual_environment_vm" "common" {
+resource "proxmox_virtual_environment_vm" "vm" {
   name        = var.vm_name
   description = local.vm_description
   tags        = var.vm_tags

@@ -44,7 +44,7 @@ variable "vm_name" {
 variable "vm_tags" {
   description = "Tags for the VM"
   type        = list(string)
-  default     = ["common"]
+  default     = ["common", "vm"]
 }
 
 variable "vm_cores" {

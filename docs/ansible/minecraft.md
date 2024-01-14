@@ -10,7 +10,7 @@ The Minecraft server is deployed with [Paper MC](https://papermc.io/) in a Docke
 
 ### Ubuntu Server 22.04 LTS
 
-Deploy an Ubuntu Server 22.04 LTS instance on Proxmox VE using the [common](https://github.com/dbrennand/home-ops/tree/dev/terraform/common) Terraform resources.
+Deploy an Ubuntu Server 22.04 LTS instance on Proxmox VE using the [VM](https://github.com/dbrennand/home-ops/tree/dev/terraform/vm) Terraform resources.
 
 ### Tailscale
 
