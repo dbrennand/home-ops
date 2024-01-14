@@ -87,10 +87,10 @@ The following steps are taken from the gravity-sync [wiki](https://github.com/vm
 5. When the configuration has been verified, on the primary and secondary Pi-hole instances, run the command to enable automatic synchronisation:
 
     ```bash
-    gravity-sync auto
+    gravity-sync auto hour
     ```
 
-    By default this command will configure a systemd service and timer to synchronise the Pi-hole configuration every ~5 minutes.
+    By default this command will configure a systemd service and timer to synchronise the Pi-hole configuration every hour.
 
     You can use the following command to view the status of the systemd service:
 
