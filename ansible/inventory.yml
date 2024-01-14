@@ -10,6 +10,10 @@ all:
       ansible_user: root
     proxmox02.net.dbren.uk:
       ansible_user: root
+    exit01.net.dbren.uk:
+      ansible_user: root
+    exit02.net.dbren.uk:
+      ansible_user: root
     minecraft.net.dbren.uk:
     control01.net.dbren.uk:
     worker01.net.dbren.uk:
@@ -20,6 +24,11 @@ all:
       hosts:
         pihole01.net.dbren.uk:
         minecraft.net.dbren.uk:
+    lxc:
+      hosts:
+        pihole02.net.dbren.uk:
+        exit01.net.dbren.uk:
+        exit02.net.dbren.uk:
     tailscale:
       vars:
         tailscale_tags:
@@ -44,6 +53,10 @@ all:
           tailscale_args: --accept-dns=false --ssh
         proxmox02.net.dbren.uk:
           tailscale_args: --accept-dns=false --ssh
+        exit01.net.dbren.uk:
+          tailscale_args: --ssh --advertise-exit-node
+        exit02.net.dbren.uk:
+          tailscale_args: --ssh --advertise-exit-node
     proxmox:
       hosts:
         proxmox01.net.dbren.uk:
