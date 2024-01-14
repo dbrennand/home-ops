@@ -136,6 +136,56 @@ Membership information
 0x00000000          1            Qdevice
 ```
 
+### HTTPS - Web Interface with Let's Encrypt
+
+!!! info "Cloudflare API Token & Zone ID"
+
+    See the following [instructions](https://github.com/dbrennand/ansible-role-caddy-docker#example---cloudflare-dns-01-challenge) for generating a Cloudflare API Token.
+
+    Furthermore, you will need to obtain your domain's zone ID. This can be found in the Cloudflare dashboard page for the domain, on the right side under *API* > *Zone ID*.
+
+!!! note
+
+    These steps only need to performed once on each Proxmox node. Once configured, the certificate will be automatically renewed.
+
+1. Login to the Proxmox GUI on Node 1 (Primary) and go to `Datacenter` > `ACME` > *Accounts* and click **Add**:
+
+    | Setting        | Value              |
+    | -------------- | ------------------ |
+    | Account Name   | `default`          |
+    | Email          | `<Email>`          |
+    | ACME Directory | `Let's Encrypt V2` |
+    | Accept TOS     | `True`             |
+
+2. Click **Register**.
+
+3. Under *Challenge Plugins*, click **Add** and enter the following details:
+
+    | Setting    | Value                    |
+    | ---------- | ------------------------ |
+    | Plugin ID  | `cloudflare`             |
+    | DNS API    | `Cloudflare Managed API` |
+    | CF_Token   | `<Cloudflare API Token>` |
+    | CF_Zone_ID | `<Cloudflare Zone ID>`   |
+
+4. Click **OK**.
+
+5. Navigate to `Datacenter` > `proxmox01` > `Certificates` and under *ACME* click **Add**:
+
+    | Setting        | Value                    |
+    | -------------- | ------------------------ |
+    | Challenge Type | `DNS`                    |
+    | Plugin         | `cloudflare`             |
+    | Domain         | `proxmox01.net.dbren.uk` |
+
+6. Click **OK**.
+
+7. Under *ACME* > for `Using Account` click **Edit** and select the `default` account and click **Apply**.
+
+8. Click **Order Certificates Now**.
+
+Once completed, the `pveproxy.service` will reload the web interface and show the new certificate.
+
 ### Scripts
 
 !!! warning
