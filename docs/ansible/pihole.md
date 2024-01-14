@@ -55,6 +55,10 @@ The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https
 
 Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register the Raspberry Pi 3 with your Tailnet.
 
+### Cloudflare API Token (DNS-01 Challenge)
+
+Generate a Cloudflare API Token using the following [instructions](https://github.com/dbrennand/ansible-role-caddy-docker#example---cloudflare-dns-01-challenge).
+
 ## Playbook Requirements & Variables
 
 The variables for this playbook are located in [ansible/vars/pihole.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/pihole.yml).
