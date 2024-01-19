@@ -1,5 +1,5 @@
 ---
-- name: Configure LXC Containers
+- name: LXC | Configure Containers
   hosts: lxc
   vars:
     security_ssh_permit_root_login: "yes"

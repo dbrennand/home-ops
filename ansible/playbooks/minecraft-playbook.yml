@@ -1,5 +1,5 @@
 ---
-- name: Provision Minecraft Server
+- name: Minecraft | Provision Server
   hosts: minecraft.net.dbren.uk
   vars_files:
     - ../vars/minecraft.yml

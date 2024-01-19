@@ -1,5 +1,5 @@
 ---
-- name: Build K3s cluster
+- name: K3s | Build Cluster
   hosts: k3s
   vars_files:
     - ../vars/k3s.yml

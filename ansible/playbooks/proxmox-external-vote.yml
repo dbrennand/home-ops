@@ -1,7 +1,7 @@
 ---
 # https://pve.proxmox.com/wiki/Cluster_Manager#_corosync_external_vote_support
 # https://www.apalrd.net/posts/2022/cluster_qdevice/
-- name: Proxmox Nodes - Cluster External Vote Support
+- name: Proxmox | Nodes - Cluster External Vote Support
   hosts: proxmox
   become: true
   tasks:
@@ -11,7 +11,7 @@
           - corosync-qdevice
         state: present
 
-- name: Raspberry Pi - Cluster External Vote Support
+- name: Proxmox | Raspberry Pi - Cluster External Vote Support
   hosts: pihole01.net.dbren.uk
   become: true
   tasks:

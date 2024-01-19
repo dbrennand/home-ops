@@ -1,5 +1,5 @@
 ---
-- name: Provision Proxmox LVM Storage
+- name: Proxmox | Provision LVM Storage
   hosts: proxmox01.net.dbren.uk
   become: true
   vars:

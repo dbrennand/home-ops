@@ -1,5 +1,5 @@
 ---
-- name: Create Proxmox VM Templates
+- name: Proxmox | Create VM Templates
   hosts: proxmox01.net.dbren.uk
   become: true
   gather_facts: false

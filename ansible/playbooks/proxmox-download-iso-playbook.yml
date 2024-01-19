@@ -1,5 +1,5 @@
 ---
-- name: Download ISOs to Proxmox
+- name: Proxmox | Download ISOs
   hosts: proxmox01.net.dbren.uk
   become: true
   gather_facts: false

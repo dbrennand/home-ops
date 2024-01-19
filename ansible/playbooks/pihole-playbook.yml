@@ -1,5 +1,5 @@
 ---
-- name: Configure Pi-hole
+- name: Pi-hole | Configure
   hosts: pihole01.net.dbren.uk
   vars_files:
     - ../vars/pihole.yml
