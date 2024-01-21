@@ -60,6 +60,7 @@
               - "8123:8123"
             volumes:
               - /home/{{ ansible_user }}/minecraft/:/data
+            memory: "{{ minecraft_memory }}"
             env:
               "{{ minecraft_options }}"
             user: "{{ getent_passwd[ansible_user].1 }}:{{ getent_passwd[ansible_user].2 }}"
