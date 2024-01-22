@@ -1,7 +1,6 @@
 version: "3"
 
 vars:
-  ANSIBLE_VERSION: "8.5.0"
   VENV_PATH: "~/.virtualenvs/home-ops"
 
 tasks:
@@ -23,7 +22,7 @@ tasks:
       - mkdir -pv $(dirname {{.VENV_PATH}})
       - python -m venv {{.VENV_PATH}}
       - "{{.VENV_PATH}}/bin/pip install --upgrade pip"
-      - "{{.VENV_PATH}}/bin/pip install ansible=={{.ANSIBLE_VERSION}}"
+      - "{{.VENV_PATH}}/bin/pip install -r {{.USER_WORKING_DIR}}/requirements.txt"
 
   venv:
     desc: Create Python virtual environment in {{.VENV_PATH}}
