@@ -5,7 +5,6 @@ all:
   hosts:
     pihole01.net.dbren.uk:
     pihole02.net.dbren.uk:
-      ansible_user: root
     proxmox01.net.dbren.uk:
       ansible_user: root
     proxmox02.net.dbren.uk:
