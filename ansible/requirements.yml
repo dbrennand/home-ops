@@ -20,3 +20,6 @@ roles:
     version: refactor/ssh-regexp
   - name: xanmanning.k3s
     version: v3.4.3
+  - name: ironicbadger.figurine
+    src: https://github.com/ironicbadger/ansible-role-figurine
+    version: 1.0.3
