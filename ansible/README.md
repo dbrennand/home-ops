@@ -11,4 +11,5 @@ The Ansible playbooks in this repository are used to configure my homelab server
 - [proxmox-external-vote.yml](playbooks/proxmox-external-vote.yml): Cluster External Vote Support.
 - [pihole-playbook.yml](playbooks/pihole-playbook.yml): Deploy Pi-hole on Raspberry Pi 3.
 - [tailscale-playbook.yml](playbooks/tailscale-playbook.yml): Install or update Tailscale.
-- [lxc-playbook.yml](playbooks/lxc-playbook.yml): Configure LXC Containers.
+- [lxc-journald-playbook.yml](playbooks/lxc-journald-playbook.yml): Configure LXC containers journald logging.
+- [setup-playbook.yml](playbooks/setup-playbook.yml): General setup for new servers.
