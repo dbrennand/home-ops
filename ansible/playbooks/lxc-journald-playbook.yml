@@ -1,6 +1,7 @@
 ---
 - name: LXC | Configure systemd-journald
   hosts: lxc
+  become: true
   handlers:
     - name: Restart systemd-journald
       ansible.builtin.systemd:
