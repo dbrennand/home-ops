@@ -1,25 +1,11 @@
 ---
-- name: LXC | Configure Containers
+- name: LXC | Configure systemd-journald
   hosts: lxc
-  vars:
-    security_ssh_permit_root_login: "yes"
-    security_ssh_allowed_users:
-      - root
-    security_fail2ban_custom_configuration_template: "../templates/lxcjail.local.j2"
   handlers:
     - name: Restart systemd-journald
       ansible.builtin.systemd:
         name: systemd-journald
         state: restarted
-  pre_tasks:
-    - name: Ensure ncdu is installed
-      ansible.builtin.apt:
-        name:
-          - ncdu
-        update_cache: true
-        cache_valid_time: 3600
-  roles:
-    - role: geerlingguy.security
   tasks:
     - name: Configure systemd-journald SystemMaxUse to 100M
       notify:
