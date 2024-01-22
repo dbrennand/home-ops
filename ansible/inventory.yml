@@ -12,7 +12,6 @@ all:
       ansible_user: root
     exit01.net.dbren.uk:
     exit02.net.dbren.uk:
-      ansible_user: root
     minecraft.net.dbren.uk:
     control01.net.dbren.uk:
     worker01.net.dbren.uk:
