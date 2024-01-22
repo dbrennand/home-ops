@@ -42,3 +42,4 @@
   roles:
     - role: geerlingguy.security
     - role: ironicbadger.figurine
+      tags: figurine
