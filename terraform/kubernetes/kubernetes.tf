@@ -78,6 +78,7 @@ resource "proxmox_virtual_environment_vm" "k3s_control" {
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#initialization
   initialization {
+    datastore_id = var.virtual_environment_os_disk_datastore_id
     ip_config {
       ipv4 {
         address = each.value.ip
@@ -143,6 +144,7 @@ resource "proxmox_virtual_environment_vm" "k3s_worker" {
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#initialization
   initialization {
+    datastore_id = var.virtual_environment_os_disk_datastore_id
     ip_config {
       ipv4 {
         address = each.value.ip
