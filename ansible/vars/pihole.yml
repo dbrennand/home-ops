@@ -23,7 +23,7 @@ pihole_local_dns:
     ip: "192.168.0.4"
   - domain: "pihole02.{{ pihole_domain }}"
     ip: "192.168.0.5"
-  - domain: "minecraft.{{ pihole_domain }}"
+  - domain: "minecraft01.{{ pihole_domain }}"
     ip: "192.168.0.6"
   - domain: "exit01.{{ pihole_domain }}"
     ip: "192.168.0.7"
