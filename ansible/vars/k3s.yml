@@ -1,7 +1,7 @@
 ---
 # vars file for k3s-playbook.yml
 # The VIP address for kube-vip to use for the control plane
-kube_vip_address: "192.168.0.7"
+kube_vip_address: "192.168.0.9"
 # The IP address range for the kube-vip-cloud-controller to hand out for services of type `LoadBalancer`
 # https://kube-vip.io/docs/usage/cloud-provider/
 kube_vip_cloud_controller_range_global: "192.168.0.21-192.168.0.49"
