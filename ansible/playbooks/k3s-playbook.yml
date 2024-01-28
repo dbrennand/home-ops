@@ -24,7 +24,7 @@
             mode: u=rwx,g=rx,o=rx
           become: true
 
-        - name: "Ensure disk partition exists on {{ longhorn_disk }}"
+        - name: "Ensure disk partition exists on longhorn disk"
           community.general.parted:
             device: "{{ longhorn_disk }}"
             number: 1
@@ -36,20 +36,20 @@
             state: present
           become: true
 
-        - name: "Ensure ext4 filesystem exists on {{ longhorn_disk }}1" # noqa name[template]
+        - name: "Ensure ext4 filesystem exists on longhorn disk partition" # noqa name[template]
           community.general.filesystem:
             fstype: ext4
             dev: "{{ longhorn_disk }}1"
           become: true
 
-        - name: "Get UUID for {{ longhorn_disk }}1" # noqa name[template]
+        - name: "Get UUID for longhorn disk partition" # noqa name[template]
           ansible.builtin.command:
             cmd: "blkid {{ longhorn_disk }}1 -s UUID -o value"
           register: longhorn_block_device_part_uuid
           changed_when: false
           become: true
 
-        - name: "Mount /mnt/longhorn on {{ longhorn_block_device_part_uuid.stdout }}"
+        - name: "Mount /mnt/longhorn on longhorn disk partition"
           ansible.posix.mount:
             path: /mnt/longhorn
             src: "UUID={{ longhorn_block_device_part_uuid.stdout }}"
