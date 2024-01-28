@@ -31,7 +31,6 @@ provider "proxmox" {
   endpoint = data.onepassword_item.virtual_environment.url
   username = var.virtual_environment_username
   password = data.onepassword_item.virtual_environment.password
-  insecure = false
 }
 
 # https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external

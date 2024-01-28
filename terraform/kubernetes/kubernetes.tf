@@ -37,7 +37,6 @@ provider "proxmox" {
   endpoint = data.onepassword_item.virtual_environment.url
   username = var.virtual_environment_username
   password = data.onepassword_item.virtual_environment.password
-  insecure = true
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm
