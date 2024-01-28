@@ -1,6 +1,6 @@
 ---
 - name: Minecraft | Provision Server
-  hosts: minecraft.net.dbren.uk
+  hosts: minecraft01.net.dbren.uk
   vars_files:
     - ../vars/minecraft.yml
   pre_tasks:
@@ -42,6 +42,12 @@
             state: directory
             mode: "0755"
 
+        - name: Create Minecraft mods directory
+          ansible.builtin.file:
+            name: /home/{{ ansible_user }}/minecraft/mods/
+            state: directory
+            mode: "0755"
+
         - name: Create Minecraft Docker network
           community.docker.docker_network:
             name: minecraft
@@ -68,6 +74,7 @@
               env: strict
               user: strict
               ports: strict
+              memory: strict
             state: started
 
     - name: Minecraft backup Docker container tasks

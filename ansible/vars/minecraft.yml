@@ -1,8 +1,8 @@
 ---
 # vars file for minecraft-playbook.yml
 minecraft_image_tag: latest
-# https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html#parameter-memory
-minecraft_memory: "4096M"
+# https://docs.ansible.com/a  nsible/latest/collections/community/docker/docker_container_module.html#parameter-memory
+minecraft_memory: "2384M"
 # All container environment variables can be found at: https://docker-minecraft-server.readthedocs.io/en/latest/configuration/server-properties
 minecraft_options:
   # DO NOT modify these variables
@@ -11,7 +11,7 @@ minecraft_options:
   # Modify the below variables
   # https://docker-minecraft-server.readthedocs.io/en/latest/configuration/jvm-options/#memory-limit
   MEMORY: ""
-  JVM_XX_OPTS: "-XX:MaxRAMPercentage=80"
+  JVM_XX_OPTS: "-XX:MaxRAMPercentage=75"
   # https://docker-minecraft-server.readthedocs.io/en/latest/versions/java/
   VERSION: "1.20.1"
   # https://docker-minecraft-server.readthedocs.io/en/latest/configuration/server-properties

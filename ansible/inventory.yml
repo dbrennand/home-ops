@@ -11,7 +11,7 @@ all:
       ansible_user: root
     exit01.net.dbren.uk:
     exit02.net.dbren.uk:
-    minecraft.net.dbren.uk:
+    minecraft01.net.dbren.uk:
     control01.net.dbren.uk:
     worker01.net.dbren.uk:
     worker02.net.dbren.uk:
@@ -20,7 +20,7 @@ all:
     docker:
       hosts:
         pihole01.net.dbren.uk:
-        minecraft.net.dbren.uk:
+        minecraft01.net.dbren.uk:
     lxc:
       hosts:
         pihole02.net.dbren.uk:
@@ -43,7 +43,7 @@ all:
           tailscale_tags:
             - home-ops
             - dns
-        minecraft.net.dbren.uk:
+        minecraft01.net.dbren.uk:
           tailscale_tags:
             - external
         proxmox01.net.dbren.uk:
