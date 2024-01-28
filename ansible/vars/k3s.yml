@@ -8,7 +8,7 @@ kube_vip_cloud_controller_range_global: "192.168.0.21-192.168.0.49"
 
 # xanmanning.k3s role vars
 # https://github.com/PyratLabs/ansible-role-k3s#role-variables
-k3s_release_version: v1.29.0+k3s1
+k3s_release_version: v1.28.5+k3s1
 k3s_install_hard_links: true
 k3s_become: true
 k3s_registration_address: "{{ kube_vip_address }}"

@@ -58,6 +58,7 @@
           become: true
   roles:
     - role: xanmanning.k3s
+      tags: k3s
   post_tasks:
     - name: Copy kubeconfig to local machine
       when: k3s_control_node
