@@ -130,7 +130,7 @@ resource "proxmox_virtual_environment_vm" "k3s_worker" {
   # Proxmox VM template already contains an OS disk of 50GB
   # Data disk for Longhorn
   disk {
-    interface    = "virtio0"
+    interface    = "virtio1"
     datastore_id = var.virtual_environment_data_disk_datastore_id
     discard      = "on"
     size         = 200
