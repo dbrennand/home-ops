@@ -62,9 +62,13 @@ all:
       children:
         control:
           hosts:
-            control01.net.dbren.uk:
+            control01:
+              ansible_host: 192.168.0.10
         workers:
           hosts:
-            worker01.net.dbren.uk:
-            worker02.net.dbren.uk:
-            worker03.net.dbren.uk:
+            worker01:
+              ansible_host: 192.168.0.11
+            worker02:
+              ansible_host: 192.168.0.12
+            worker03:
+              ansible_host: 192.168.0.13
