@@ -6,6 +6,8 @@
     - ../vars/general.yml
   pre_tasks:
     - name: Ensure packages are installed
+      tags:
+        - packages
       ansible.builtin.apt:
         name: "{{ packages }}"
         update_cache: true
@@ -41,5 +43,6 @@
         state: present
   roles:
     - role: geerlingguy.security
+      tags: security
     - role: ironicbadger.figurine
       tags: figurine
