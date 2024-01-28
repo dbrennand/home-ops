@@ -2,11 +2,11 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = "0.38.1"
+      version = "0.45.0"
     }
     onepassword = {
       source  = "1Password/onepassword"
-      version = "1.3.0"
+      version = "1.4.1"
     }
   }
 }
