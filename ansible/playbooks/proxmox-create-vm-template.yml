@@ -15,10 +15,10 @@
       # url to download directly to Proxmox
       # local to upload from control node to Proxmox
       - name: ubuntu-server-2304
-        url: https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64-disk-kvm.img
+        url: https://cloud-images.ubuntu.com/lunar/current/lunar-server-cloudimg-amd64-disk-kvm.img
         install_qemu_guest_agent: true
-      - name: rhel9
-        local: /path/to/rhel9.qcow2
+      # - name: rhel9
+      #  local: /path/to/rhel9.qcow2
   pre_tasks:
     - name: "Ensure image directory exists {{ proxmox_image_directory }}"
       ansible.builtin.file:
@@ -109,7 +109,7 @@
 
     - name: Attach disk to Proxmox VM
       ansible.builtin.command:
-        cmd: "qm set {{ (proxmox_next_vm_id | int) + index }} --scsihw virtio-scsi-single --scsi0 {{ proxmox_storage_name }}:vm-{{ (proxmox_next_vm_id | int) + index }}-disk-0,discard=on,iothread=1"
+        cmd: "qm set {{ (proxmox_next_vm_id | int) + index }} --scsihw virtio-scsi-single --virtio0 {{ proxmox_storage_name }}:vm-{{ (proxmox_next_vm_id | int) + index }}-disk-0,discard=on,iothread=1"
       loop: "{{ images }}"
       loop_control:
         index_var: index
@@ -125,7 +125,7 @@
 
     - name: Configure boot order, serial console and DHCP on Proxmox VM
       ansible.builtin.command:
-        cmd: "qm set {{ (proxmox_next_vm_id | int) + index }} --boot c --bootdisk scsi0 --serial0 socket --vga serial0 --ipconfig0 ip=dhcp"
+        cmd: "qm set {{ (proxmox_next_vm_id | int) + index }} --boot c --bootdisk virtio0 --serial0 socket --vga serial0 --ipconfig0 ip=dhcp"
       loop: "{{ images }}"
       loop_control:
         index_var: index
@@ -133,7 +133,7 @@
 
     - name: Resize Proxmox VM disk
       ansible.builtin.command:
-        cmd: "qm resize {{ (proxmox_next_vm_id | int) + index }} scsi0 50G"
+        cmd: "qm resize {{ (proxmox_next_vm_id | int) + index }} virtio0 50G"
       loop: "{{ images }}"
       loop_control:
         index_var: index
