@@ -2,6 +2,8 @@
 # control group_vars
 k3s_control_node: true
 k3s_server:
+  node-taint:
+    - "CriticalAddonsOnly=true:NoSchedule"
   node-ip: "{{ ansible_host }}"
   tls-san:
     - "{{ kube_vip_address }}"
