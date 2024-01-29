@@ -14,8 +14,8 @@
     images:
       # url to download directly to Proxmox
       # local to upload from control node to Proxmox
-      - name: ubuntu-server-2304
-        url: https://cloud-images.ubuntu.com/lunar/current/lunar-server-cloudimg-amd64-disk-kvm.img
+      - name: ubuntu-server-2204
+        url: https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64-disk-kvm.img
         install_qemu_guest_agent: true
       # - name: rhel9
       #  local: /path/to/rhel9.qcow2
