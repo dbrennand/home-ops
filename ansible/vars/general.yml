@@ -1,6 +1,8 @@
 ---
 # vars file for setup-playbook.yml
+# Name of the user and group to ensure exists
 username: daniel
+# Packages to install
 packages:
   - sudo
   - ncdu
