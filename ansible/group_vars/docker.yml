@@ -15,10 +15,3 @@ docker_daemon_options:
   log-opts:
     max-size: "10m"
     max-file: "3"
-
-# geerlingguy.security vars
-# https://github.com/geerlingguy/ansible-role-security#role-variables
-security_ssh_allowed_users:
-  - "{{ ansible_user }}"
-security_sudoers_passwordless:
-  - "{{ ansible_user }}"
