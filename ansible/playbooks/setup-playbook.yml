@@ -29,7 +29,7 @@
         shell: /bin/bash
         state: present
 
-    - name: "Set authorized keys from GitHub | {{ username }}"
+    - name: "Set authorised keys from GitHub | {{ username }}"
       ansible.posix.authorized_key:
         user: "{{ username }}"
         state: present
