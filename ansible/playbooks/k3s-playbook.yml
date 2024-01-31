@@ -6,8 +6,7 @@
   pre_tasks:
     - name: Longhorn tasks
       when: not k3s_control_node
-      tags:
-        - longhorn
+      tags: longhorn
       block:
         - name: Install open-iscsi and nfs-common for Longhorn
           ansible.builtin.apt:

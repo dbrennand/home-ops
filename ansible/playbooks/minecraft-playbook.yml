@@ -15,8 +15,7 @@
         database: passwd
         key: "{{ ansible_user }}"
       become: true
-      tags:
-        - minecraft
+      tags: minecraft
   roles:
     - role: geerlingguy.pip
       become: true
@@ -24,8 +23,7 @@
       become: true
   tasks:
     - name: Minecraft Docker container tasks
-      tags:
-        - minecraft
+      tags: minecraft
       block:
         - name: Create Minecraft directory
           ansible.builtin.file:
@@ -76,8 +74,7 @@
 
     - name: Minecraft backup Docker container tasks
       when: minecraft_backup
-      tags:
-        - backup
+      tags: backup
       block:
         - name: Create Minecraft backup directory
           ansible.builtin.file:

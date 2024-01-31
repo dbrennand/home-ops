@@ -17,8 +17,7 @@
         - "{{ pihole_dnsmasq_directory }}"
 
     - name: Create Pi-hole local DNS (A/AAAA) configuration file from template
-      tags:
-        - records
+      tags: records
       ansible.builtin.template:
         src: ../templates/custom.list.j2
         dest: "{{ pihole_data_directory.path }}/custom.list"
@@ -26,8 +25,7 @@
       when: pihole_local_dns is defined
 
     - name: Create Pi-hole local DNS (CNAME) configuration file from template
-      tags:
-        - records
+      tags: records
       ansible.builtin.template:
         src: ../templates/05-pihole-custom-cname.conf.j2
         dest: "{{ pihole_dnsmasq_directory.path }}/05-pihole-custom-cname.conf"
