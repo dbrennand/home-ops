@@ -1,33 +1,35 @@
 ---
 - name: General | Setup Playbook
-  hosts: "{{ host_prompt }}"
+  hosts: all
   become: true
   vars_files:
     - ../vars/general.yml
   pre_tasks:
     - name: Ensure packages are installed
-      tags:
-        - packages
+      tags: packages
       ansible.builtin.apt:
         name: "{{ packages }}"
         update_cache: true
         cache_valid_time: 3600
 
-    - name: "Ensure group exists | {{ username }}"
-      ansible.builtin.group:
-        name: "{{ username }}"
-        state: present
+    - name: User operations
+      tags: user
+      block:
+        - name: "Ensure group exists | {{ username }}"
+          ansible.builtin.group:
+            name: "{{ username }}"
+            state: present
 
-    - name: "Ensure user exists | {{ username }}"
-      ansible.builtin.user:
-        name: "{{ username }}"
-        groups:
-          - sudo
-          - "{{ username }}"
-        password: "{{ lookup('community.general.onepassword', host_prompt, vault='Home-Ops') | password_hash('sha512') }}"
-        append: true
-        shell: /bin/bash
-        state: present
+        - name: "Ensure user exists | {{ username }}"
+          ansible.builtin.user:
+            name: "{{ username }}"
+            groups:
+              - sudo
+              - "{{ username }}"
+            password: "{{ lookup('community.general.onepassword', inventory_hostname, vault='Home-Ops') | password_hash('sha512') }}"
+            append: true
+            shell: /bin/bash
+            state: present
 
     - name: "Set authorised keys from GitHub | {{ username }}"
       ansible.posix.authorized_key:
