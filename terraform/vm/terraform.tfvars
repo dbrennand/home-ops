@@ -10,3 +10,4 @@ vm_tags     = ["", ""]
 vm_ip       = ""
 vm_username = ""
 vm_password = ""
+# virtual_environment_disk_datastore_id = ""

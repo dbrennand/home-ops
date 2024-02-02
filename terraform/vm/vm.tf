@@ -60,6 +60,8 @@ resource "proxmox_virtual_environment_vm" "vm" {
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#clone
   clone {
     vm_id = var.virtual_environment_template_vm_id
+    # Equivalent to "Full Clone" and modifying the "Target Storage" in Proxmox UI
+    datastore_id = var.virtual_environment_disk_datastore_id
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#cpu
@@ -82,6 +84,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#initialization
   initialization {
+    datastore_id = var.virtual_environment_disk_datastore_id
     ip_config {
       ipv4 {
         address = var.vm_ip
