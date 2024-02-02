@@ -12,6 +12,7 @@ all:
     exit01.net.dbren.uk:
     exit02.net.dbren.uk:
     minecraft01.net.dbren.uk:
+    minecraft02.net.dbren.uk:
     control01.net.dbren.uk:
     worker01.net.dbren.uk:
     worker02.net.dbren.uk:
@@ -21,6 +22,7 @@ all:
       hosts:
         pihole01.net.dbren.uk:
         minecraft01.net.dbren.uk:
+        minecraft02.net.dbren.uk:
     lxc:
       hosts:
         pihole02.net.dbren.uk:
@@ -46,6 +48,9 @@ all:
         minecraft01.net.dbren.uk:
           tailscale_tags:
             - external
+        minecraft02.net.dbren.uk:
+          tailscale_tags:
+            - external
         proxmox01.net.dbren.uk:
           tailscale_args: --accept-dns=false --ssh
         proxmox02.net.dbren.uk:
@@ -63,12 +68,12 @@ all:
         control:
           hosts:
             control01:
-              ansible_host: 192.168.0.10
+              ansible_host: 192.168.0.11
         workers:
           hosts:
             worker01:
-              ansible_host: 192.168.0.11
-            worker02:
               ansible_host: 192.168.0.12
-            worker03:
+            worker02:
               ansible_host: 192.168.0.13
+            worker03:
+              ansible_host: 192.168.0.14
