@@ -12,7 +12,9 @@ all:
     exit01.net.dbren.uk:
     exit02.net.dbren.uk:
     minecraft01.net.dbren.uk:
+      server_type: paper
     minecraft02.net.dbren.uk:
+      server_type: modded
     control01.net.dbren.uk:
     worker01.net.dbren.uk:
     worker02.net.dbren.uk:
