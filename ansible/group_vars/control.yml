@@ -12,6 +12,7 @@ k3s_server:
   disable:
     - traefik
     - servicelb
+    - metrics-server
 k3s_server_manifests_urls:
   # https://github.com/kube-vip/kube-vip
   # kube-vip rbac - https://kube-vip.io/docs/usage/k3s/#step-2-upload-kube-vip-rbac-manifest
