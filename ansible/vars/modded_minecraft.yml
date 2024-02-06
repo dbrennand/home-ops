@@ -1,36 +1,28 @@
 ---
 # vars file for minecraft-playbook.yml - server_type modded
+# Container image tag
 minecraft_image_tag: latest
 # https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html#parameter-memory
-minecraft_memory: "4096M"
+# Container memory limit
+minecraft_memory: "8G"
 # Container ports
 minecraft_ports:
   - "25565:25565"
+# Container volumes
+minecraft_volumes:
+  - "/home/{{ ansible_user }}/minecraft/:/data"
+  - "/home/{{ ansible_user }}/modpacks/:/modpacks"
 # All container environment variables can be found at: https://docker-minecraft-server.readthedocs.io/en/latest/configuration/server-properties
 minecraft_options:
   # DO NOT modify these variables
   EULA: "TRUE"
-  # https://docker-minecraft-server.readthedocs.io/en/latest/types-and-platforms/mod-platforms/auto-curseforge/
-  MOD_PLATFORM: AUTO_CURSEFORGE
+  TYPE: CURSEFORGE
   # Modify the below variables
+  VERSION: "1.20.1"
   # https://docker-minecraft-server.readthedocs.io/en/latest/configuration/jvm-options/#memory-limit
-  MEMORY: "{{ minecraft_memory }}"
-  # https://docker-minecraft-server.readthedocs.io/en/latest/types-and-platforms/mod-platforms/auto-curseforge/#api-key
-  CF_API_KEY: !vault |
-    $ANSIBLE_VAULT;1.1;AES256
-    62323032323863356365303666306434343361646335663936316364373832346235646662373866
-    6333396364646633356532633136343831643765663063300a663937336466636632373436646664
-    63393238613639386163313166656162376265323835646433323964373033623830613764393233
-    3539333164666638300a323531303833396636646334633932663131333566326364643139323738
-    30396662356561616334613232366235333638303936373631616361643235323533363464643965
-    37373761333863316438613331316535323933613334343265636536346462343662623639666265
-    646238653538376263643362663538663331
-  # https://docker-minecraft-server.readthedocs.io/en/latest/types-and-platforms/mod-platforms/auto-curseforge/#usage
-  CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/all-the-mods-9
-  # https://docker-minecraft-server.readthedocs.io/en/latest/types-and-platforms/mod-platforms/auto-curseforge/#exclude-client-mods
-  # Exclude https://www.curseforge.com/minecraft/mc-mods/anvil-never-too-expensive
-  # CF_EXCLUDE_MODS: "670282"
-  # CF_FORCE_SYNCHRONIZE: "true"
+  MEMORY: ""
+  JVM_XX_OPTS: "-XX:MaxRAMPercentage=80"
+  CF_SERVER_MOD: /modpacks/Server-Files-0.2.41.zip
   # https://docker-minecraft-server.readthedocs.io/en/latest/configuration/server-properties
   MOTD: A Modded Minecraft Server created using Ansible
   # https://docker-minecraft-server.readthedocs.io/en/latest/configuration/server-properties/#difficulty
