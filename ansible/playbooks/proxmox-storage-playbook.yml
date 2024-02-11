@@ -5,7 +5,7 @@
   vars:
     ssds:
       # Crucial SSD
-      - device: /dev/sda
+      - device: /dev/sdb
         partition_name: pv-ssd-crucial
         vg_name: vg-ssd-crucial
         lv_name: lv-ssd-crucial
