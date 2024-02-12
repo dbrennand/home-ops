@@ -67,7 +67,7 @@ minecraft_backup_options:
   # DO NOT modify this variable
   RCON_HOST: minecraft
   # Modify the below variables
-  BACKUP_INTERVAL: 24h
+  BACKUP_INTERVAL: 8h
   INITIAL_DELAY: 1m
   BACKUP_METHOD: restic
   RESTIC_REPOSITORY: b2:dabminecraftmodded
