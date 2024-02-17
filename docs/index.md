@@ -3,7 +3,7 @@
 ![](https://github.com/dbrennand/home-ops/actions/workflows/ansible-lint.yml/badge.svg)
 ![](https://github.com/dbrennand/home-ops/actions/workflows/gh-pages.yml/badge.svg)
 
-Mono repository for managing my Homelab 🏠 🛠 infrastructure and Kubernetes cluster.
+Mono repository for managing my Homelab infrastructure 🏠 🛠
 
 ## Overview 📝
 
@@ -23,17 +23,9 @@ The goals of this repository are:
 
 Ansible playbooks used to configure my homelab infrastructure and deploy applications are located in the [ansible](https://github.com/dbrennand/home-ops/tree/dev/ansible) directory.
 
-## Kubernetes Cluster 🚀
-
-Under construction 🚧 👷
-
 ## Taskfile 📋
 
 This repository uses [Taskfile](https://taskfile.dev) to quickly perform repetitive [tasks](https://github.com/dbrennand/home-ops/blob/dev/Taskfile.yml).
-
-## Acknowledgement 🙏
-
-I'd like to thank the members of the [K8s@Home](https://discord.gg/k8s-at-home) Discord community for their help and support, and sharing their Kubernetes cluster repositories.
 
 ## License
 

@@ -97,14 +97,10 @@ tasks:
         msg: Homebrew is not installed. See https://brew.sh/
     vars:
       TOOLS: >-
-        fluxcd/tap/flux
         sops
         age
-        helm
         jq
         yq
-        kubernetes-cli
-        kustomize
         gettext
         pyenv
       CASKS: >-
