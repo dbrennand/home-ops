@@ -16,10 +16,6 @@ all:
       server_type: paper
     minecraft02.net.dbren.uk:
       server_type: modded
-    control01.net.dbren.uk:
-    worker01.net.dbren.uk:
-    worker02.net.dbren.uk:
-    worker03.net.dbren.uk:
   children:
     docker:
       hosts:
@@ -66,17 +62,3 @@ all:
       hosts:
         proxmox01.net.dbren.uk:
         proxmox02.net.dbren.uk:
-    k3s:
-      children:
-        control:
-          hosts:
-            control01:
-              ansible_host: 192.168.0.11
-        workers:
-          hosts:
-            worker01:
-              ansible_host: 192.168.0.12
-            worker02:
-              ansible_host: 192.168.0.13
-            worker03:
-              ansible_host: 192.168.0.14
