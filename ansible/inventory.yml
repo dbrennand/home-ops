@@ -12,6 +12,7 @@ all:
     exit01.net.dbren.uk:
     exit02.net.dbren.uk:
     minecraft01.net.dbren.uk:
+      # Used in playbooks/minecraft-playbook.yml
       server_type: paper
     minecraft02.net.dbren.uk:
       server_type: modded
