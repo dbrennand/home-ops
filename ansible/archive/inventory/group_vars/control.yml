@@ -1,0 +1,27 @@
+---
+# control group_vars
+k3s_control_node: true
+k3s_server:
+  node-taint:
+    - "CriticalAddonsOnly=true:NoSchedule"
+  node-ip: "{{ ansible_host }}"
+  tls-san:
+    - "{{ kube_vip_address }}"
+  disable-cloud-controller: true
+  write-kubeconfig-mode: "644"
+  disable:
+    - traefik
+    - servicelb
+    - metrics-server
+k3s_server_manifests_urls:
+  # https://github.com/kube-vip/kube-vip
+  # kube-vip rbac - https://kube-vip.io/docs/usage/k3s/#step-2-upload-kube-vip-rbac-manifest
+  - url: https://raw.githubusercontent.com/kube-vip/kube-vip/v0.6.4/docs/manifests/rbac.yaml
+    filename: kube-vip-rbac.yaml
+  # kube-vip cloud controller - https://kube-vip.io/docs/usage/cloud-provider/
+  # https://github.com/kube-vip/kube-vip-cloud-provider
+  - url: https://raw.githubusercontent.com/kube-vip/kube-vip-cloud-provider/v0.0.9/manifest/kube-vip-cloud-controller.yaml
+    filename: kube-vip-cloud-controller.yaml
+k3s_server_manifests_templates:
+  - ../templates/kube-vip-daemonset.yml.j2
+  - ../templates/kubevip-configmap.yml.j2
