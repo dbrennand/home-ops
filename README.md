@@ -2,6 +2,7 @@
 
 ![Ansible-Lint](https://github.com/dbrennand/home-ops/actions/workflows/ansible-lint.yml/badge.svg)
 ![GitHub Pages](https://github.com/dbrennand/home-ops/actions/workflows/gh-pages.yml/badge.svg)
+![Terraform Lint](https://github.com/dbrennand/home-ops/actions/workflows/tflint.yml/badge.svg)
 
 Mono repository for managing my Homelab infrastructure 🏠 🛠
 
