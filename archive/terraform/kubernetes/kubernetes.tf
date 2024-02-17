@@ -1,4 +1,5 @@
 terraform {
+  required_version = ">= 1.7.3"
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
@@ -7,6 +8,10 @@ terraform {
     onepassword = {
       source  = "1Password/onepassword"
       version = "1.4.1"
+    }
+    external = {
+      source = "hashicorp/external"
+      version = "2.3.3"
     }
   }
 }
