@@ -37,7 +37,7 @@ all:
         pihole01.net.dbren.uk:
           # Overrides group_vars/tailscale.yml
           tailscale_args: &tailscale_dns |-
-            --accept-dns=false --ssh --advertise-routes=192.168.0.2/32,192.168.0.3/32,192.168.0.4/32,192.168.0.5/32
+            --accept-dns=false --ssh --advertise-routes=192.168.0.2/32,192.168.0.3/32,192.168.0.4/32,192.168.0.5/32,192.168.0.10/32
           tailscale_tags:
             - home-ops
             - dns
