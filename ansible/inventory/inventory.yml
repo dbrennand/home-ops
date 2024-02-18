@@ -16,12 +16,14 @@ all:
       server_type: paper
     minecraft02.net.dbren.uk:
       server_type: modded
+    docker01.net.dbren.uk:
   children:
     docker:
       hosts:
         pihole01.net.dbren.uk:
         minecraft01.net.dbren.uk:
         minecraft02.net.dbren.uk:
+        docker01.net.dbren.uk:
     lxc:
       hosts:
         pihole02.net.dbren.uk:
@@ -58,6 +60,7 @@ all:
           tailscale_args: --ssh --advertise-exit-node
         exit02.net.dbren.uk:
           tailscale_args: --ssh --advertise-exit-node
+        docker01.net.dbren.uk:
     proxmox:
       hosts:
         proxmox01.net.dbren.uk:
