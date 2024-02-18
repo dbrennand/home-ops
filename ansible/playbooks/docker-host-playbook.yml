@@ -1,0 +1,12 @@
+---
+- name: Docker Host | Setup
+  hosts: docker01.net.dbren.uk
+  vars_files:
+    - ../vars/docker_host.yml
+  roles:
+    - role: geerlingguy.pip
+      become: true
+    - role: geerlingguy.docker
+      become: true
+    - role: dbrennand.caddy_docker
+      tags: caddy

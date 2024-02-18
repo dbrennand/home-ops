@@ -13,3 +13,4 @@ The Ansible playbooks in this repository are used to configure my homelab server
 - [tailscale-playbook.yml](playbooks/tailscale-playbook.yml): Install or update Tailscale.
 - [lxc-journald-playbook.yml](playbooks/lxc-journald-playbook.yml): Configure LXC containers journald logging.
 - [setup-playbook.yml](playbooks/setup-playbook.yml): General setup for new servers.
+- [docker-host-playbook.yml](playbooks/docker-host-playbook.yml): Docker host setup.

@@ -1,0 +1,48 @@
+---
+# vars file for docker-host-playbook.yml
+# dbrennand.caddy_docker role vars
+# https://github.com/dbrennand/ansible-role-caddy-docker
+caddy_docker_config_directory:
+  path: "/home/{{ ansible_user }}/caddy/config/"
+caddy_docker_data_directory:
+  path: "/home/{{ ansible_user }}/caddy/data/"
+caddy_docker_caddyfile_file:
+  path: "/home/{{ ansible_user }}/caddy/Caddyfile"
+caddy_docker_caddyfile: |-
+  {
+          email {$ACME_EMAIL}
+  }
+
+  # Cloudflare DNS-01 challenge
+  (cloudflare) {
+          tls {
+                  dns cloudflare {$CLOUDFLARE_API_TOKEN}
+          }
+  }
+caddy_docker_image: caddy:2.7.6-alpine
+caddy_docker_builder_image: caddy:2.7.6-builder
+caddy_docker_plugins:
+  # Allows Caddy to obtain TLS certificates for a Cloudflare managed domain
+  - github.com/caddy-dns/cloudflare@2fa0c8ac916ab13ee14c836e59fec9d85857e429
+  # Allows Caddy site config to be applied via Docker container labels
+  - github.com/lucaslorentz/caddy-docker-proxy/v2@v2.8.10
+caddy_docker_environment_variables:
+  # Variables used in the Caddyfile
+  DOMAIN: "net.dbren.uk"
+  # https://github.com/dbrennand/ansible-role-caddy-docker/blob/main/README.md#example---cloudflare-dns-01-challenge
+  CLOUDFLARE_API_TOKEN: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    38316330363336356630323963626331373435306630333961373364373537396266353035653866
+    3436363465356366313930373735633535633433363537320a366238326131633163653031393936
+    36346464656332303662323964373464376236313062313233386164623734316566383163643266
+    6561326238376237330a613936616136313033393337623361623132663332613137373665346463
+    37643730623564353030383938303330376435363662393235386332626530396531613236373438
+    6430353731653831663537646562313538323965323939613761
+  # The email address used to receive notifications from Let's Encrypt
+  ACME_EMAIL: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    36626261633739313534323734353332306230316461343064623562663238623639333463613962
+    3932336461663165613633383361663837383634313265620a373538633634623834626534386330
+    31353037306431623338653436376534363763333132323932373032663633653132303831646335
+    6535346133396366620a613064623433356164386563356462306261333261663766383966616332
+    39653835323562643130613666363633616138383861346464366537333930333463
