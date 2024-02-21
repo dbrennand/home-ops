@@ -33,6 +33,9 @@ caddy_docker_extra_volumes:
 caddy_docker_environment_variables:
   # Variables used in the Caddyfile
   DOMAIN: "net.dbren.uk"
+  # https://github.com/lucaslorentz/caddy-docker-proxy#caddy-cli
+  CADDY_INGRESS_NETWORKS: caddy
+  CADDY_DOCKER_CADDYFILE_PATH: /etc/caddy/Caddyfile
   # https://github.com/dbrennand/ansible-role-caddy-docker/blob/main/README.md#example---cloudflare-dns-01-challenge
   CLOUDFLARE_API_TOKEN: !vault |
     $ANSIBLE_VAULT;1.1;AES256
