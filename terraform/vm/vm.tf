@@ -72,6 +72,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#cpu
   cpu {
     cores = var.vm_cores
+    type  = "host"
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#disk
