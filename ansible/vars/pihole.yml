@@ -33,6 +33,8 @@ pihole_local_dns:
     ip: "192.168.0.9"
   - domain: "docker01.{{ pihole_domain }}"
     ip: "192.168.0.10"
+  - domain: "backup01.{{ pihole_domain }}"
+    ip: "192.168.0.11"
 # CNAME records for local DNS
 pihole_cname_records:
   - domain: "vikunja.{{ pihole_domain }}"
