@@ -5,6 +5,7 @@ username: daniel
 # Packages to install
 packages:
   - sudo
+  - lm-sensors
   - ncdu
   - htop
   - vim
