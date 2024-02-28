@@ -14,3 +14,4 @@ The Ansible playbooks in this repository are used to configure my homelab server
 - [lxc-journald-playbook.yml](playbooks/lxc-journald-playbook.yml): Configure LXC containers journald logging.
 - [setup-playbook.yml](playbooks/setup-playbook.yml): General setup for new servers.
 - [docker-host-playbook.yml](playbooks/docker-host-playbook.yml): Docker host setup.
+- [proxmox-backup-cifs.yml](playbooks/proxmox-backup-cifs.yml): Mount CIFS share on Proxmox Backup server.
