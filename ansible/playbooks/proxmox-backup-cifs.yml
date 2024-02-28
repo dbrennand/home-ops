@@ -41,7 +41,7 @@
         state: present
 
     - name: Mount CIFS Share
-      notify: daemon-reload
+      notify: Reload systemd daemon
       ansible.posix.mount:
         src: "{{ cifs_share }}"
         path: "{{ mountpoint }}"
