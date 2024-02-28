@@ -3,7 +3,7 @@
   hosts: backup01.net.dbren.uk
   become: true
   handlers:
-    - name: daemon-reload
+    - name: Reload systemd daemon
       ansible.builtin.systemd:
         daemon_reload: true
   vars:
