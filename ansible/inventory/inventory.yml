@@ -32,9 +32,6 @@ all:
         exit01.net.dbren.uk:
         exit02.net.dbren.uk:
     tailscale:
-      vars:
-        tailscale_tags:
-          - home-ops
       hosts:
         pihole01.net.dbren.uk:
           # Overrides group_vars/tailscale.yml
