@@ -1,8 +1,6 @@
 ---
 - name: Minecraft | Provision Server
-  hosts:
-    - minecraft01.net.dbren.uk
-    - minecraft02.net.dbren.uk
+  hosts: minecraft
   pre_tasks:
     - name: Update apt cache
       ansible.builtin.apt:

@@ -20,6 +20,10 @@ all:
     backup01.net.dbren.uk:
       ansible_user: root
   children:
+    minecraft:
+      hosts:
+        minecraft01.net.dbren.uk:
+        minecraft02.net.dbren.uk:
     docker:
       hosts:
         pihole01.net.dbren.uk:
