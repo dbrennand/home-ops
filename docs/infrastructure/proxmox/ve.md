@@ -211,3 +211,33 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
     ```bash
     bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install
     ```
+
+## Configure Backup Schedule
+
+!!! note
+
+    The following steps are to be completed once the [Proxmox Backup Server](https://homeops.danielbrennand.com/infrastructure/proxmox/backup/) has been deployed and configured.
+
+1. Navigate to the Proxmox GUI on Node 1 (Primary) and go to `Datacenter` > `Storage` > `Add` and choose `Proxmox Backup Server`.
+
+2. Enter the following details and click **Add**:
+
+    | Setting     | Value                                                          |
+    | ----------- | -------------------------------------------------------------- |
+    | ID          | `backup01`                                                     |
+    | Server      | `backup01.net.dbren.uk`                                        |
+    | Datastore   | `backup01`                                                     |
+    | Username    | `root@pam`                                                     |
+    | Password    | Enter password                                                 |
+    | Fingerprint | Copy from Proxmox Backup Server Dashboard > `Show Fingerprint` |
+
+3. Navigate to `Datacenter` > `Backup` > `Add` and enter the following details:
+
+    | Setting        | Value                    |
+    | -------------- | ------------------------ |
+    | Storage        | `backup01`               |
+    | Schedule       | `0/6:00` (every 6 hours) |
+    | Selection Mode | `Include selected VMs`   |
+    | Mode           | `Snapshot`               |
+
+    Select all the VMs/CTs excluding `backup01` and click **OK**.
