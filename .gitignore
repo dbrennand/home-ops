@@ -1,4 +1,5 @@
 .vscode
 .terraform*
 *.tfstate*
+terraform.tfvars
 .DS_Store
