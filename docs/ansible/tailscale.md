@@ -12,8 +12,35 @@ The [Tailscale playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/
 
 ### Tailscale Auth Key
 
-Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register devices with the Tailnet and populate the `tailscale_auth_key` variable in the [ansible/inventory/group_vars/tailscale.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars/tailscale.yml).
+Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register devices with the Tailnet and populate the `tailscale_auth_key` variable in the [`ansible/inventory/group_vars/tailscale.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars/tailscale.yml).
 
 ### Host Variables
 
-Host variables for configuring Tailscale are located in [ansible/inventory/inventory.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/inventory.yml#L34).
+Host variables for configuring Tailscale are located in [`ansible/inventory/inventory.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/inventory.yml#L38).
+
+## Usage
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/dbrennand/home-ops.git && cd home-ops/ansible
+    ```
+
+2. Create the Python virtual environment and install Ansible dependencies:
+
+    ```bash
+    task venv
+    task ansible:requirements
+    ```
+
+3. Verify Ansible can connect to the servers:
+
+    ```bash
+    task ansible:adhoc -- tailscale -m ping
+    ```
+
+4. Run the playbook:
+
+    ```bash
+    task ansible:play -- playbooks/tailscale-playbook.yml
+    ```

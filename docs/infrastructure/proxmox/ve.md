@@ -1,8 +1,8 @@
-# Proxmox
+# Proxmox Virtual Environment (VE)
 
-!!! quote "What is Proxmox?"
+!!! quote "What is Proxmox VE?"
 
-    [Proxmox Virtual Environment](https://www.proxmox.com/en/) is a complete open-source platform for enterprise virtualization. With the built-in web interface you can easily manage VMs and containers, software-defined storage and networking, high-availability clustering, and multiple out-of-the-box tools using a single solution.
+    [Proxmox Virtual Environment](https://proxmox.com/en/proxmox-virtual-environment/overview) is a complete open-source platform for enterprise virtualization. With the built-in web interface you can easily manage VMs and containers, software-defined storage and networking, high-availability clustering, and multiple out-of-the-box tools using a single solution.
 
 ## Proxmox VE Specs
 
@@ -16,7 +16,6 @@
 | Memory             | 64GB DDR4 3200MHz SODIMM (2x32GB)                                                 |
 | Storage (Internal) | Samsung NVMe 970 EVO Plus 1TB                                                     |
 | Storage (External) | Crucial SSD MX500 2TB                                                             |
-| Storage (External) | Samsung SSD 870 QVO 1TB                                                           |
 | Storage (External) | 64GB USB                                                                          |
 
 
@@ -29,6 +28,7 @@
 | CPU                | Intel Celeron J3455 @ 1.50Ghz |
 | Memory             | 8GB                           |
 | Storage (Internal) | 240GB SSD                     |
+| Storage (External) | Samsung SSD 870 QVO 1TB       |
 
 ## Installation
 
@@ -75,7 +75,7 @@ ssh-copy-id root@proxmox01.net.dbren.uk
     lvextend -l +100%FREE /dev/pve/data
     ```
 
-2. Use the [proxmox-storage-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml) to configure the Proxmox storage on Node 1 (Primary).
+2. Use the [`proxmox-storage-playbook.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml) to configure the Proxmox storage on Node 1 (Primary).
 
 ### Establish Proxmox Cluster
 
@@ -107,10 +107,10 @@ Due to the Proxmox cluster only consisting of two nodes, there is no way to esta
 
 Without quorum, if one node goes down, the other node will not be able to determine if it is the only node left in the cluster or if the other node is still running. This is often referred to as a *split-brain* scenario. Luckily, Proxmox's Corosync supports an external vote server (known as a Corosync Quorum Device (QDevice)) to act as a tie-breaker. This lightweight daemon can be run on a device such as a Raspberry Pi.
 
-1. Execute the [proxmox-external-vote.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-external-vote.yml) playbook to configure the Proxmox nodes and external vote server on the Raspberry Pi:
+1. Execute the [`proxmox-external-vote.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-external-vote.yml) playbook to configure the Proxmox nodes and external vote server on the Raspberry Pi:
 
     ```bash
-    task ansible:play -- proxmox-external-vote.yml
+    cd ansible && task ansible:play -- playbooks/proxmox-external-vote.yml
     ```
 
 2. On Proxmox Node 1 (Primary), execute the following command to add the QDevice to the cluster:
@@ -168,7 +168,7 @@ Membership information
     | CF_Token   | `<Cloudflare API Token>` |
     | CF_Zone_ID | `<Cloudflare Zone ID>`   |
 
-4. Click **OK**.
+4. Click **Add**.
 
 5. Navigate to `Datacenter` > `proxmox01` > `Certificates` and under *ACME* click **Add**:
 
@@ -178,7 +178,7 @@ Membership information
     | Plugin         | `cloudflare`             |
     | Domain         | `proxmox01.net.dbren.uk` |
 
-6. Click **OK**.
+6. Click **Create**.
 
 7. Under *ACME* > for `Using Account` click **Edit** and select the `default` account and click **Apply**.
 

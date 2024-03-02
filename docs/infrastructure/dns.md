@@ -1,16 +1,16 @@
 # DNS
 
-Pi-hole is used for DNS in my Homelab and is configured to use Cloudflare as an upstream DNS provider. Two Pi-hole instances are deployed, the primary Pi-hole is deployed on a Raspberry Pi 3 and the secondary Pi-hole is deployed on Proxmox as an LXC container.
+Pi-hole is used for DNS in my Homelab and is configured to use Cloudflare as the upstream DNS provider. Two Pi-hole instances are deployed, the primary Pi-hole is deployed on a Raspberry Pi 3 and the secondary Pi-hole is deployed on Proxmox as an LXC container.
 
 In the event of a failure of the primary Pi-hole, the secondary Pi-hole will take over as it is configured as the secondary DNS server on my router.
 
 ## Primary Pi-hole
 
-The primary Pi-hole is configured using [Ansible](https://homeops.danielbrennand.com/ansible/pihole/).
+The primary Pi-hole (`pihole01`) is configured using [Ansible](https://homeops.danielbrennand.com/ansible/pihole/).
 
 ## Secondary Pi-hole
 
-The secondary Pi-hole is configured using the [Pi-hole LXC](https://github.com/tteck/Proxmox/raw/main/ct/pihole.sh) script on Proxmox Node 2 (Secondary):
+The secondary Pi-hole (`pihole02`) is configured using the [Pi-hole LXC](https://github.com/tteck/Proxmox/raw/main/ct/pihole.sh) script on Proxmox Node 2 (Secondary):
 
 ```bash
 bash -c "$(wget -qLO - https://github.com/tteck/Proxmox/raw/main/ct/pihole.sh)"
@@ -40,7 +40,7 @@ lxc.cgroup2.devices.allow: c 10:200 rwm
 lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
 ```
 
-Once complete, restart the LXC container and perform the Tailscale installation using the [tailscale-playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/tailscale-playbook.yml).
+Once complete, restart the LXC container and perform the Tailscale installation using the [Tailscale playbook](https://homeops.danielbrennand.com/ansible/tailscale/).
 
 ## Synchronising Pi-hole Configuration
 

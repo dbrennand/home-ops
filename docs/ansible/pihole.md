@@ -1,10 +1,10 @@
 # Pi-hole
 
-The Ansible [pihole-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/pihole-playbook.yml) is used to deploy and configure Pi-hole on my Raspberry Pi 3 in my Homelab.
+The [Pi-hole playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/pihole-playbook.yml) is used to deploy and configure Pi-hole on my Raspberry Pi 3 in my Homelab.
 
 ## Overview
 
-The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https://pi-hole.net/) in a container. Furthermore, I configure [Tailscale](https://tailscale.com/) to be able to get ad-blocking whilst on the go.
+The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https://pi-hole.net/) in a container. Furthermore, [Tailscale](https://tailscale.com/) is deployed to be able to get ad-blocking whilst on the go.
 
 ## Prerequisites
 
@@ -61,7 +61,7 @@ Generate a Cloudflare API Token using the following [instructions](https://githu
 
 ## Playbook Requirements & Variables
 
-The variables for this playbook are located in [ansible/vars/pihole.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/pihole.yml).
+The variables for this playbook are located in [`ansible/vars/pihole.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/pihole.yml).
 
 ## Usage
 
