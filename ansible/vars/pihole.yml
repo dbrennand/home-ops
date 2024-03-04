@@ -37,6 +37,8 @@ pihole_local_dns:
     ip: "192.168.0.11"
 # CNAME records for local DNS
 pihole_cname_records:
+  - domain: "auth.{{ pihole_domain }}"
+    target: "docker01.{{ pihole_domain }}"
   - domain: "vikunja.{{ pihole_domain }}"
     target: "docker01.{{ pihole_domain }}"
 # Pi-hole container image tag
