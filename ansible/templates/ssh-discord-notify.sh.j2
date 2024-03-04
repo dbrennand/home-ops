@@ -1,0 +1,20 @@
+#!/bin/bash
+# Author: Daniel Brennand
+# License: MIT
+# This script sends an SSH login notification using a Discord webhook.
+# Requirements:
+# - curl
+
+DISCORD_WEBHOOK="{{ discord_webhook }}"
+HOSTNAME="$(hostname)"
+
+if [[ "${PAM_TYPE}" == "open_session" ]]; then
+    MESSAGE="⚠️ ${HOSTNAME}: ${PAM_USER} logged in."
+elif [[ "${PAM_TYPE}" == "close_session" ]]; then
+    MESSAGE="${HOSTNAME}: ${PAM_USER} logged out."
+fi
+
+# Send a request only if MESSAGE is populated
+if [[ ! -z "${MESSAGE}" ]]; then
+    curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"${MESSAGE}\"}" "${DISCORD_WEBHOOK}"
+fi

@@ -48,3 +48,20 @@
       tags: security
     - role: ironicbadger.figurine
       tags: figurine
+  tasks:
+    - name: SSH login script
+      tags: ssh
+      block:
+        - name: Ensure SSH login script is present
+          ansible.builtin.template:
+            src: ../templates/ssh-discord-notify.sh.j2
+            dest: /usr/local/sbin/ssh-discord-notify.sh
+            owner: root
+            group: root
+            mode: "0700"
+
+        - name: Add SSH login script to /etc/pam.d/sshd
+          ansible.builtin.lineinfile:
+            path: /etc/pam.d/sshd
+            line: "session optional pam_exec.so /usr/local/sbin/ssh-discord-notify.sh"
+            state: present
