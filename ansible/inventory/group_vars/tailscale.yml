@@ -15,3 +15,4 @@ tailscale_authkey: !vault |
 tailscale_args: --ssh
 tailscale_tags:
   - home-ops
+state: latest
