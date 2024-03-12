@@ -1,0 +1,40 @@
+---
+- name: General | Patch Playbook
+  hosts: all
+  become: true
+  vars_prompt:
+    - name: upgrade_all_packages
+      prompt: "Do you want to upgrade all packages? (yes/no)"
+      private: no
+  tasks:
+    - name: Patch | Update all packages
+      when: upgrade_all_packages | bool
+      block:
+        - name: Run apt-get update
+          ansible.builtin.apt:
+            update_cache: true
+            cache_valid_time: 3600
+
+        - name: List upgradable packages
+          ansible.builtin.command:
+            cmd: apt list --upgradable
+          register: upgradable_packages
+
+        - name: Show upgradable packages
+          ansible.builtin.debug:
+            var: upgradable_packages.stdout_lines
+
+        - name: Update all packages
+          ansible.builtin.apt:
+            name: "*"
+            state: latest
+            install_recommends: false
+
+        - name: Check if reboot is required
+          ansible.builtin.stat:
+            path: /var/run/reboot-required
+          register: reboot_required
+
+        - name: Reboot if required
+          ansible.builtin.reboot:
+          when: reboot_required.stat.exists
