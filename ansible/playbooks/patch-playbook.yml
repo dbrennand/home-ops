@@ -25,7 +25,7 @@
           ansible.builtin.debug:
             var: upgradable_packages.stdout_lines
 
-        - name: Update all packages #noqa package-latest
+        - name: Update all packages # noqa package-latest
           ansible.builtin.apt:
             name: "*"
             state: latest
