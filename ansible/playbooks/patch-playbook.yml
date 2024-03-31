@@ -5,7 +5,7 @@
   vars_prompt:
     - name: upgrade_all_packages
       prompt: "Do you want to upgrade all packages? (yes/no)"
-      private: no
+      private: false
   tasks:
     - name: Patch | Update all packages
       when: upgrade_all_packages | bool
@@ -18,13 +18,14 @@
         - name: List upgradable packages
           ansible.builtin.command:
             cmd: apt list --upgradable
+          changed_when: false
           register: upgradable_packages
 
         - name: Show upgradable packages
           ansible.builtin.debug:
             var: upgradable_packages.stdout_lines
 
-        - name: Update all packages
+        - name: Update all packages #noqa package-latest
           ansible.builtin.apt:
             name: "*"
             state: latest
@@ -36,5 +37,5 @@
           register: reboot_required
 
         - name: Reboot if required
-          ansible.builtin.reboot:
           when: reboot_required.stat.exists
+          ansible.builtin.reboot:
