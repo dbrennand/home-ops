@@ -9,6 +9,7 @@ exclude_paths:
   - .git/
   - mkdocs.yml
   - archive/
+  - docker/
   - ansible/playbooks/setup-playbook.yml
 skip_list:
   - yaml[line-length]
