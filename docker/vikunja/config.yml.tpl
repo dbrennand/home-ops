@@ -22,6 +22,6 @@ auth:
         # The auth url to send users to if they want to authenticate using OpenID Connect.
         authurl: https://auth.net.dbren.uk/application/o/vikunja/
         # The client ID used to authenticate Vikunja at the OpenID Connect provider.
-        clientid: {{ op://Apps/Vikunja/CLIENT_ID }}
+        clientid: {{ op://Home-Ops/Vikunja/CLIENT_ID }}
         # The client secret used to authenticate Vikunja at the OpenID Connect provider.
-        clientsecret: {{ op://Apps/Vikunja/CLIENT_SECRET }}
+        clientsecret: {{ op://Home-Ops/Vikunja/CLIENT_SECRET }}

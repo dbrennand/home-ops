@@ -4,7 +4,7 @@ storage:
 
 alerting:
   discord:
-    webhook-url: {{ op://Apps/Gatus/DISCORD_WEBHOOK }}
+    webhook-url: {{ op://Home-Ops/Gatus/DISCORD_WEBHOOK }}
 
 endpoints:
   - name: danielbrennand.com
