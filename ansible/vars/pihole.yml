@@ -31,16 +31,8 @@ pihole_local_dns:
     ip: "192.168.0.8"
   - domain: "minecraft02.{{ pihole_domain }}"
     ip: "192.168.0.9"
-  - domain: "docker01.{{ pihole_domain }}"
-    ip: "192.168.0.10"
   - domain: "backup01.{{ pihole_domain }}"
     ip: "192.168.0.11"
-# CNAME records for local DNS
-pihole_cname_records:
-  - domain: "auth.{{ pihole_domain }}"
-    target: "docker01.{{ pihole_domain }}"
-  - domain: "vikunja.{{ pihole_domain }}"
-    target: "docker01.{{ pihole_domain }}"
 # Pi-hole container image tag
 pihole_image_tag: "2024.01.0"
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
