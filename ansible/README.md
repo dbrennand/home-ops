@@ -15,3 +15,4 @@ The Ansible playbooks in this repository are used to configure my homelab server
 - [setup-playbook.yml](playbooks/setup-playbook.yml): General setup for new servers.
 - [docker-host-playbook.yml](playbooks/docker-host-playbook.yml): Docker host setup.
 - [proxmox-backup-cifs.yml](playbooks/proxmox-backup-cifs.yml): Mount CIFS share on Proxmox Backup server.
+- [k3s-playbook.yml](playbooks/k3s-playbook.yml): Build K3s cluster.
