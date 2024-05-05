@@ -3,6 +3,7 @@
 # Author: Daniel Brennand
 
 terraform {
+  required_version = ">= 1.6.2"
   # https://discuss.hashicorp.com/t/using-a-non-hashicorp-provider-in-a-module/21841/2
   required_providers {
     proxmox = {
