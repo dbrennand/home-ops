@@ -1,37 +1,48 @@
-# Terraform
+# Terraform / OpenTofu
 
-Terraform is used to deploy infrastructure in my Homelab.
+OpenTofu is used to deploy infrastructure in my Homelab.
 
-## Proxmox VE VM
+Resources located in [`terraform`](https://github.com/dbrennand/home-ops/tree/dev/terraform/) are used to manage:
 
-Resources located in [`terraform/vm`](https://github.com/dbrennand/home-ops/tree/dev/terraform/vm) are used to deploy new VMs on Proxmox VE using the [bpg/proxmox](https://github.com/bpg/terraform-provider-proxmox) Terraform provider.
+- Proxmox VMs
+- Pi-hole DNS records
 
-Default variables for VM deployment are located in [`terraform/vm/variables.tf`](https://github.com/dbrennand/home-ops/blob/dev/terraform/vm/variables.tf). These variables can be overridden in [`terraform/vm/terraform.tfvars`](https://github.com/dbrennand/home-ops/blob/dev/terraform/vm/terraform.tfvars). The VM resource is defined in [`terraform/vm/vm.tf`](https://github.com/dbrennand/home-ops/blob/dev/terraform/vm/vm.tf).
+## Module
 
-### Usage
+The OpenTofu [`proxmox_vm`](https://github.com/dbrennand/home-ops/tree/dev/terraform/modules/proxmox_vm) module is used to deploy VMs on Proxmox in a consistent manner from a VM template.
 
-1. Install Terraform:
+## Usage
 
-    ```bash
-    brew install terraform
-    ```
-
-2. Initialize Terraform providers:
+1. Install OpenTofu:
 
     ```bash
-    cd terraform/vm && terraform init
+    brew install opentofu
     ```
 
-3. Populate the `terraform.tfvars` file with the required variables.
-
-4. Plan the Terraform deployment:
+2. Initialize OpenTofu providers and S3 backend:
 
     ```bash
-    terraform plan
+    cd terraform && op run --env-file=./.env -- tofu init
     ```
 
-5. If everything looks good, apply the Terraform deployment:
+3. Populate the `.env` file with the required variables.
+
+4. Plan the deployment:
 
     ```bash
-    terraform apply
+    op run --env-file=./.env -- tofu plan
     ```
+
+5. If everything looks good, apply the deployment:
+
+    ```bash
+    op run --env-file=./.env -- tofu apply
+    ```
+
+### Destroying specific resources
+
+To destroy specific resources, use the `tofu destroy` command with the `-target` flag:
+
+```bash
+op run --env-file=./.env -- tofu destroy -target module.proxmox_vm_control01 -target module.proxmox_vm_worker01 -target module.proxmox_vm_worker02
+```
