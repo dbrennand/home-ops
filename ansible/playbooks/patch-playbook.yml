@@ -1,41 +1,51 @@
 ---
 - name: General | Patch Playbook
-  hosts: all
+  hosts: virtualdevices
   become: true
-  vars_prompt:
-    - name: upgrade_all_packages
-      prompt: "Do you want to upgrade all packages? (yes/no)"
-      private: false
+  pre_tasks:
+    - name: Check if Docker is installed
+      ansible.builtin.stat:
+        path: /usr/bin/docker
+      register: docker_installed
+
+    - name: Stop all Docker containers
+      when: docker_installed.stat.exists
+      changed_when: false
+      ansible.builtin.command:
+        cmd: docker stop $(docker ps -a -q)
   tasks:
-    - name: Patch | Update all packages
-      when: upgrade_all_packages | bool
-      block:
-        - name: Run apt-get update
-          ansible.builtin.apt:
-            update_cache: true
-            cache_valid_time: 3600
+    - name: Run apt-get update
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
 
-        - name: List upgradable packages
-          ansible.builtin.command:
-            cmd: apt list --upgradable
-          changed_when: false
-          register: upgradable_packages
+    - name: List upgradable packages
+      ansible.builtin.command:
+        cmd: apt list --upgradable
+      changed_when: false
+      register: upgradable_packages
 
-        - name: Show upgradable packages
-          ansible.builtin.debug:
-            var: upgradable_packages.stdout_lines
+    - name: Show upgradable packages
+      ansible.builtin.debug:
+        var: upgradable_packages.stdout_lines
 
-        - name: Update all packages # noqa package-latest
-          ansible.builtin.apt:
-            name: "*"
-            state: latest
-            install_recommends: false
+    - name: Update all packages # noqa package-latest
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+        install_recommends: false
 
-        - name: Check if reboot is required
-          ansible.builtin.stat:
-            path: /var/run/reboot-required
-          register: reboot_required
+    - name: Check if reboot is required
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_required
 
-        - name: Reboot if required
-          when: reboot_required.stat.exists
-          ansible.builtin.reboot:
+    - name: Reboot if required
+      when: reboot_required.stat.exists
+      ansible.builtin.reboot:
+  post_tasks:
+    - name: Start all Docker containers
+      when: docker_installed.stat.exists
+      changed_when: false
+      ansible.builtin.command:
+        cmd: docker start $(docker ps -a -q)
