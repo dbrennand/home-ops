@@ -1,0 +1,9 @@
+---
+# https://kube-vip.io/docs/usage/cloud-provider/
+apiVersion: v1
+data:
+  range-global: "{{ kube_vip_cloud_controller_range_global }}"
+kind: ConfigMap
+metadata:
+  name: kubevip
+  namespace: kube-system

@@ -1,0 +1,5 @@
+---
+# workers group_vars
+k3s_control_node: false
+k3s_agent:
+  node-ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
