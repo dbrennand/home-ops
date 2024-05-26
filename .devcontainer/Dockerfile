@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.title "home-ops"
 LABEL org.opencontainers.image.description "home-ops VSCode Dev Container"
 
 # mkdocs-material
-RUN pip install mkdocs-material==9.5.19
+RUN pip install mkdocs-material==9.5.24
 
 # OpenTofu
-COPY --from=ghcr.io/opentofu/opentofu:1.6.2 /usr/local/bin/tofu /usr/local/bin/tofu
+COPY --from=ghcr.io/opentofu/opentofu:1.7.1 /usr/local/bin/tofu /usr/local/bin/tofu
