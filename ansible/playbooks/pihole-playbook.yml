@@ -34,7 +34,6 @@
   roles:
     - role: geerlingguy.security
       become: true
-    - role: artis3n.tailscale
     - role: geerlingguy.pip
       become: true
     - role: geerlingguy.docker
