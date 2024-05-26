@@ -22,9 +22,9 @@
     source ~/.zshrc
     ```
 
-3. Install Python 3.11 and set the global Python version:
+3. Install Python 3.12 and set the global Python version:
 
     ```bash
-    pyenv install 3.11.1
-    pyenv global 3.11.1
+    pyenv install 3.12.3
+    pyenv global 3.12.3
     ```
