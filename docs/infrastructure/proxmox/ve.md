@@ -233,11 +233,11 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
 
 3. Navigate to `Datacenter` > `Backup` > `Add` and enter the following details:
 
-    | Setting        | Value                    |
-    | -------------- | ------------------------ |
-    | Storage        | `backup01`               |
-    | Schedule       | `0/6:00` (every 6 hours) |
-    | Selection Mode | `Include selected VMs`   |
-    | Mode           | `Snapshot`               |
+    | Setting        | Value                      |
+    | -------------- | -------------------------- |
+    | Storage        | `backup01`                 |
+    | Schedule       | `0/12:00` (every 12 hours) |
+    | Selection Mode | `Include selected VMs`     |
+    | Mode           | `Snapshot`                 |
 
     Select all the VMs/CTs excluding `backup01` and click **OK**.
