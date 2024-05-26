@@ -4,7 +4,7 @@ The [Pi-hole playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/pl
 
 ## Overview
 
-The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https://pi-hole.net/) in a container. Furthermore, [Tailscale](https://tailscale.com/) is deployed to be able to get ad-blocking whilst on the go.
+The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https://pi-hole.net/) in a container.
 
 ## Prerequisites
 
@@ -50,10 +50,6 @@ The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https
     apt-get update && apt-get upgrade -y
     reboot
     ```
-
-### Tailscale
-
-Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register the Raspberry Pi 3 with your Tailnet.
 
 ### Cloudflare API Token (DNS-01 Challenge)
 
