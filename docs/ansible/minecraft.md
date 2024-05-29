@@ -38,6 +38,20 @@ To run ATM9 on the `minecraft02` server, the modpack server ZIP file must be sta
 
 The playbook is configured to deploy the [itzg/mc-backup](https://github.com/itzg/docker-mc-backup) container image which will backup the Minecraft server files and world to a Backblaze B2 S3 bucket.
 
+### itzg/mc-backup - Removing Stale Locks
+
+You may come across the following error in the logs. This occurs when the server is shut down unexpectedly during a backup and the lock file is not removed:
+
+```
+ERROR the `unlock` command can be used to remove stale locks
+```
+
+To resolve this, run the following command:
+
+```bash
+docker restart minecraft-backup; docker exec -it minecraft-backup restic -r b2:<bucket name> unlock
+```
+
 ### Backblaze B2 S3 Bucket
 
 - Create a [Backblaze B2 bucket](https://help.backblaze.com/hc/en-us/articles/1260803542610-Creating-a-B2-Bucket-using-the-Web-UI) with the following settings:
