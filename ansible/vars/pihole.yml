@@ -76,8 +76,9 @@ caddy_docker_caddyfile: |-
           import cloudflare
           reverse_proxy pihole:80
   }
-caddy_docker_image: caddy:2.7.6-alpine
-caddy_docker_builder_image: caddy:2.7.6-builder
+caddy_docker_image: caddy:2.8.4-alpine
+caddy_docker_builder_image: caddy:2.8.4-builder
+# caddy_docker_builder_force: true
 caddy_docker_plugins:
   # Allows Caddy to obtain TLS certificates for a Cloudflare managed domain
   - github.com/caddy-dns/cloudflare@2fa0c8ac916ab13ee14c836e59fec9d85857e429
