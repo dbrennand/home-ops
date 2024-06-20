@@ -10,7 +10,7 @@ roles:
   - name: dbrennand.caddy_docker
     version: 3.2.0
   - name: artis3n.tailscale
-    version: v4.2.2
+    version: v4.5.0
   - name: geerlingguy.docker
     version: 6.1.0
   - name: geerlingguy.pip
