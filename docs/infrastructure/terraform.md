@@ -19,13 +19,17 @@ The OpenTofu [`proxmox_vm`](https://github.com/dbrennand/home-ops/tree/dev/terra
     brew install opentofu
     ```
 
-2. Initialize OpenTofu providers and S3 backend:
+2. Populate the `.env` file with the required variables:
 
     ```bash
-    cd terraform && op run --env-file=./.env -- tofu init
+    cd terraform && vim .env
     ```
 
-3. Populate the `.env` file with the required variables.
+3. Initialize OpenTofu providers and S3 backend:
+
+    ```bash
+    op run --env-file=./.env -- tofu init
+    ```
 
 4. Plan the deployment:
 
