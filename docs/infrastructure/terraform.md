@@ -22,7 +22,9 @@ The OpenTofu [`proxmox_vm`](https://github.com/dbrennand/home-ops/tree/dev/terra
 2. Populate the `.env` file with the required variables:
 
     ```bash
-    cd terraform && vim .env
+    cd terraform
+    cp .env.example .env
+    vim .env
     ```
 
 3. Initialize OpenTofu providers and S3 backend:
