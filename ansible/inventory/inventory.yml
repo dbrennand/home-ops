@@ -18,19 +18,7 @@ all:
       server_type: modded
     backup01.net.dbren.uk:
       ansible_user: root
-    control01.net.dbren.uk:
-    worker01.net.dbren.uk:
-    worker02.net.dbren.uk:
   children:
-    k3s:
-      children:
-        control:
-          hosts:
-            control01.net.dbren.uk:
-        workers:
-          hosts:
-            worker01.net.dbren.uk:
-            worker02.net.dbren.uk:
     minecraft:
       hosts:
         minecraft01.net.dbren.uk:
@@ -85,6 +73,3 @@ all:
         backup01.net.dbren.uk:
         pihole02.net.dbren.uk:
         exit02.net.dbren.uk:
-        control01.net.dbren.uk:
-        worker01.net.dbren.uk:
-        worker02.net.dbren.uk:
