@@ -1,4 +1,4 @@
-# Tailscale
+# Ansible | Tailscale
 
 !!! quote "What is Tailscale?"
 
@@ -8,15 +8,13 @@
 
 The [Tailscale playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/tailscale-playbook.yml) is used to deploy Tailscale onto infrastructure in my Homelab. The playbook uses the [artis3n.tailscale](https://github.com/artis3n/ansible-role-tailscale) Ansible role to manage the installation and configuration of Tailscale.
 
-## Configuration
+## Tailscale Auth Key
 
-### Tailscale Auth Key
+Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register devices with the Tailnet and populate the `tailscale_auth_key` variable in [`ansible/inventory/group_vars/tailscale.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars/tailscale.yml).
 
-Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register devices with the Tailnet and populate the `tailscale_auth_key` variable in the [`ansible/inventory/group_vars/tailscale.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars/tailscale.yml).
+## Host Variables
 
-### Host Variables
-
-Host variables for configuring Tailscale are located in [`ansible/inventory/inventory.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/inventory.yml#L38).
+Host variables for configuring Tailscale are located in [`ansible/inventory/inventory.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/inventory.yml).
 
 ## Usage
 

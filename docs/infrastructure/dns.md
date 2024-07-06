@@ -16,8 +16,6 @@ The secondary Pi-hole (`pihole02`) is configured using the [Pi-hole LXC](https:/
 bash -c "$(wget -qLO - https://github.com/tteck/Proxmox/raw/main/ct/pihole.sh)"
 ```
 
-I decided to use this script to avoid re-inventing the wheel and to learn more about LXC containers as at the time of writing this, I had no experience with LXC containers on Proxmox.
-
 This script creates a Debian LXC container named `pihole02` and configures it to use the `vmbr0` bridge on Proxmox Node 2. The container is configured with the following resources:
 
 | Setting           | Value           |

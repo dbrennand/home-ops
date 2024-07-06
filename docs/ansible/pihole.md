@@ -1,6 +1,6 @@
-# Pi-hole
+# Ansible | Pi-hole
 
-The [Pi-hole playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/pihole-playbook.yml) is used to deploy and configure Pi-hole on my Raspberry Pi 3 in my Homelab.
+The Pi-hole [playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/pihole-playbook.yml) is used to deploy and configure Pi-hole on my Raspberry Pi 3 in my Homelab.
 
 ## Overview
 

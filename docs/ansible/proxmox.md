@@ -1,4 +1,4 @@
-# Proxmox
+# Ansible | Proxmox
 
 The following page contains information on the Proxmox related Ansible playbooks used in my Homelab.
 
@@ -6,10 +6,12 @@ The following page contains information on the Proxmox related Ansible playbooks
 
 The following playbooks are used to configure Proxmox VE in my Homelab:
 
-- [proxmox-create-vm-template.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-create-vm-template.yml): Create VM templates.
-- [proxmox-download-iso-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-download-iso-playbook.yml): Download ISOs to Proxmox.
-- [proxmox-storage-playbook.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml): Provision Proxmox LVM Storage.
-- [proxmox-external-vote.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-external-vote.yml): Proxmox Nodes - Cluster External Vote Support.
+| Playbook Name                                                                                                                             | Description                                    |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| [`proxmox-create-vm-template.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-create-vm-template.yml)       | Create VM templates.                           |
+| [`proxmox-download-iso-playbook.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-download-iso-playbook.yml) | Download ISOs to Proxmox.                      |
+| [`proxmox-storage-playbook.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml)           | Provision Proxmox LVM Storage.                 |
+| [`proxmox-external-vote.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-external-vote.yml)                 | Proxmox Nodes - Cluster External Vote Support. |
 
 See [dbrennand | home-ops - Proxmox](https://homeops.danielbrennand.com/infrastructure/proxmox/ve) for further details.
 
@@ -44,9 +46,11 @@ See [dbrennand | home-ops - Proxmox](https://homeops.danielbrennand.com/infrastr
 
 ## Proxmox Backup Server
 
-The following playbooks are used to configure the Proxmox Backup Server in my Homelab:
+The following playbooks are used to configure Proxmox Backup Server in my Homelab:
 
-- [proxmox-backup-cifs.yml](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-backup-cifs.yml): Mount CIFS Share.
+| Playbook Name                                                                                                         | Description       |
+| --------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| [`proxmox-backup-cifs.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-backup-cifs.yml) | Mount CIFS Share. |
 
 See [dbrennand | home-ops - Proxmox Backup Server](https://homeops.danielbrennand.com/infrastructure/proxmox/backup) for further details.
 

@@ -1,6 +1,6 @@
-# Minecraft
+# Ansible | Minecraft
 
-The [Minecraft playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/minecraft-playbook.yml) is used to deploy Minecraft servers on Ubuntu Server 22.04 LTS in my Homelab.
+The Minecraft [playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/minecraft-playbook.yml) is used to deploy Minecraft servers on Ubuntu Server 22.04 LTS in my Homelab.
 
 ## Ansible Playbook
 
@@ -16,11 +16,11 @@ The `minecraft02` server is deployed with the [All the Mods 9 (ATM9)](https://ww
 
 ### Staging the Modpack Server ZIP File
 
-To run ATM9 on the `minecraft02` server, the modpack server ZIP file must be staged on the server. The following steps outline how to stage the modpack server ZIP file:
+To run ATM9 on the `minecraft02` server, the modpack server ZIP file must be staged on the server prior to running the Ansible playbook.
 
-1. Download the modpack server ZIP file from the [CurseForge](https://www.curseforge.com/minecraft/modpacks/all-the-mods-9/files/5125809/additional-files) website.
+1. Download the modpack server ZIP file from [CurseForge](https://www.curseforge.com/minecraft/modpacks/all-the-mods-9/files/5125809/additional-files).
 
-2. SCP the modpack server ZIP file to the `minecraft02` server:
+2. SCP the modpack server ZIP file to `minecraft02`:
 
     ```bash
     ssh daniel@minecraft02.net.dbren.uk mkdir -pv ~/modpacks
@@ -36,17 +36,19 @@ To run ATM9 on the `minecraft02` server, the modpack server ZIP file must be sta
 
 ## Server Files & World Backup
 
-The playbook is configured to deploy the [itzg/mc-backup](https://github.com/itzg/docker-mc-backup) container image which will backup the Minecraft server files and world to a Backblaze B2 S3 bucket.
+The Ansible playbook is configured to deploy the [itzg/mc-backup](https://github.com/itzg/docker-mc-backup) container image which will backup the Minecraft server files and world to a Backblaze B2 S3 bucket. This occurs every 24 hours.
 
 ### itzg/mc-backup - Removing Stale Locks
 
-You may come across the following error in the logs. This occurs when the server is shut down unexpectedly during a backup and the lock file is not removed:
+You may come across the following error in the logs. This occurs when the server is shut down unexpectedly during a backup and the restic lock file is not removed:
 
-```
+```bash
+docker logs minecraft-backup
+# ...
 ERROR the `unlock` command can be used to remove stale locks
 ```
 
-To resolve this, run the following command:
+Remove the lock file by running `restic unlock`:
 
 ```bash
 docker restart minecraft-backup; docker exec -it minecraft-backup restic -r b2:<bucket name> unlock
