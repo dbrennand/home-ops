@@ -27,4 +27,4 @@ discord_webhook: !vault |
 # https://github.com/geerlingguy/ansible-role-security#role-variables
 security_ssh_allowed_users:
   - "{{ username }}"
-security_fail2ban_custom_configuration_template: "../templates/jail.local.j2"
+security_fail2ban_custom_configuration_template: "../templates/setup/jail.local.j2"

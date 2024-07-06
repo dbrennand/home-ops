@@ -54,7 +54,7 @@
       block:
         - name: Ensure SSH login script is present
           ansible.builtin.template:
-            src: ../templates/ssh-discord-notify.sh.j2
+            src: ../templates/setup/ssh-discord-notify.sh.j2
             dest: /usr/local/sbin/ssh-discord-notify.sh
             owner: root
             group: root
