@@ -14,17 +14,8 @@ data "onepassword_item" "pihole" {
   title = var.op_pihole_item_name
 }
 
-data "onepassword_item" "control01" {
+data "onepassword_item" "docker01" {
   vault = var.op_proxmox_virtual_environment_vault_name
-  title = "control01.net.dbren.uk"
+  title = "docker01.net.dbren.uk"
 }
 
-data "onepassword_item" "worker01" {
-  vault = var.op_proxmox_virtual_environment_vault_name
-  title = "worker01.net.dbren.uk"
-}
-
-data "onepassword_item" "worker02" {
-  vault = var.op_proxmox_virtual_environment_vault_name
-  title = "worker02.net.dbren.uk"
-}

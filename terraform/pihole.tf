@@ -42,24 +42,12 @@ resource "pihole_dns_record" "minecraft02" {
   ip     = "192.168.0.9"
 }
 
-# 192.168.0.10 - Kube-VIP floating IP
+resource "pihole_dns_record" "docker01" {
+  domain = "docker01.net.dbren.uk"
+  ip     = "192.168.0.10"
+}
 
 resource "pihole_dns_record" "backup01" {
   domain = "backup01.net.dbren.uk"
   ip     = "192.168.0.11"
-}
-
-resource "pihole_dns_record" "control01" {
-  domain = "control01.net.dbren.uk"
-  ip     = "192.168.0.12"
-}
-
-resource "pihole_dns_record" "worker01" {
-  domain = "worker01.net.dbren.uk"
-  ip     = "192.168.0.13"
-}
-
-resource "pihole_dns_record" "worker02" {
-  domain = "worker02.net.dbren.uk"
-  ip     = "192.168.0.14"
 }
