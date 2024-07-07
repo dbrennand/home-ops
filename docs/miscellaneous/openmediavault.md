@@ -1,4 +1,4 @@
-# OpenMediaVault 6
+# :simple-openmediavault: OpenMediaVault 6
 
 !!! quote "What is OpenMediaVault?"
 

@@ -1,4 +1,4 @@
-# Ansible | Pi-hole
+# :simple-pihole: Pi-hole
 
 The Pi-hole [playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/pihole-playbook.yml) is used to deploy and configure Pi-hole on my Raspberry Pi 3 in my Homelab.
 
@@ -55,7 +55,7 @@ The Raspberry Pi 3 in my Homelab acts as a DNS server by running [Pi-hole](https
 
 Generate a Cloudflare API Token using the following [instructions](https://github.com/dbrennand/ansible-role-caddy-docker#example---cloudflare-dns-01-challenge).
 
-## Playbook Requirements & Variables
+## :simple-ansible: Playbook Requirements & Variables
 
 The variables for this playbook are located in [`ansible/vars/pihole.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/pihole.yml).
 

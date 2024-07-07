@@ -1,4 +1,4 @@
-# Terraform / OpenTofu
+# :simple-terraform: Terraform / OpenTofu
 
 OpenTofu is used to deploy infrastructure in my Homelab.
 

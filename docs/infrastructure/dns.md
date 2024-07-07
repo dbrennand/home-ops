@@ -1,14 +1,14 @@
-# DNS
+# :material-dns-outline: DNS
 
 Pi-hole is used for DNS in my Homelab and is configured to use Cloudflare as the upstream DNS provider. Two Pi-hole instances are deployed, the primary Pi-hole is deployed on a Raspberry Pi 3 and the secondary Pi-hole is deployed on Proxmox as an LXC container.
 
 In the event of a failure of the primary Pi-hole, the secondary Pi-hole will take over as it is configured as the secondary DNS server on my router.
 
-## Primary Pi-hole
+## :simple-pihole: Primary Pi-hole
 
 The primary Pi-hole (`pihole01`) is configured using [Ansible](https://homeops.danielbrennand.com/ansible/pihole/).
 
-## Secondary Pi-hole
+## :simple-pihole: Secondary Pi-hole
 
 The secondary Pi-hole (`pihole02`) is configured using the [Pi-hole LXC](https://github.com/tteck/Proxmox/raw/main/ct/pihole.sh) script on Proxmox Node 2 (Secondary):
 
@@ -27,20 +27,7 @@ This script creates a Debian LXC container named `pihole02` and configures it to
 | IP Address        | 192.168.0.5     |
 | DNS Server        | 1.1.1.1         |
 
-## Tailscale
-
-Both Pi-hole instances are configured to use [Tailscale](https://tailscale.com/) to provide ad-blocking whilst on the go.
-
-For the secondary Pi-hole, the LXC container must be [configured](https://tailscale.com/kb/1130/lxc-unprivileged#instructions) to allow Tailscale to run in an unprivileged container. This is done by adding the following lines to the `/etc/pve/lxc/<container-id>.conf` file on Proxmox Node 2:
-
-```bash
-lxc.cgroup2.devices.allow: c 10:200 rwm
-lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
-```
-
-Once complete, restart the LXC container and perform the Tailscale installation using the [Tailscale playbook](https://homeops.danielbrennand.com/ansible/tailscale/).
-
-## Synchronising Pi-hole Configuration
+## :simple-pihole: Synchronising Pi-hole Configuration
 
 [Gravity-sync](https://github.com/vmstan/gravity-sync) is used to synchronise the Pi-hole configuration between the primary and secondary Pi-hole instances.
 
@@ -97,3 +84,16 @@ The following steps are taken from the gravity-sync [wiki](https://github.com/vm
     ```
 
 If you ever need to modify the configuration of gravity-sync, you can do so by editing the `/etc/gravity-sync/gravity-sync.conf` file.
+
+## :simple-tailscale: Tailscale
+
+Both Pi-hole instances are configured to use [Tailscale](https://tailscale.com/) to provide ad-blocking whilst on the go.
+
+For the secondary Pi-hole, the LXC container must be [configured](https://tailscale.com/kb/1130/lxc-unprivileged#instructions) to allow Tailscale to run in an unprivileged container. This is done by adding the following lines to the `/etc/pve/lxc/<container-id>.conf` file on Proxmox Node 2:
+
+```bash
+lxc.cgroup2.devices.allow: c 10:200 rwm
+lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+```
+
+Once complete, restart the LXC container and perform the Tailscale installation using the [Tailscale playbook](https://homeops.danielbrennand.com/ansible/tailscale/).

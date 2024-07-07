@@ -1,3 +1,5 @@
+# :simple-python: Python
+
 ## Installing Python 3.11
 
 ### MacOS

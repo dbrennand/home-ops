@@ -1,8 +1,8 @@
-# Ansible | Minecraft
+# :material-minecraft: Minecraft
 
 The Minecraft [playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/minecraft-playbook.yml) is used to deploy Minecraft servers on Ubuntu Server 22.04 LTS in my Homelab.
 
-## Ansible Playbook
+## :simple-ansible: Ansible Playbook
 
 The playbook configures two Minecraft servers, `minecraft01` and `minecraft02`; each with different configuration. Both Minecraft servers are deployed using the [itzg/minecraft-server](https://github.com/itzg/docker-minecraft-server) container image.
 

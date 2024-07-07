@@ -1,10 +1,10 @@
-# Ansible | Tailscale
+# :simple-tailscale: Tailscale
 
 !!! quote "What is Tailscale?"
 
     [Tailscale](https://tailscale.com/) is a VPN service that makes the devices and applications you own accessible anywhere in the world, securely and effortlessly. It enables encrypted point-to-point connections using the open source WireGuard protocol, which means only devices on your private network can communicate with each other.
 
-## Ansible Playbook
+## :simple-ansible: Ansible Playbook
 
 The [Tailscale playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/tailscale-playbook.yml) is used to deploy Tailscale onto infrastructure in my Homelab. The playbook uses the [artis3n.tailscale](https://github.com/artis3n/ansible-role-tailscale) Ansible role to manage the installation and configuration of Tailscale.
 

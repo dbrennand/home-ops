@@ -1,4 +1,4 @@
-# home-ops
+# :material-home: Home Operations
 
 ![](https://github.com/dbrennand/home-ops/actions/workflows/ansible-lint.yml/badge.svg)
 ![](https://github.com/dbrennand/home-ops/actions/workflows/gh-pages.yml/badge.svg)
@@ -6,7 +6,7 @@
 
 Mono repository for managing my Homelab infrastructure 🏠 🛠
 
-## Overview 📝
+## 📝 Overview
 
 !!! note
 
@@ -20,14 +20,14 @@ The goals of this repository are:
 - Document my homelab setup and configuration for future reference and in case of disaster recovery.
 - Share knowledge and learnings with others.
 
-## Ansible Playbooks ▶️
+## :simple-ansible: Ansible Playbooks
 
 Ansible playbooks used to configure my homelab infrastructure and deploy applications are located in the [ansible](https://github.com/dbrennand/home-ops/tree/dev/ansible) directory.
 
-## Taskfile 📋
+## 📋 Taskfile
 
 This repository uses [Taskfile](https://taskfile.dev) to quickly perform repetitive [tasks](https://github.com/dbrennand/home-ops/blob/dev/Taskfile.yml).
 
-## License
+## :material-license: License
 
 [MIT](https://github.com/dbrennand/home-ops/blob/dev/LICENSE)

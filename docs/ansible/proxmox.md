@@ -1,8 +1,8 @@
-# Ansible | Proxmox
+# :simple-proxmox: Proxmox
 
 The following page contains information on the Proxmox related Ansible playbooks used in my Homelab.
 
-## Proxmox Virtual Environment (VE)
+## :simple-ansible: Ansible Playbooks
 
 The following playbooks are used to configure Proxmox VE in my Homelab:
 

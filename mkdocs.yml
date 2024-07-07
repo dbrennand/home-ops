@@ -2,7 +2,9 @@
 theme:
   features:
     - content.code.copy
-    - navigation.indexes
+    - navigation.tracking
+    - navigation.expand
+    - navigation.top
   icon:
     repo: fontawesome/brands/git-alt
   name: material

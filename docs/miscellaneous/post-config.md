@@ -2,7 +2,7 @@
 
 This page contains instructions for configuring the applications deployed by the [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/archive/nuc/README.md).
 
-## Sonarr & Radarr
+## :simple-sonarr: Sonarr & :simple-radarr: Radarr
 
 1. Go to `Settings > Media Management` and click **Show Advanced**.
 
@@ -115,7 +115,7 @@ This page contains instructions for configuring the applications deployed by the
 
 12. Select an indexer from the list and when configuring, make sure to add the `privoxy` tag so traffic is routed through the proxy.
 
-## Jellyfin
+## :simple-jellyfin: Jellyfin
 
 1. Login to Jellyfin and under *Administration* go to `Dashboard > Libraries`.
 

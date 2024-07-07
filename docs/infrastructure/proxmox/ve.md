@@ -1,4 +1,4 @@
-# Proxmox Virtual Environment (VE)
+# :simple-proxmox: Proxmox Virtual Environment (VE)
 
 !!! quote "What is Proxmox VE?"
 
@@ -67,7 +67,7 @@ Copy SSH public key to the Proxmox VE node's `authorized_keys` file:
 ssh-copy-id root@proxmox01.net.dbren.uk
 ```
 
-### Storage
+### :material-harddisk: Storage
 
 1. Extend the Proxmox `data` logical volume on each node to use the remaining space in the volume group:
 
@@ -97,7 +97,7 @@ ssh-copy-id root@proxmox01.net.dbren.uk
 
 5. Wait for the cluster to establish. You will know when this has completed as on each node's GUIs you should now see the other node listed under `Datacenter`.
 
-#### Create External Vote Server
+#### :material-vote: Create External Vote Server
 
 Due to the Proxmox cluster only consisting of two nodes, there is no way to establish quorum.
 
@@ -136,7 +136,7 @@ Membership information
 0x00000000          1            Qdevice
 ```
 
-### HTTPS - Web Interface with Let's Encrypt
+### :simple-letsencrypt: HTTPS - Web Interface with Let's Encrypt
 
 !!! info "Cloudflare API Token & Zone ID"
 
@@ -186,7 +186,7 @@ Membership information
 
 Once completed, the `pveproxy.service` will reload the web interface and show the new certificate.
 
-### Scripts
+### :fontawesome-solid-terminal: Scripts
 
 !!! warning
 
@@ -212,7 +212,7 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
     bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install
     ```
 
-## Configure Backup Schedule
+## :material-clock-time-nine: Configure Backup Schedule
 
 !!! note
 

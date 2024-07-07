@@ -1,4 +1,4 @@
-# Proxmox Backup Server (PBS)
+# :simple-proxmox: Proxmox Backup Server (PBS)
 
 !!! quote "What is Proxmox Backup Server?"
 
@@ -138,7 +138,7 @@ proxmox-backup-manager verify-job create verify01 --store backup01 --schedule da
 
 Once completed, the PBS web interface will reload and show the new certificate.
 
-### Scripts
+### :fontawesome-solid-terminal: Scripts
 
 !!! warning
 
