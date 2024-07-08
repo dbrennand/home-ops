@@ -12,7 +12,7 @@ roles:
   - name: artis3n.tailscale
     version: v4.5.0
   - name: geerlingguy.docker
-    version: 6.1.0
+    version: 6.2.0
   - name: geerlingguy.pip
     version: 2.2.0
   - name: geerlingguy.security
