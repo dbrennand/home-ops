@@ -38,6 +38,8 @@ To run ATM9 on the `minecraft02` server, the modpack server ZIP file must be sta
 
 The Ansible playbook is configured to deploy the [itzg/mc-backup](https://github.com/itzg/docker-mc-backup) container image which will backup the Minecraft server files and world to a Backblaze B2 S3 bucket. This occurs every 24 hours.
 
+See [dbrennand | home-ops Backblaze](https://homeops.danielbrennand.com/infrastructure/backblaze/) for more information on how to configure the Backblaze B2 S3 bucket.
+
 ### itzg/mc-backup - Removing Stale Locks
 
 You may come across the following error in the logs. This occurs when the server is shut down unexpectedly during a backup and the restic lock file is not removed:
@@ -54,24 +56,11 @@ Remove the lock file by running `restic unlock`:
 docker restart minecraft-backup; docker exec -it minecraft-backup restic -r b2:<bucket name> unlock
 ```
 
-### Backblaze B2 S3 Bucket
+## :simple-tailscale: Tailscale
 
-- Create a [Backblaze B2 bucket](https://help.backblaze.com/hc/en-us/articles/1260803542610-Creating-a-B2-Bucket-using-the-Web-UI) with the following settings:
+The Tailscale [playbook](https://homeops.danielbrennand.com/ansible/tailscale/) is used on the server to allow friends to connect to the server remotely.
 
-  | Setting             | Value                                  |
-  | ------------------- | -------------------------------------- |
-  | Files in bucket are | Private                                |
-  | Default Encryption  | Disable                                |
-  | Object Lock         | Disable                                |
-  | Lifecycle Settings  | Keep only the last version of the file |
-
-- Generate a Backblaze B2 [application key](https://secure.backblaze.com/app_keys.htm) for the bucket with the following permissions: `deleteFiles`, `listBuckets`, `listFiles`, `readBucketEncryption`, `readBuckets`, `readFiles`, `shareFiles`, `writeBucketEncryption`, `writeFiles`.
-
-## Tailscale
-
-The [Tailscale playbook](https://homeops.danielbrennand.com/ansible/tailscale/) is used on the server to allow friends to connect to the server remotely.
-
-## Terraform
+## :simple-terraform: Terraform
 
 Both servers are deployed using [Terraform](https://www.terraform.io/). See [dbrennand | home-ops - Terraform](https://homeops.danielbrennand.com/infrastructure/terraform/) for more information.
 

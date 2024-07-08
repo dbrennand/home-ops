@@ -92,7 +92,7 @@ The verify job is used to verify the integrity of the backups. SSH to the PBS an
 proxmox-backup-manager verify-job create verify01 --store backup01 --schedule daily
 ```
 
-### HTTPS - Web Interface with Let's Encrypt
+### :simple-letsencrypt: HTTPS - Web Interface with Let's Encrypt
 
 !!! info "Cloudflare API Token & Zone ID"
 
