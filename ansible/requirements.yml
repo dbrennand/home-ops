@@ -14,7 +14,7 @@ roles:
   - name: geerlingguy.docker
     version: 6.1.0
   - name: geerlingguy.pip
-    version: 2.2.0
+    version: 3.0.3
   - name: geerlingguy.security
     src: https://github.com/dbrennand/ansible-role-security
     version: refactor/ssh-regexp
