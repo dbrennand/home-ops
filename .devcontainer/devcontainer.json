@@ -2,8 +2,21 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
+    // https://github.com/ansible/ansible-dev-tools/blob/main/.devcontainer/docker/devcontainer.json
+    "containerUser": "podman",
+    "updateRemoteUserUID": true,
+    "runArgs": [
+        "--security-opt",
+        "seccomp=unconfined",
+        "--security-opt",
+        "label=disable",
+        "--cap-add=SYS_ADMIN",
+        "--cap-add=SYS_RESOURCE",
+        "--security-opt",
+        "apparmor=unconfined"
+    ],
     "mounts": [
-        "source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,type=bind"
+        "source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,type=bind",
     ],
     "containerEnv": {
         "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock"
