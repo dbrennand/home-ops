@@ -7,15 +7,7 @@ jobs:
   ansible-lint:
     name: Ansible Lint
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/ansible/community-ansible-dev-tools:v24.7.0
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - name: Run ansible-lint
-        run: |
-          ansible-lint --version
-          ansible-galaxy install -r ansible/requirements.yml
-          ansible-lint
+        uses: ansible/ansible-lint@v24.6.1
