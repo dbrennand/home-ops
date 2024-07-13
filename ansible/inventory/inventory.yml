@@ -18,6 +18,7 @@ all:
       server_type: modded
     backup01.net.dbren.uk:
       ansible_user: root
+    docker01.net.dbren.uk:
   children:
     minecraft:
       hosts:
@@ -28,6 +29,7 @@ all:
         pihole01.net.dbren.uk:
         minecraft01.net.dbren.uk:
         minecraft02.net.dbren.uk:
+        docker01.net.dbren.uk:
     lxc:
       hosts:
         pihole02.net.dbren.uk:
@@ -61,6 +63,7 @@ all:
           tailscale_args: --ssh --advertise-exit-node
         exit02.net.dbren.uk:
           tailscale_args: --ssh --advertise-exit-node
+        docker01.net.dbren.uk:
     proxmox:
       hosts:
         proxmox01.net.dbren.uk:
@@ -73,3 +76,4 @@ all:
         backup01.net.dbren.uk:
         pihole02.net.dbren.uk:
         exit02.net.dbren.uk:
+        docker01.net.dbren.uk:
