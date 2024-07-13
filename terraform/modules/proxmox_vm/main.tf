@@ -34,6 +34,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#clone
   clone {
     vm_id = var.proxmox_virtual_environment_template_vm_id
+    node_name = var.proxmox_virtual_environment_template_vm_node_name
     # Equivalent to "Full Clone" and modifying the "Target Storage" in Proxmox UI
     datastore_id = var.proxmox_virtual_environment_disk_datastore_id
     # Error: error waiting for VM clone: All attempts fail

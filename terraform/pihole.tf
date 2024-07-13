@@ -42,12 +42,17 @@ resource "pihole_dns_record" "minecraft02" {
   ip     = "192.168.0.9"
 }
 
-resource "pihole_dns_record" "docker01" {
-  domain = "docker01.net.dbren.uk"
+resource "pihole_dns_record" "media01" {
+  domain = "media01.net.dbren.uk"
   ip     = "192.168.0.10"
 }
 
 resource "pihole_dns_record" "backup01" {
   domain = "backup01.net.dbren.uk"
   ip     = "192.168.0.11"
+}
+
+resource "pihole_dns_record" "docker01" {
+  domain = "docker01.net.dbren.uk"
+  ip     = "192.168.0.12"
 }
