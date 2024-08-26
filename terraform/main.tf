@@ -34,14 +34,3 @@ terraform {
     }
   }
 }
-
-# https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external
-# 1Password Terraform provider does not support retrieving SSH keys yet :(
-# https://github.com/1Password/terraform-provider-onepassword/issues/74
-data "external" "op_ssh_key" {
-  program = ["./hack/op-ssh.sh"]
-  query = {
-    vault = var.op_ssh_vault_name
-    title = var.op_ssh_key_name
-  }
-}
