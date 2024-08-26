@@ -56,6 +56,7 @@
             name: minecraft
             image: "itzg/minecraft-server:{{ minecraft_image_tag }}"
             restart_policy: unless-stopped
+            pull: true
             networks:
               - name: minecraft
             ports: "{{ minecraft_ports }}"
@@ -86,6 +87,7 @@
             name: minecraft-backup
             image: "itzg/mc-backup:{{ minecraft_backup_image_tag }}"
             restart_policy: unless-stopped
+            pull: true
             networks:
               - name: minecraft
             volumes:
