@@ -19,7 +19,7 @@ pihole_domain: net.dbren.uk
 # ip: "192.168.0.2"
 # Pi-hole container image tag
 # https://hub.docker.com/r/pihole/pihole/tags
-pihole_image_tag: "2024.05.0"
+pihole_image_tag: "2024.07.0"
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 pihole_timezone: Europe/London
 # Pi-hole admin dashboard password
