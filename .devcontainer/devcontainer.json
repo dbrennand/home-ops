@@ -28,7 +28,8 @@
                 "redhat.ansible",
                 "github.copilot",
                 "yzhang.markdown-all-in-one",
-                "hashicorp.terraform"
+                "hashicorp.terraform",
+                "rebornix.toggle"
             ]
         }
     },
