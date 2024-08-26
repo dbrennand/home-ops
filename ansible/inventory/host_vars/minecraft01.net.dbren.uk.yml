@@ -1,0 +1,4 @@
+---
+# minecraft01.net.dbren.uk host_vars
+# Used in playbooks/minecraft-playbook.yml
+server_type: paper

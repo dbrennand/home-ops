@@ -1,0 +1,3 @@
+---
+# all group_vars
+ansible_user: daniel

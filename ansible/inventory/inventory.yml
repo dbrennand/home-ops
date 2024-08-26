@@ -1,25 +1,21 @@
 ---
 all:
-  vars:
-    ansible_user: daniel
   hosts:
     pihole01.net.dbren.uk:
     pihole02.net.dbren.uk:
     proxmox01.net.dbren.uk:
-      ansible_user: root
     proxmox02.net.dbren.uk:
-      ansible_user: root
     exit01.net.dbren.uk:
     exit02.net.dbren.uk:
     minecraft01.net.dbren.uk:
-      # Used in playbooks/minecraft-playbook.yml
-      server_type: paper
     minecraft02.net.dbren.uk:
-      server_type: modded
     backup01.net.dbren.uk:
-      ansible_user: root
     docker01.net.dbren.uk:
   children:
+    proxmox:
+      hosts:
+        proxmox01.net.dbren.uk:
+        proxmox02.net.dbren.uk:
     minecraft:
       hosts:
         minecraft01.net.dbren.uk:
@@ -63,17 +59,4 @@ all:
           tailscale_args: --ssh --advertise-exit-node
         exit02.net.dbren.uk:
           tailscale_args: --ssh --advertise-exit-node
-        docker01.net.dbren.uk:
-    proxmox:
-      hosts:
-        proxmox01.net.dbren.uk:
-        proxmox02.net.dbren.uk:
-    virtualdevices:
-      hosts:
-        exit01.net.dbren.uk:
-        minecraft01.net.dbren.uk:
-        minecraft02.net.dbren.uk:
-        backup01.net.dbren.uk:
-        pihole02.net.dbren.uk:
-        exit02.net.dbren.uk:
         docker01.net.dbren.uk:
