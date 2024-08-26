@@ -10,7 +10,7 @@ data "onepassword_item" "proxmox_virtual_environment" {
 }
 
 data "onepassword_item" "op_ssh_key" {
-  vault = var.var.op_ssh_vault_name
+  vault = var.op_ssh_vault_name
   title = var.op_ssh_key_name
 }
 
