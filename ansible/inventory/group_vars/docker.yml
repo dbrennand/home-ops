@@ -1,15 +1,16 @@
 ---
 # docker group_vars
-# geerlingguy.pip vars
+# geerlingguy.pip role vars
 # https://github.com/geerlingguy/ansible-role-pip#role-variables
 pip_install_packages:
   - name: docker
     version: "7.1.0"
 
-# geerlingguy.docker vars
+# geerlingguy.docker role vars
 # https://github.com/geerlingguy/ansible-role-docker#role-variables
 docker_users:
   - "{{ ansible_user }}"
+docker_daemon_options:
 docker_daemon_options:
   log-driver: "json-file"
   log-opts:
