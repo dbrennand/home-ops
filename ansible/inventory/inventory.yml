@@ -31,32 +31,23 @@ all:
         pihole02.net.dbren.uk:
         exit01.net.dbren.uk:
         exit02.net.dbren.uk:
-    tailscale:
+    subnet_router:
       hosts:
         pihole01.net.dbren.uk:
-          # Overrides group_vars/tailscale.yml
-          tailscale_args: &tailscale_dns |-
-            --accept-dns=false --ssh --advertise-routes=192.168.0.2/32,192.168.0.3/32,192.168.0.4/32,192.168.0.5/32,192.168.0.6/32,192.168.0.7/32,192.168.0.8/32,192.168.0.9/32,192.168.0.10/32,192.168.0.11/32,192.168.0.12/32
-          tailscale_tags:
-            - home-ops
-            - dns
         pihole02.net.dbren.uk:
-          tailscale_args: *tailscale_dns
-          tailscale_tags:
-            - home-ops
-            - dns
-        minecraft01.net.dbren.uk:
-          tailscale_tags:
-            - external
-        minecraft02.net.dbren.uk:
-          tailscale_tags:
-            - external
-        proxmox01.net.dbren.uk:
-          tailscale_args: --accept-dns=false --ssh
-        proxmox02.net.dbren.uk:
-          tailscale_args: --accept-dns=false --ssh
+    exit_node:
+      hosts:
         exit01.net.dbren.uk:
-          tailscale_args: --ssh --advertise-exit-node
         exit02.net.dbren.uk:
-          tailscale_args: --ssh --advertise-exit-node
+    tailscale:
+      vars:
+        # Ensures other group_vars have higher precedence than tailscale group_vars
+        ansible_group_priority: 0
+      children:
+        proxmox:
+        minecraft:
+        subnet_router:
+        exit_node:
+      hosts:
         docker01.net.dbren.uk:
+        backup01.net.dbren.uk:
