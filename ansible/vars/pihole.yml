@@ -50,7 +50,7 @@ pihole_web_theme: default-dark
 # geerlingguy.security vars - Overrides group_vars/docker.yml
 # https://github.com/geerlingguy/ansible-role-security#role-variables
 security_fail2ban_enabled: false
-security_ssh_password_authentication: "yes"
+security_ssh_password_authentication: "no"
 security_ssh_permit_root_login: "yes"
 security_ssh_allowed_users:
   - root
