@@ -23,7 +23,7 @@ discord_webhook: !vault |
   38666335663662653238333934323561393261366166326237313834633261633237663562356166
   6239323332633630303166393663333766373732346130326139
 
-# geerlingguy.security vars
+# geerlingguy.security role vars
 # https://github.com/geerlingguy/ansible-role-security#role-variables
 security_ssh_allowed_users:
   - "{{ username }}"
