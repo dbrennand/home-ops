@@ -10,10 +10,10 @@
         vg_name: vg-ssd-crucial
         lv_name: lv-ssd-crucial
       # Samsung SSD
-      # - device: /dev/sdc
-      #   partition_name: pv-ssd-samsung
-      #   vg_name: vg-ssd-samsung
-      #   lv_name: lv-ssd-samsung
+      - device: /dev/sdc
+        partition_name: pv-ssd-samsung
+        vg_name: vg-ssd-samsung
+        lv_name: lv-ssd-samsung
   tasks:
     - name: Create | LVM Physical Volume Partition
       loop: "{{ ssds }}"
@@ -51,10 +51,11 @@
       ansible.builtin.blockinfile:
         path: /etc/pve/storage.cfg
         backup: true
+        state: present
         marker: "\n# {mark} ANSIBLE MANAGED BLOCK {{ index }}"
         block: |
           lvmthin: {{ item.lv_name }}
                   thinpool {{ item.lv_name }}
                   vgname {{ item.vg_name }}
-                  content rootdir,images
-        state: present
+                  content images,rootdir
+                  nodes proxmox01
