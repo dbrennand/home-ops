@@ -1,0 +1,3 @@
+---
+# media01.net.dbren.uk host_vars
+ansible_user: root
