@@ -16,6 +16,7 @@
 | Memory             | 64GB DDR4 3200MHz SODIMM (2x32GB)                                                 |
 | Storage (Internal) | Samsung NVMe 970 EVO Plus 1TB                                                     |
 | Storage (External) | Crucial SSD MX500 2TB                                                             |
+| Storage (External) | Samsung SSD 870 QVO 1TB                                                           |
 | Storage (External) | 64GB USB                                                                          |
 
 
@@ -28,7 +29,6 @@
 | CPU                | Intel Celeron J3455 @ 1.50Ghz |
 | Memory             | 8GB                           |
 | Storage (Internal) | 240GB SSD                     |
-| Storage (External) | Samsung SSD 870 QVO 1TB       |
 
 ## Installation
 
