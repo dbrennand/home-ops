@@ -1,0 +1,43 @@
+---
+# vars file for media-playbook.yml
+# dbrennand.caddy_docker role vars
+# https://github.com/dbrennand/ansible-role-caddy-docker
+caddy_docker_caddyfile: |-
+  {
+          email {$ACME_EMAIL}
+  }
+
+  # Cloudflare DNS-01 challenge
+  (cloudflare) {
+          tls {
+                  dns cloudflare {$CLOUDFLARE_API_TOKEN}
+          }
+  }
+
+  # OpenMediaVault
+  media01.{$DOMAIN} {
+      import cloudflare
+      reverse_proxy host.docker.internal:1080
+  }
+caddy_docker_image: caddy:2.8.4-alpine
+caddy_docker_builder_image: caddy:2.8.4-builder
+caddy_docker_plugins:
+  # Allows Caddy to obtain TLS certificates for a Cloudflare managed domain
+  - github.com/caddy-dns/cloudflare@89f16b9
+  # Allows Caddy site config to be applied via Docker container labels
+  - github.com/lucaslorentz/caddy-docker-proxy/v2@v2.9.1
+caddy_docker_command: caddy docker-proxy
+caddy_docker_etc_hosts:
+  host.docker.internal: host-gateway
+caddy_docker_extra_volumes:
+  # Required for Caddy to read Docker container labels
+  - /var/run/docker.sock:/var/run/docker.sock
+caddy_docker_environment_variables:
+  # Variables used in the Caddyfile
+  # https://github.com/lucaslorentz/caddy-docker-proxy#caddy-cli
+  CADDY_INGRESS_NETWORKS: caddy
+  CADDY_DOCKER_CADDYFILE_PATH: /etc/caddy/Caddyfile
+  # Values come from group_vars/all.yml
+  DOMAIN: "{{ domain }}"
+  CLOUDFLARE_API_TOKEN: "{{ cloudflare_api_token }}"
+  ACME_EMAIL: "{{ acme_email }}"

@@ -1,0 +1,58 @@
+---
+- name: Media Server | Setup
+  hosts: media01.net.dbren.uk
+  vars_files:
+    - ../vars/media.yml
+  handlers:
+    - name: Restart monit systemd service
+      become: true
+      ansible.builtin.systemd:
+        name: monit
+        state: restarted
+
+    - name: Restart nginx systemd service
+      become: true
+      ansible.builtin.systemd:
+        name: nginx
+        state: restarted
+  pre_tasks:
+    # https://www.jeffgeerling.com/blog/2023/how-solve-error-externally-managed-environment-when-installing-pip3
+    # Resolves error from stderr: error: externally-managed-environment
+    - name: Ignore PEP 668
+      tags: pip
+      ansible.builtin.file:
+        path: /usr/lib/python3.11/EXTERNALLY-MANAGED
+        state: absent
+  roles:
+    - role: geerlingguy.pip
+      tags: pip
+      become: true
+    - role: geerlingguy.docker
+      tags: docker
+      become: true
+    - role: dbrennand.caddy_docker
+  tasks:
+    - name: OpenMediaVault | Patches
+      tags: omv
+      block:
+        - name: Patch OpenMediaVault monit nginx config to check on docker0 interface port 1080
+          notify: Restart monit systemd service
+          become: true
+          ansible.builtin.lineinfile:
+            path: /etc/monit/conf.d/openmediavault-nginx.conf
+            regexp: "^if failed host 127.0.0.1.*"
+            line: "if failed host 172.17.0.1 port 1080 protocol http timeout 15 seconds for 2 times within 3 cycles then restart"
+            backrefs: true
+            backup: true
+            state: present
+
+        - name: Patch OpenMediaVault nginx config to listen on docker0 interface port 1080
+          notify: Restart nginx systemd service
+          become: true
+          ansible.builtin.lineinfile:
+            path: /etc/nginx/sites-enabled/openmediavault-webgui
+            regexp: "^(.*)listen(.*)default_server;"
+            line: "listen 172.17.0.1:1080;"
+            backrefs: true
+            backup: true
+            state: present
