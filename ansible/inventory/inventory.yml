@@ -27,6 +27,7 @@ all:
         minecraft01.net.dbren.uk:
         minecraft02.net.dbren.uk:
         docker01.net.dbren.uk:
+        media01.net.dbren.uk:
     lxc:
       hosts:
         pihole02.net.dbren.uk:
@@ -50,5 +51,6 @@ all:
         subnet_router:
         exit_node:
       hosts:
+        media01.net.dbren.uk:
         docker01.net.dbren.uk:
         backup01.net.dbren.uk:
