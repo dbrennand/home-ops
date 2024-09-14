@@ -5,12 +5,12 @@
   vars:
     ssds:
       # Crucial SSD
-      - device: /dev/sdb
+      - device: /dev/sda
         partition_name: pv-ssd-crucial
         vg_name: vg-ssd-crucial
         lv_name: lv-ssd-crucial
       # Samsung SSD
-      - device: /dev/sdc
+      - device: /dev/sdb
         partition_name: pv-ssd-samsung
         vg_name: vg-ssd-samsung
         lv_name: lv-ssd-samsung
