@@ -11,7 +11,7 @@ networks:
 services:
   postgresql:
     image: docker.io/library/postgres:16-alpine
-    container_name: authentik_database
+    container_name: authentik_postgres
     restart: unless-stopped
     networks:
       - authentik
@@ -44,7 +44,7 @@ services:
       retries: 5
       timeout: 3s
     volumes:
-      - redis:/data
+      - authentik_redis:/data
 
   server:
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.1}
@@ -108,5 +108,5 @@ services:
       - redis
 
 volumes:
-  redis:
+  authentik_redis:
     driver: local
