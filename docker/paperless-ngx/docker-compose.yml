@@ -1,0 +1,86 @@
+# https://github.com/paperless-ngx/paperless-ngx/tree/main/docker/compose
+services:
+  broker:
+    image: docker.io/library/redis:7
+    container_name: paperless_ngx_redis
+    restart: unless-stopped
+    networks:
+      - paperless_ngx
+    volumes:
+      - paperless_ngx_redis:/data
+
+  db:
+    image: docker.io/library/postgres:16
+    container_name: paperless_ngx_postgres
+    restart: unless-stopped
+    networks:
+      - paperless_ngx
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: ${PG_PASS}
+
+  webserver:
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.12
+    restart: unless-stopped
+    depends_on:
+      - db
+      - broker
+      - gotenberg
+      - tika
+    networks:
+      - paperless_ngx
+      - caddy
+    expose:
+      - 8000
+    volumes:
+      - ./data:/usr/src/paperless/data
+      - ./export:/usr/src/paperless/export
+      - /srv/dev-disk-by-uuid-8b39b057-49ce-42d6-90c9-2b138ef4dee3/media:/usr/src/paperless/media
+      - /srv/dev-disk-by-uuid-8b39b057-49ce-42d6-90c9-2b138ef4dee3/consume:/usr/src/paperless/consume
+    environment:
+      PAPERLESS_REDIS: redis://paperless_ngx_redis:6379
+      PAPERLESS_DBHOST: paperless_ngx_postgres
+      PAPERLESS_TIKA_ENABLED: 1
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless_ngx_gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://paperless_ngx_tika:9998
+      PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
+      PAPERLESS_TIME_ZONE: ${PAPERLESS_TIME_ZONE}
+      PAPERLESS_URL: ${PAPERLESS_URL}
+      PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
+    labels:
+      caddy: paperless.{$$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{{ upstreams 8000 }}"
+
+  gotenberg:
+    image: docker.io/gotenberg/gotenberg:8.7
+    container_name: paperless_ngx_gotenberg
+    restart: unless-stopped
+    networks:
+      - paperless_ngx
+    # The gotenberg chromium route is used to convert .eml files. We do not
+    # want to allow external content like tracking pixels or even javascript.
+    command:
+      - "gotenberg"
+      - "--chromium-disable-javascript=true"
+      - "--chromium-allow-list=file:///tmp/.*"
+
+  tika:
+    image: docker.io/apache/tika:latest
+    container_name: paperless_ngx_tika
+    restart: unless-stopped
+    networks:
+      - paperless_ngx
+
+volumes:
+  paperless_ngx_redis:
+    driver: local
+
+networks:
+  paperless_ngx:
+    name: paperless_ngx
+  caddy:
+    external: true
