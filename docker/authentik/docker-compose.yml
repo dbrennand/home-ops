@@ -10,7 +10,7 @@ networks:
 
 services:
   postgresql:
-    image: docker.io/library/postgres:12-alpine
+    image: docker.io/library/postgres:16-alpine
     container_name: authentik_database
     restart: unless-stopped
     networks:
@@ -47,7 +47,7 @@ services:
       - redis:/data
 
   server:
-    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.2.2}
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.1}
     container_name: authentik_server
     restart: unless-stopped
     command: server
@@ -77,7 +77,7 @@ services:
       caddy.reverse_proxy: "{{ upstreams 9000 }}"
 
   worker:
-    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.2.2}
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.8.1}
     container_name: authentik_worker
     restart: unless-stopped
     command: worker
