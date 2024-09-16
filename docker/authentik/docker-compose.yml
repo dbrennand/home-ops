@@ -56,7 +56,7 @@ services:
       - caddy
     environment:
       AUTHENTIK_REDIS__HOST: authentik_redis
-      AUTHENTIK_POSTGRESQL__HOST: authentik_database
+      AUTHENTIK_POSTGRESQL__HOST: authentik_postgres
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
@@ -85,7 +85,7 @@ services:
       - authentik
     environment:
       AUTHENTIK_REDIS__HOST: authentik_redis
-      AUTHENTIK_POSTGRESQL__HOST: authentik_database
+      AUTHENTIK_POSTGRESQL__HOST: authentik_postgres
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
