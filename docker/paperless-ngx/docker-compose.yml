@@ -24,6 +24,7 @@ services:
 
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:2.12
+    container_name: paperless_ngx
     restart: unless-stopped
     depends_on:
       - db
@@ -43,6 +44,7 @@ services:
     environment:
       PAPERLESS_REDIS: redis://paperless_ngx_redis:6379
       PAPERLESS_DBHOST: paperless_ngx_postgres
+      PAPERLESS_DBPASS: ${PG_PASS}
       PAPERLESS_TIKA_ENABLED: 1
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless_ngx_gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://paperless_ngx_tika:9998
