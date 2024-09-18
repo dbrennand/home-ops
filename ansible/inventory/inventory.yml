@@ -10,7 +10,6 @@ all:
     minecraft01.net.dbren.uk:
     minecraft02.net.dbren.uk:
     backup01.net.dbren.uk:
-    docker01.net.dbren.uk:
     media01.net.dbren.uk:
   children:
     proxmox:
@@ -26,7 +25,6 @@ all:
         pihole01.net.dbren.uk:
         minecraft01.net.dbren.uk:
         minecraft02.net.dbren.uk:
-        docker01.net.dbren.uk:
         media01.net.dbren.uk:
     lxc:
       hosts:
@@ -52,5 +50,4 @@ all:
         exit_node:
       hosts:
         media01.net.dbren.uk:
-        docker01.net.dbren.uk:
         backup01.net.dbren.uk:

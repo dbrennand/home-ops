@@ -51,8 +51,3 @@ resource "pihole_dns_record" "backup01" {
   domain = "backup01.net.dbren.uk"
   ip     = "192.168.0.11"
 }
-
-resource "pihole_dns_record" "docker01" {
-  domain = "docker01.net.dbren.uk"
-  ip     = "192.168.0.12"
-}

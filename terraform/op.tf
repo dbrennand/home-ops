@@ -18,8 +18,3 @@ data "onepassword_item" "pihole" {
   vault = var.op_pihole_vault_name
   title = var.op_pihole_item_name
 }
-
-data "onepassword_item" "docker01" {
-  vault = var.op_proxmox_virtual_environment_vault_name
-  title = "docker01.net.dbren.uk"
-}
