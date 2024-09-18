@@ -41,3 +41,67 @@ caddy_docker_environment_variables:
   DOMAIN: "{{ domain }}"
   CLOUDFLARE_API_TOKEN: "{{ cloudflare_api_token }}"
   ACME_EMAIL: "{{ acme_email }}"
+
+# dbrennand.autorestic role vars
+# https://github.com/dbrennand/ansible-role-autorestic?tab=readme-ov-file#role-variables
+autorestic_version: 1.8.3
+autorestic_restic_version: 0.17.1
+autorestic_config:
+  version: 2
+
+  global:
+    all:
+      verbose: true
+    unlock:
+      cleanup-cache: true
+    forget:
+      # Always keep at least 5 snapshots
+      keep-last: 5
+
+  locations:
+    paperless-ngx-export:
+      from: /srv/dev-disk-by-uuid-bb90bdb7-731a-49ce-95e8-7034130bd751/apps/paperless-ngx/export
+      to: backblaze
+      hooks:
+        prevalidate:
+          - 'docker exec paperless_ngx document_exporter /usr/src/paperless/export --zip'
+        before:
+          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"Staring backup for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
+        failure:
+          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"Backup failed for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
+        success:
+          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"Backup succeeded for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
+      # Everyday at midnight
+      cron: "0 0 * * *"
+      forget: prune
+  backends:
+    backblaze:
+      type: b2
+      # Name of the B2 bucket
+      path: dabpaperless
+      # Key used by restic to encrypt backups
+      key: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        66313234393036393738633131356335666535326332323638323763653433303663653433303330
+        3331333665626630633863613933306334626439383063350a626161356138343535626432336632
+        38306637633636383464376433356535376663363037363866626436623363326464623736613138
+        6632613839653962630a653463346265333139653066383330336236313930623735666363386436
+        63643239386462613537393065613866613165393164633264663436613261396233
+      # Backblaze B2 application ID and key
+      env:
+        B2_ACCOUNT_ID: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          37636361363361366530303966313166653466326436383561316635316462623631643332653762
+          3339653264366362353336356231326231333362363333330a356535643338643130353861636631
+          34353438623132636234626366646239333466663030353837343337373062306365383537646639
+          3832666463303664370a653039646466613032623530663136613235396565306632396564613632
+          30616539636635373233343432613639396237666130346131633063626363346634
+        B2_ACCOUNT_KEY: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32383664326335366430653332336433306534376337363339626464303866343735623039383365
+          3235616630326233396565306364353333326632643761300a613135626430613865653166666131
+          39383932333932313830373339383239326565333039346532343864623339656666333632376538
+          3932643032353564620a646261666165613635396637643065653737616562646164396231366334
+          38366533323135663033326533343933636338356635653230306231303264623661
+autorestic_cron: true
+autorestic_cron_verbose: true
