@@ -212,7 +212,7 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
     bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install
     ```
 
-## :material-clock-time-nine: Configure Backup Schedule
+## :material-clock-time-nine: Configure Backup Schedules
 
 !!! note
 
@@ -241,3 +241,7 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
     | Mode           | `Snapshot`             |
 
     Select all the VMs/CTs excluding `backup01` and click **OK**.
+
+4. Repeat step 2 for the `backup02` datastore.
+
+5. Repeat step 3 but select the `backup02` datastore, setting the `Schedule` to `04:00` and selecting only `media01`.
