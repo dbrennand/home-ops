@@ -12,9 +12,9 @@ The [Tailscale playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/
 
 Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register devices with the Tailnet and populate the `tailscale_auth_key` variable in [`ansible/inventory/group_vars/tailscale.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars/tailscale.yml).
 
-## Host Variables
+## Variables
 
-Host variables for configuring Tailscale are located in [`ansible/inventory/inventory.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/inventory.yml).
+[`group_vars`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars) and [`host_vars`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/host_vars) are used to define variables for the Tailscale playbook. Variables prefixed with `tailscale_` are used to configure the [artis3n.tailscale](https://github.com/artis3n/ansible-role-tailscale) role.
 
 ## Usage
 
