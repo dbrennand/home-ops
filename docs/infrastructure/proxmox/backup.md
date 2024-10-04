@@ -100,7 +100,7 @@ The PBS requires a datastore to store backups. In my setup, I have two datastore
 2. SSH to the PBS and create the datastore:
 
     ```bash
-    proxmox-backup-manager datastore create backup01 /mnt/storagebox --keep-last 4 --keep-daily 5 --keep-weekly 2 --keep-monthly 1 --prune-schedule daily --gc-schedule "sat 05:00"
+    proxmox-backup-manager datastore create backup01 /mnt/storagebox --keep-last 7 --keep-daily 7 --keep-weekly 4 --keep-monthly 2 --prune-schedule daily --gc-schedule "sat 05:00"
     ```
 
 #### Local Datastore
@@ -120,7 +120,7 @@ The PBS requires a datastore to store backups. In my setup, I have two datastore
 3. Configure the datastore:
 
     ```bash
-    proxmox-backup-manager datastore update backup02 --keep-last 4 --keep-daily 5 --keep-weekly 2 --keep-monthly 1 --prune-schedule daily --gc-schedule "sat 05:00"
+    proxmox-backup-manager datastore update backup02 --keep-last 7 --keep-daily 7 --keep-weekly 4 --keep-monthly 2 --prune-schedule daily --gc-schedule "sat 05:00"
     ```
 
 ### Verify Job Creation
@@ -130,6 +130,18 @@ The verify job is used to verify the integrity of the backups. SSH to the PBS an
 ```bash
 proxmox-backup-manager verify-job create verify01 --store backup01 --schedule daily --ignore-verified=true --outdated-after=30
 proxmox-backup-manager verify-job create verify02 --store backup02 --schedule daily --ignore-verified=true --outdated-after=30
+```
+
+### Sync Job Creation
+
+!!!info "Local & Offsite Copy"
+
+    This makes sure that I have a local copy of backups for `media01` as well as offsite backups on the Hetzner Storagebox.
+
+Configure the backups taken for `media01` to sync from the `backup01` datastore to `backup02` datastore:
+
+```bash
+proxmox-backup-manager sync-job create sync-media01 --owner 'root@pam' --store backup02 --remote-store backup01 --schedule 'hourly' --remove-vanished=true --group-filter 'include:group:vm/102'
 ```
 
 ### :simple-letsencrypt: HTTPS - Web Interface with Let's Encrypt
