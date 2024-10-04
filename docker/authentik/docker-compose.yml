@@ -1,5 +1,6 @@
 ---
 # https://goauthentik.io/docs/installation/docker-compose
+# https://github.com/goauthentik/authentik/blob/main/docker-compose.yml
 version: "3.4"
 
 networks:
