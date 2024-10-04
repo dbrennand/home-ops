@@ -1,3 +1,4 @@
+---
 # https://github.com/paperless-ngx/paperless-ngx/tree/main/docker/compose
 services:
   broker:
