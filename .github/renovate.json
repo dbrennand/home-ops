@@ -1,5 +1,15 @@
 {
-    "ignorePaths": [
-        "**/archive/**"
+    "packageRules": [
+        {
+            "matchDatasources": [
+                "docker"
+            ],
+            "matchPackageNames": [
+                "docker.io/library/postgres:16-alpine",
+                "docker.io/library/postgres:16",
+                "docker.io/gotenberg/gotenberg:8.7"
+            ],
+            "enabled": false
+        }
     ]
 }
