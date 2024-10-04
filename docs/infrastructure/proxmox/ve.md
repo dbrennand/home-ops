@@ -237,11 +237,7 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
     | -------------- | ---------------------- |
     | Storage        | `backup01`             |
     | Schedule       | `03:00`                |
-    | Selection Mode | `Include selected VMs` |
+    | Selection Mode | `Exclude selected VMs` |
     | Mode           | `Snapshot`             |
 
-    Select all the VMs/CTs excluding `backup01` and click **OK**.
-
-4. Repeat step 2 for the `backup02` datastore.
-
-5. Repeat step 3 but select the `backup02` datastore, setting the `Schedule` to `04:00` and selecting only `media01`.
+    Choose `backup01` and click **OK**.
