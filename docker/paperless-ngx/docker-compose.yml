@@ -55,7 +55,7 @@ services:
       PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
       PAPERLESS_ADMIN_USER: ${PAPERLESS_ADMIN_USER}
       PAPERLESS_ADMIN_PASSWORD: ${PAPERLESS_ADMIN_PASSWORD}
-      PAPERLESS_FILENAME_FORMAT: "{created_year}/{document_type}/{correspondent}/{created_year}_{created_month}_{created_day}_{title}"
+      PAPERLESS_FILENAME_FORMAT: "{{ created_year }}/{{ document_type }}/{{ correspondent }}/{{ created_year }}_{{ created_month }}_{{ created_day }}_{{ title }}"
       PAPERLESS_APPS: "allauth.socialaccount.providers.openid_connect"
       PAPERLESS_SOCIALACCOUNT_PROVIDERS: ${PAPERLESS_SOCIALACCOUNT_PROVIDERS}
     labels:
