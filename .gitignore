@@ -4,3 +4,4 @@
 terraform.tfvars
 .DS_Store
 .env
+!docker/**/.env
