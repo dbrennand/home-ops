@@ -47,6 +47,7 @@
         name: dbrennand.caddy_docker
 
     - name: Create Pi-hole Docker container
+      tags: pihole
       community.docker.docker_container:
         name: pihole
         image: "pihole/pihole:{{ pihole_image_tag }}"
