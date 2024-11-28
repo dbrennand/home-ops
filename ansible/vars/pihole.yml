@@ -35,8 +35,8 @@ pihole_webpassword: !vault |
 pihole_ftlconf_local_ip: "192.168.0.2"
 # Pi-hole upstream DNS servers
 pihole_upstream_dns:
-  - "1.1.1.1"
-  - "1.0.0.1"
+  - "9.9.9.9"
+  - "149.112.112.112"
 # Pi-hole DHCP settings
 # pihole_dhcp_start: "192.168.0.21"
 # pihole_dhcp_end: "192.168.0.254"
