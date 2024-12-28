@@ -13,4 +13,4 @@ LABEL org.opencontainers.image.description "home-ops VSCode Dev Container"
 RUN pip install mkdocs-material==9.5.24
 
 # OpenTofu
-COPY --from=ghcr.io/opentofu/opentofu:1.8.7 /usr/local/bin/tofu /usr/local/bin/tofu
+COPY --from=ghcr.io/opentofu/opentofu:1.8.8 /usr/local/bin/tofu /usr/local/bin/tofu
