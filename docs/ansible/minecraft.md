@@ -1,5 +1,8 @@
 # :material-minecraft: Minecraft
 
+!!! note "Decommissioned"
+    The Minecraft servers have been decommissioned. This page has been kept for reference.
+
 The Minecraft [playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/minecraft-playbook.yml) is used to deploy Minecraft servers on Ubuntu Server 22.04 LTS in my Homelab.
 
 ## :simple-ansible: Ansible Playbook
