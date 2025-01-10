@@ -7,8 +7,6 @@ all:
     proxmox02.net.dbren.uk:
     exit01.net.dbren.uk:
     exit02.net.dbren.uk:
-    minecraft01.net.dbren.uk:
-    minecraft02.net.dbren.uk:
     backup01.net.dbren.uk:
     media01.net.dbren.uk:
   children:
@@ -16,15 +14,9 @@ all:
       hosts:
         proxmox01.net.dbren.uk:
         proxmox02.net.dbren.uk:
-    minecraft:
-      hosts:
-        minecraft01.net.dbren.uk:
-        minecraft02.net.dbren.uk:
     docker:
       hosts:
         pihole01.net.dbren.uk:
-        minecraft01.net.dbren.uk:
-        minecraft02.net.dbren.uk:
         media01.net.dbren.uk:
     lxc:
       hosts:
@@ -45,7 +37,6 @@ all:
         ansible_group_priority: 0
       children:
         proxmox:
-        minecraft:
         subnet_router:
         exit_node:
       hosts:
