@@ -45,7 +45,7 @@ caddy_docker_environment_variables:
 # dbrennand.autorestic role vars
 # https://github.com/dbrennand/ansible-role-autorestic?tab=readme-ov-file#role-variables
 autorestic_version: 1.8.3
-autorestic_restic_version: 0.17.1
+autorestic_restic_version: 0.17.3
 autorestic_config:
   version: 2
 
@@ -55,8 +55,8 @@ autorestic_config:
     unlock:
       cleanup-cache: true
     forget:
-      # Always keep at least 5 snapshots
-      keep-last: 5
+      # Always keep at least 10 snapshots
+      keep-last: 10
 
   locations:
     paperless-ngx-export:
@@ -66,11 +66,14 @@ autorestic_config:
         prevalidate:
           - "docker exec paperless_ngx document_exporter /usr/src/paperless/export --zip"
         before:
-          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"Starting backup for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
+          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \":hourglass: Starting backup for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
         failure:
-          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"Backup failed for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
+          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \":x: Backup failed for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
         success:
-          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"Backup succeeded for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
+          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \":white_check_mark: Backup succeeded for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
+        after:
+          # Find zip files older than 11 days and delete them
+          - 'find /srv/dev-disk-by-uuid-bb90bdb7-731a-49ce-95e8-7034130bd751/apps/paperless-ngx/export -type f -name "*.zip" -mtime +11 -exec rm {} \;'
       # Everyday at midnight
       cron: "0 0 * * *"
       forget: prune
