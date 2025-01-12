@@ -1,66 +1,68 @@
 version: "3"
 
 vars:
-  VENV_PATH: "~/.virtualenvs/home-ops"
+  PROJECT_ROOT:
+    sh: git rev-parse --show-toplevel
+  VENV_PATH: "{{ .PROJECT_ROOT }}/.venv"
+  ANSIBLE_PROJECT_PATH: "{{ .PROJECT_ROOT }}/ansible"
 
 tasks:
   op:vault:
     desc: |
       Ensure the op-ansible-vault.sh script is executable.
     internal: true
-    dir: "{{.USER_WORKING_DIR}}"
+    dir: "{{ .ANSIBLE_PROJECT_PATH }}"
     cmds:
       - chmod +x op-ansible-vault.sh
     preconditions:
       - sh: test -f op-ansible-vault.sh
-        msg: op-ansible-vault.sh file does not exist {{.USER_WORKING_DIR}}.
+        msg: op-ansible-vault.sh file does not exist {{ .ANSIBLE_PROJECT_PATH }}.
 
   venv:build:
-    desc: Build Python virtual environment
+    desc: |
+      Build Python virtual environment using uv.
     internal: true
     cmds:
-      - mkdir -pv $(dirname {{.VENV_PATH}})
-      - python -m venv {{.VENV_PATH}}
-      - "{{.VENV_PATH}}/bin/pip install --upgrade pip"
-      - "{{.VENV_PATH}}/bin/pip install -r {{.USER_WORKING_DIR}}/requirements.txt"
+      - uv venv {{ .VENV_PATH }}
+      - uv pip install -r {{ .ANSIBLE_PROJECT_PATH }}/requirements.txt
 
   venv:
-    desc: Create Python virtual environment in {{.VENV_PATH}}
+    desc: Create Python virtual environment in {{ .VENV_PATH }}
     cmds:
       - task: venv:build
 
   ansible:hosts:
-    desc: List Ansible hosts
-    dir: "{{.USER_WORKING_DIR}}"
+    desc: List Ansible hosts configured in the inventory.
+    dir: "{{ .ANSIBLE_PROJECT_PATH }}"
     cmds:
       - task: op:vault
-      - "{{.VENV_PATH}}/bin/ansible all --list-hosts"
+      - "{{ .VENV_PATH }}/bin/ansible all --list-hosts"
     preconditions:
-      - sh: command -v {{.VENV_PATH}}/bin/ansible
+      - sh: command -v {{ .VENV_PATH }}/bin/ansible
         msg: ansible is not installed. Have you ran 'task venv'?
 
   ansible:adhoc:
     desc: |
       Run Ansible adhoc command.
       Example: task ansible:adhoc -- proxmox -m ping
-    dir: "{{.USER_WORKING_DIR}}"
+    dir: "{{ .ANSIBLE_PROJECT_PATH }}"
     cmds:
       - task: op:vault
-      - "{{.VENV_PATH}}/bin/ansible {{.CLI_ARGS}}"
+      - "{{ .VENV_PATH }}/bin/ansible {{ .CLI_ARGS }}"
     preconditions:
-      - sh: command -v {{.VENV_PATH}}/bin/ansible
+      - sh: command -v {{ .VENV_PATH }}/bin/ansible
         msg: ansible is not installed. Have you ran 'task venv'?
 
   ansible:play:
     desc: |
       Run Ansible playbook.
       Example: task ansible:play -- playbooks/minecraft-playbook.yml
-    dir: "{{.USER_WORKING_DIR}}"
+    dir: "{{ .ANSIBLE_PROJECT_PATH }}"
     cmds:
       - task: op:vault
-      - "{{.VENV_PATH}}/bin/ansible-playbook {{.CLI_ARGS}}"
+      - "{{ .VENV_PATH }}/bin/ansible-playbook {{ .CLI_ARGS }}"
     preconditions:
-      - sh: command -v {{.VENV_PATH}}/bin/ansible-playbook
+      - sh: command -v {{ .VENV_PATH }}/bin/ansible-playbook
         msg: ansible-playbook is not installed. Have you ran 'task venv'?
 
   ansible:encrypt:
@@ -68,41 +70,21 @@ tasks:
       Encrypt Ansible variable.
       Example: task ansible:encrypt -- 'Secret!' --name 'my_secret'
     interactive: true
-    dir: "{{.USER_WORKING_DIR}}"
+    dir: "{{ .ANSIBLE_PROJECT_PATH }}"
     cmds:
       - task: op:vault
-      - "{{.VENV_PATH}}/bin/ansible-vault encrypt_string {{ .CLI_ARGS }}"
+      - "{{ .VENV_PATH }}/bin/ansible-vault encrypt_string {{ .CLI_ARGS }}"
     preconditions:
       - sh: command -v {{.VENV_PATH}}/bin/ansible-vault
         msg: ansible-vault is not installed. Have you ran 'task venv'?
 
   ansible:requirements:
     desc: Install Ansible requirements
-    dir: "{{.USER_WORKING_DIR}}"
+    dir: "{{ .ANSIBLE_PROJECT_PATH }}"
     cmds:
-      - "{{.VENV_PATH}}/bin/ansible-galaxy install {{ .CLI_ARGS }} -r requirements.yml"
+      - "{{ .VENV_PATH }}/bin/ansible-galaxy install {{ .CLI_ARGS }} -r requirements.yml"
     preconditions:
-      - sh: command -v {{.VENV_PATH}}/bin/ansible-galaxy
+      - sh: command -v {{ .VENV_PATH }}/bin/ansible-galaxy
         msg: ansible-galaxy is not installed. Have you ran 'task venv'?
       - sh: test -f requirements.yml
         msg: requirements.yml does not exist.
-
-  tools:
-    desc: Install tooling
-    cmds:
-      - brew install {{.TOOLS}}
-      - brew install --cask {{.CASKS}}
-    preconditions:
-      - sh: command -v brew
-        msg: Homebrew is not installed. See https://brew.sh/
-    vars:
-      TOOLS: >-
-        sops
-        age
-        jq
-        yq
-        gettext
-        pyenv
-      CASKS: >-
-        1password-cli
-        orbstack
