@@ -1,6 +1,6 @@
 ---
 - name: General | Patch Playbook
-  hosts: virtualdevices
+  hosts: all
   serial: 1
   become: true
   pre_tasks:
