@@ -22,11 +22,6 @@ resource "pihole_dns_record" "pihole02" {
   ip     = "192.168.0.5"
 }
 
-resource "pihole_dns_record" "minecraft01" {
-  domain = "minecraft01.net.dbren.uk"
-  ip     = "192.168.0.6"
-}
-
 resource "pihole_dns_record" "exit01" {
   domain = "exit01.net.dbren.uk"
   ip     = "192.168.0.7"
@@ -35,11 +30,6 @@ resource "pihole_dns_record" "exit01" {
 resource "pihole_dns_record" "exit02" {
   domain = "exit02.net.dbren.uk"
   ip     = "192.168.0.8"
-}
-
-resource "pihole_dns_record" "minecraft02" {
-  domain = "minecraft02.net.dbren.uk"
-  ip     = "192.168.0.9"
 }
 
 resource "pihole_dns_record" "media01" {
