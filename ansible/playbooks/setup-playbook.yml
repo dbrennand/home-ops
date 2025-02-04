@@ -1,54 +1,25 @@
 ---
-- name: General | Setup Playbook
-  hosts: all
+- name: Setup Playbook
+  hosts: lxc
   become: true
   vars_files:
     - ../vars/general.yml
     - ../vars/discord_webhook.yml
   pre_tasks:
     - name: Ensure packages are installed
-      tags: packages
+      tags:
+        - packages
       ansible.builtin.apt:
         name: "{{ packages }}"
         update_cache: true
         cache_valid_time: 3600
-
-    - name: User operations
-      tags: user
-      block:
-        - name: "Ensure group exists | {{ username }}"
-          ansible.builtin.group:
-            name: "{{ username }}"
-            state: present
-
-        - name: "Ensure user exists | {{ username }}"
-          ansible.builtin.user:
-            name: "{{ username }}"
-            groups:
-              - sudo
-              - "{{ username }}"
-            password: "{{ lookup('community.general.onepassword', inventory_hostname, vault='Home-Ops') | password_hash('sha512') }}"
-            append: true
-            shell: /bin/bash
-            state: present
-
-    - name: "Set authorised keys from GitHub | {{ username }}"
-      ansible.posix.authorized_key:
-        user: "{{ username }}"
-        state: present
-        key: https://github.com/dbrennand.keys
-
-    - name: "Add user to sudoers | {{ username }}"
-      ansible.builtin.lineinfile:
-        path: /etc/sudoers
-        line: "{{ username }} ALL=(ALL) NOPASSWD:ALL"
-        validate: "visudo -cf %s"
-        state: present
   roles:
     - role: geerlingguy.security
-      tags: security
+      tags:
+        - security
     - role: ironicbadger.figurine
-      tags: figurine
+      tags:
+        - figurine
   tasks:
     - name: SSH login script
       tags: ssh

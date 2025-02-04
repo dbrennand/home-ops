@@ -1,14 +1,14 @@
 ---
 # vars file for setup-playbook.yml
-# Name of the user and group to ensure exists
-username: daniel
-# Packages to install
+
+# List of packages to install
 packages:
   - sudo
   - lm-sensors
   - ncdu
   - htop
   - vim
+  - tmux
 
 # geerlingguy.security role vars
 # https://github.com/geerlingguy/ansible-role-security#role-variables
