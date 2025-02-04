@@ -22,7 +22,6 @@
             "extensions": [
                 "streetsidesoftware.code-spell-checker",
                 "redhat.ansible",
-                "github.copilot",
                 "yzhang.markdown-all-in-one",
                 "hashicorp.terraform",
                 "rebornix.toggle"
