@@ -6,12 +6,10 @@ The following page contains information on the Proxmox related Ansible playbooks
 
 The following playbooks are used to configure Proxmox VE in my Homelab:
 
-| Playbook Name                                                                                                                             | Description                                    |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| [`proxmox-create-vm-template.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-create-vm-template.yml)       | Create VM templates.                           |
-| [`proxmox-download-iso-playbook.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-download-iso-playbook.yml) | Download ISOs to Proxmox.                      |
-| [`proxmox-storage-playbook.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml)           | Provision Proxmox LVM Storage.                 |
-| [`proxmox-external-vote.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-external-vote.yml)                 | Proxmox Nodes - Cluster External Vote Support. |
+| Playbook Name                                                                                                                   | Description                                    |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| [`proxmox-storage-playbook.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml) | Provision Proxmox LVM Storage.                 |
+| [`proxmox-external-vote.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-external-vote.yml)       | Proxmox Nodes - Cluster External Vote Support. |
 
 See [dbrennand | home-ops - Proxmox](https://homeops.danielbrennand.com/infrastructure/proxmox/ve) for further details.
 
@@ -40,8 +38,6 @@ See [dbrennand | home-ops - Proxmox](https://homeops.danielbrennand.com/infrastr
     ```bash
     task ansible:play -- playbooks/proxmox-storage-playbook.yml
     task ansible:play -- playbooks/proxmox-external-vote.yml
-    task ansible:play -- playbooks/proxmox-download-iso-playbook.yml
-    task ansible:play -- playbooks/proxmox-create-vm-template.yml
     ```
 
 ## Proxmox Backup Server
