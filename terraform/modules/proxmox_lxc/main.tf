@@ -19,12 +19,13 @@ locals {
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_download_file
-resource "proxmox_virtual_environment_download_file" "latest_almalinux_9_qcow2_img" {
-  content_type = "vztmpl"
-  datastore_id = var.proxmox_container_download_file_datastore_id
-  file_name    = var.proxmox_container_download_file_file_name
-  node_name    = var.proxmox_container_virtual_environment_node_name
-  url          = "https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-9.5-20241120.x86_64.qcow2"
+resource "proxmox_virtual_environment_download_file" "latest_almalinux_9_lxc_img" {
+  content_type       = "vztmpl"
+  datastore_id       = var.proxmox_container_download_file_datastore_id
+  node_name          = var.proxmox_container_virtual_environment_node_name
+  url                = "https://images.linuxcontainers.org/images/almalinux/9/amd64/cloud/20250204_23%3A08/rootfs.tar.xz"
+  checksum           = "d08ea06d9ab06c2b7cccf4f6f2804e32aa7003ee5f97ee0a099b8b99d5a6f6ff"
+  checksum_algorithm = "sha256"
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container
@@ -69,7 +70,7 @@ resource "proxmox_virtual_environment_container" "container" {
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#operating_system-2
   operating_system {
-    template_file_id = proxmox_virtual_environment_download_file.latest_almalinux_9_qcow2_img.id
+    template_file_id = proxmox_virtual_environment_download_file.latest_almalinux_9_lxc_img.id
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#started-1

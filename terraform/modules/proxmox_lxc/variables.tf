@@ -5,11 +5,6 @@
 variable "proxmox_container_download_file_datastore_id" {
   description = "Name of the Proxmox Datastore to save the qcow2 image to."
   type        = string
-}
-
-variable "proxmox_container_download_file_file_name" {
-  description = "Name of the qcow2 image file to save to the Proxmox Datastore."
-  type        = string
   default     = "local"
 }
 
