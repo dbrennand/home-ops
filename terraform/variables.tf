@@ -27,13 +27,3 @@ variable "op_pihole_item_name" {
   type        = string
   default     = "pihole01.net.dbren.uk"
 }
-
-variable "op_ssh_vault_name" {
-  description = "1Password vault name containing the SSH key."
-  type        = string
-}
-
-variable "op_ssh_key_name" {
-  description = "1Password SSH key name."
-  type        = string
-}
