@@ -10,27 +10,33 @@ all:
     backup01.net.dbren.uk:
     media01.net.dbren.uk:
   children:
+    # Proxmox cluster nodes
     proxmox:
       hosts:
         proxmox01.net.dbren.uk:
         proxmox02.net.dbren.uk:
+    # Hosts with Docker
     docker:
       hosts:
         pihole01.net.dbren.uk:
         media01.net.dbren.uk:
+    # Proxmox LXCs
     lxc:
       hosts:
         pihole02.net.dbren.uk:
         exit01.net.dbren.uk:
         exit02.net.dbren.uk:
+    # Tailscale subnet routers
     subnet_router:
       hosts:
         pihole01.net.dbren.uk:
         pihole02.net.dbren.uk:
+    # Tailscale exit nodes
     exit_node:
       hosts:
         exit01.net.dbren.uk:
         exit02.net.dbren.uk:
+    # Hosts with Tailscale installed
     tailscale:
       vars:
         # Ensures other group_vars have higher precedence than tailscale group_vars
