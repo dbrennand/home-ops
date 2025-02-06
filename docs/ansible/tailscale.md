@@ -8,13 +8,13 @@
 
 The [Tailscale playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/tailscale-playbook.yml) is used to deploy Tailscale onto infrastructure in my Homelab. The playbook uses the [artis3n.tailscale](https://github.com/artis3n/ansible-role-tailscale) Ansible role to manage the installation and configuration of Tailscale.
 
-## Tailscale Auth Key
+## Tailscale OAuth Client
 
-Generate a Tailscale [auth key](https://login.tailscale.com/admin/settings/keys) to register devices with the Tailnet and populate the `tailscale_auth_key` variable in [`ansible/inventory/group_vars/tailscale.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars/tailscale.yml).
+Generate a Tailscale [OAuth client](https://login.tailscale.com/admin/settings/oauth) to register devices with the Tailnet and populate the `tailscale_auth_key` variable in [`ansible/inventory/group_vars/tailscale.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars/tailscale.yml).
 
 ## Variables
 
-[`group_vars`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars) and [`host_vars`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/host_vars) are used to define variables for the Tailscale playbook. Variables prefixed with `tailscale_` are used to configure the [artis3n.tailscale](https://github.com/artis3n/ansible-role-tailscale) role.
+[`group_vars`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/group_vars) and [`host_vars`](https://github.com/dbrennand/home-ops/blob/dev/ansible/inventory/host_vars) are used to define variables. Variables prefixed with `tailscale_` are used to configure the [artis3n.tailscale](https://github.com/artis3n/ansible-role-tailscale) role.
 
 ## Usage
 
