@@ -11,6 +11,7 @@ pip_install_packages:
 docker_users:
   - "{{ ansible_user }}"
 docker_daemon_options:
+  log-level: "info"
   log-driver: "json-file"
   log-opts:
     max-size: "10m"
