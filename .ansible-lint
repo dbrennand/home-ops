@@ -5,6 +5,7 @@
 # and not relative to the CWD of execution. CLI arguments passed to the --exclude
 # option will be parsed relative to the CWD of execution.
 exclude_paths:
+  - .ansible/
   - .github/
   - .git/
   - mkdocs.yml
