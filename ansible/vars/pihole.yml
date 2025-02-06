@@ -63,13 +63,13 @@ security_sudoers_passwordless:
 # https://github.com/dbrennand/ansible-role-caddy-docker
 caddy_docker_caddyfile: |-
   {
-          email {$ACME_EMAIL}
+    email {$ACME_EMAIL}
   }
 
   # Cloudflare DNS-01 challenge
   (cloudflare) {
           tls {
-                  dns cloudflare {$CLOUDFLARE_API_TOKEN}
+            dns cloudflare {$CLOUDFLARE_API_TOKEN}
           }
   }
 

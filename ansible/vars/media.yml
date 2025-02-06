@@ -4,20 +4,20 @@
 # https://github.com/dbrennand/ansible-role-caddy-docker
 caddy_docker_caddyfile: |-
   {
-          email {$ACME_EMAIL}
+    email {$ACME_EMAIL}
   }
 
   # Cloudflare DNS-01 challenge
   (cloudflare) {
-          tls {
-                  dns cloudflare {$CLOUDFLARE_API_TOKEN}
-          }
+    tls {
+      dns cloudflare {$CLOUDFLARE_API_TOKEN}
+    }
   }
 
   # OpenMediaVault
   media01.{$DOMAIN} {
-      import cloudflare
-      reverse_proxy host.docker.internal:1080
+    import cloudflare
+    reverse_proxy host.docker.internal:1080
   }
 caddy_docker_image: caddy:2.8.4-alpine
 caddy_docker_builder_image: caddy:2.8.4-builder
@@ -55,8 +55,8 @@ autorestic_config:
     unlock:
       cleanup-cache: true
     forget:
-      # Always keep at least 10 snapshots
-      keep-last: 10
+      # Keep 2 weeks worth of snapshots
+      keep-last: 14
 
   locations:
     paperless-ngx-export:
@@ -70,8 +70,7 @@ autorestic_config:
         after:
           # Find zip files older than 11 days and delete them
           - 'find /srv/dev-disk-by-uuid-bb90bdb7-731a-49ce-95e8-7034130bd751/apps/paperless-ngx/export -type f -name "*.zip" -mtime +11 -exec rm {} \;'
-      # Everyday at midnight
-      cron: "0 0 * * *"
+      cron: "0 23 * * *"
       forget: prune
   backends:
     backblaze:
