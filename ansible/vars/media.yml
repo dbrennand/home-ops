@@ -66,7 +66,7 @@ autorestic_config:
         prevalidate:
           - "docker exec paperless_ngx document_exporter /usr/src/paperless/export --zip"
         failure:
-          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \":x: Backup failed for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"'
+          - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \":x: Backup failed for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"' # noqa yaml[line-length]
         after:
           # Find zip files older than 11 days and delete them
           - 'find /srv/dev-disk-by-uuid-bb90bdb7-731a-49ce-95e8-7034130bd751/apps/paperless-ngx/export -type f -name "*.zip" -mtime +11 -exec rm {} \;'
