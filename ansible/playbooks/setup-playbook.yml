@@ -1,24 +1,19 @@
 ---
 - name: Setup Playbook
-  hosts: lxc
+  hosts: all
   become: true
   vars_files:
     - ../vars/general.yml
   pre_tasks:
     - name: Ensure packages are installed
-      tags:
-        - packages
+      tags: packages
       ansible.builtin.apt:
         name: "{{ packages }}"
         update_cache: true
         cache_valid_time: 3600
   roles:
-    - role: geerlingguy.security
-      tags:
-        - security
     - role: ironicbadger.figurine
-      tags:
-        - figurine
+      tags: figurine
   tasks:
     - name: SSH login script
       tags: ssh
