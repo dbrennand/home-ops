@@ -3,7 +3,6 @@
   hosts: media01.net.dbren.uk
   vars_files:
     - ../vars/media.yml
-    - ../vars/discord_webhook.yml
   handlers:
     - name: Restart monit systemd service
       become: true

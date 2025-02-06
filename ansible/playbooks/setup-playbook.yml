@@ -4,7 +4,6 @@
   become: true
   vars_files:
     - ../vars/general.yml
-    - ../vars/discord_webhook.yml
   pre_tasks:
     - name: Ensure packages are installed
       tags:
