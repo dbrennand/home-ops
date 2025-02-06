@@ -1,4 +1,4 @@
-# OpenTofu Module - Proxmox LXC Container
+# OpenTofu Module - Proxmox LXC
 # LICENSE: MIT
 # Author: Daniel Brennand
 
