@@ -224,20 +224,33 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
 
     | Setting     | Value                                                          |
     | ----------- | -------------------------------------------------------------- |
-    | ID          | `backup01`                                                     |
+    | ID          | `backup01-backup01`                                            |
     | Server      | `backup01.net.dbren.uk`                                        |
     | Datastore   | `backup01`                                                     |
     | Username    | `root@pam`                                                     |
     | Password    | Enter password                                                 |
     | Fingerprint | Copy from Proxmox Backup Server Dashboard > `Show Fingerprint` |
+    | Encryption  | Upload an existing client encryption key                       |
 
-3. Navigate to `Datacenter` > `Backup` > `Add` and enter the following details:
+3. Repeat the steps above for `backup02`:
+
+    | Setting     | Value                                                          |
+    | ----------- | -------------------------------------------------------------- |
+    | ID          | `backup01-backup02`                                            |
+    | Server      | `backup01.net.dbren.uk`                                        |
+    | Datastore   | `backup02`                                                     |
+    | Username    | `root@pam`                                                     |
+    | Password    | Enter password                                                 |
+    | Fingerprint | Copy from Proxmox Backup Server Dashboard > `Show Fingerprint` |
+    | Encryption  | Upload an existing client encryption key                       |
+
+4. Navigate to `Datacenter` > `Backup` > `Add` and enter the following details:
 
     | Setting        | Value                  |
     | -------------- | ---------------------- |
-    | Storage        | `backup01`             |
-    | Schedule       | `03:00`                |
+    | Storage        | `backup01-backup02`    |
+    | Schedule       | `01:00`                |
     | Selection Mode | `Exclude selected VMs` |
     | Mode           | `Snapshot`             |
 
-    Choose `backup01` and click **OK**.
+    Choose `backup01` to exclude from backups and click **OK**.

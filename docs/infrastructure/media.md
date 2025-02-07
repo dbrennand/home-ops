@@ -84,7 +84,7 @@ The media server is deployed as a VM on Proxmox using the [OpenMediaVault ISO](h
       | Password        | Enter password  |
       | Default Gateway | `192.168.0.1`   |
       | Subnet Mask     | `255.255.255.0` |
-      | IP Address      | `192.168.0.10`  |
+      | IP Address      | `192.168.0.9`   |
 
 12. Once installation has completed, login to the web interface using the FQDN and credentials entered during installation.
 
