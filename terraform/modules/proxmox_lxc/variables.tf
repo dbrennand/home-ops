@@ -50,7 +50,7 @@ variable "proxmox_container_dns_domain" {
 variable "proxmox_container_dns_servers" {
   description = "DNS servers for the Proxmox LXC."
   type        = list(string)
-  default     = ["192.168.0.2"]
+  default     = ["192.168.0.2", "192.168.0.5"]
 }
 
 variable "proxmox_container_ip" {
