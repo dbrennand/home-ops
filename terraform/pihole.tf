@@ -22,6 +22,11 @@ resource "pihole_dns_record" "pihole02" {
   ip     = "192.168.0.5"
 }
 
+resource "pihole_dns_record" "backup01" {
+  domain = "backup01.net.dbren.uk"
+  ip     = "192.168.0.6"
+}
+
 resource "pihole_dns_record" "exit01" {
   domain = "exit01.net.dbren.uk"
   ip     = "192.168.0.7"
@@ -34,10 +39,5 @@ resource "pihole_dns_record" "exit02" {
 
 resource "pihole_dns_record" "media01" {
   domain = "media01.net.dbren.uk"
-  ip     = "192.168.0.10"
-}
-
-resource "pihole_dns_record" "backup01" {
-  domain = "backup01.net.dbren.uk"
-  ip     = "192.168.0.11"
+  ip     = "192.168.0.9"
 }
