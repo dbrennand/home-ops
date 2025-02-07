@@ -246,11 +246,13 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
 
 4. Navigate to `Datacenter` > `Backup` > `Add` and enter the following details:
 
-    | Setting        | Value                  |
-    | -------------- | ---------------------- |
-    | Storage        | `backup01-backup02`    |
-    | Schedule       | `01:00`                |
-    | Selection Mode | `Exclude selected VMs` |
-    | Mode           | `Snapshot`             |
+    | Setting                 | Value                  |
+    | ----------------------- | ---------------------- |
+    | Storage                 | `backup01-backup02`    |
+    | Schedule                | `01:00`                |
+    | Selection Mode          | `Exclude selected VMs` |
+    | Mode                    | `Snapshot`             |
+    | Retention - Keep Daily  | 10                     |
+    | Retention - Keep Weekly | 2                      |
 
     Choose `backup01` to exclude from backups and click **OK**.
