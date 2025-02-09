@@ -1,5 +1,15 @@
 ---
 - name: Tailscale | Install & Update
   hosts: tailscale
+  pre_tasks:
+    - name: Tailscale | Patch Proxmox unprivileged LXC configuration file
+      delegate_to: "{{ proxmox_node_name }}"
+      when: inventory_hostname in groups["lxc"]
+      ansible.builtin.lineinfile:
+        path: "/etc/pve/lxc/{{ proxmox_lxc_id }}.conf"
+        line: |
+          lxc.cgroup2.devices.allow: c 10:200 rwm
+          lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+        state: present
   roles:
     - role: artis3n.tailscale
