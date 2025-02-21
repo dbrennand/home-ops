@@ -6,6 +6,6 @@ packages:
   - sudo
   - lm-sensors
   - ncdu
-  - htop
+  - btop
   - vim
   - tmux
