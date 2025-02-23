@@ -10,7 +10,7 @@ variable "proxmox_vm_name" {
 variable "proxmox_vm_tags" {
   description = "Tags for the Proxmox Virtual Machine."
   type        = list(string)
-  default     = ["vm"]
+  default     = ["vm", "opentofu"]
 }
 
 variable "proxmox_vm_cores" {
@@ -26,7 +26,7 @@ variable "proxmox_vm_cpu_type" {
 }
 
 variable "proxmox_vm_memory" {
-  description = "Amount of memory for the Proxmox Virtual Machine."
+  description = "Amount of memory for the Proxmox Virtual Machine in megabytes."
   type        = number
   default     = 2048
 }
@@ -42,42 +42,13 @@ variable "proxmox_vm_gateway" {
   default     = "192.168.0.1"
 }
 
-variable "proxmox_vm_keys" {
-  description = "SSH keys for the Proxmox Virtual Machine."
-  type        = list(string)
-  default     = []
-}
-
-variable "proxmox_vm_username" {
-  description = "Username for the Proxmox Virtual Machine."
-  type        = string
-}
-
-variable "proxmox_vm_password" {
-  description = "Password for the Proxmox Virtual Machine."
-  type        = string
-  sensitive   = true
-}
-
-variable "proxmox_virtual_environment_template_vm_id" {
-  description = "ID of the Proxmox VE template Virtual Machine used for cloning."
-  type        = number
-  default     = 9000
-}
-
-variable "proxmox_virtual_environment_template_vm_node_name" {
-  description = "Name of the Proxmox VE node where the template Virtual Machine resides on."
-  type        = string
-  default     = "proxmox01"
-}
-
-variable "proxmox_virtual_environment_disk_datastore_id" {
+variable "proxmox_vm_virtual_environment_disk_datastore_id" {
   description = "ID of the Proxmox VE datastore used for the Virtual Machine disk."
   type        = string
   default     = "local-lvm"
 }
 
-variable "proxmox_virtual_environment_node_name" {
+variable "proxmox_vm_virtual_environment_node_name" {
   description = "Name of the Proxmox VE node."
   type        = string
   default     = "proxmox01"
@@ -87,4 +58,33 @@ variable "proxmox_vm_os_type" {
   description = "Type of operating system for the Proxmox Virtual Machine."
   type        = string
   default     = "l26"
+}
+
+variable "proxmox_vm_cloud_init_config_ssh_authorized_keys" {
+  description = "SSH public key used by Cloud-init."
+  type        = string
+}
+
+variable "proxmox_vm_download_file_datastore_id" {
+  description = "ID of the Proxmox VE datastore used for the Debian qcow2 image."
+  type        = string
+  default     = "local"
+}
+
+variable "proxmox_vm_on_boot" {
+  description = "Start the Proxmox Virtual Machine when the Proxmox node boots."
+  type        = bool
+  default     = false
+}
+
+variable "proxmox_vm_started" {
+  description = "Start the Proxmox Virtual Machine after the VM is created."
+  type        = bool
+  default     = false
+}
+
+variable "proxmox_vm_disk_size" {
+  description = "Size of the Proxmox Virtual Machine disk in gigabytes."
+  type        = number
+  default     = 50
 }
