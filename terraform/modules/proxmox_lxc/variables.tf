@@ -34,7 +34,7 @@ variable "proxmox_container_cores" {
 variable "proxmox_container_memory_dedicated" {
   description = "Amount of memory for the Proxmox LXC."
   type        = number
-  default     = 2048
+  default     = 1024
 }
 
 variable "proxmox_container_memory_swap" {
