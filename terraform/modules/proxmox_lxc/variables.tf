@@ -3,7 +3,7 @@
 # Author: Daniel Brennand
 
 variable "proxmox_container_download_file_datastore_id" {
-  description = "Name of the Proxmox Datastore to save the qcow2 image to."
+  description = "Name of the Proxmox Datastore to save the tar.xz image to."
   type        = string
   default     = "local"
 }
