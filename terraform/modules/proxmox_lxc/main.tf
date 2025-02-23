@@ -19,7 +19,7 @@ locals {
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_download_file
-resource "proxmox_virtual_environment_download_file" "latest_debian_bookworm" {
+resource "proxmox_virtual_environment_download_file" "latest_debian_bookworm_vztmpl" {
   content_type       = "vztmpl"
   datastore_id       = var.proxmox_container_download_file_datastore_id
   node_name          = var.proxmox_container_virtual_environment_node_name
@@ -71,7 +71,7 @@ resource "proxmox_virtual_environment_container" "container" {
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#operating_system-2
   operating_system {
-    template_file_id = proxmox_virtual_environment_download_file.latest_debian_bookworm.id
+    template_file_id = proxmox_virtual_environment_download_file.latest_debian_bookworm_vztmpl.id
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#started-1
