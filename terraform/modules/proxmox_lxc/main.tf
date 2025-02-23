@@ -19,13 +19,13 @@ locals {
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_download_file
-resource "proxmox_virtual_environment_download_file" "latest_almalinux_9_lxc_img" {
+resource "proxmox_virtual_environment_download_file" "latest_debian_bookworm" {
   content_type       = "vztmpl"
   datastore_id       = var.proxmox_container_download_file_datastore_id
   node_name          = var.proxmox_container_virtual_environment_node_name
-  url                = "https://images.linuxcontainers.org/images/almalinux/9/amd64/cloud/20250204_23%3A08/rootfs.tar.xz"
-  checksum           = "d08ea06d9ab06c2b7cccf4f6f2804e32aa7003ee5f97ee0a099b8b99d5a6f6ff"
-  checksum_algorithm = "sha256"
+  url                = "https://cloud.debian.org/images/cloud/bookworm/20250210-2019/debian-12-generic-amd64-20250210-2019.tar.xz"
+  checksum           = "130c904cd05da472fe1b61f56de9499c3ba6666fea615fd39a4094a007aa7c846693df8c21e8ea7078756734225a00ecf9c467d4e9d96f4fc3c7d628fd6c6849"
+  checksum_algorithm = "sha512"
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container
@@ -70,7 +70,7 @@ resource "proxmox_virtual_environment_container" "container" {
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#operating_system-2
   operating_system {
-    template_file_id = proxmox_virtual_environment_download_file.latest_almalinux_9_lxc_img.id
+    template_file_id = proxmox_virtual_environment_download_file.latest_debian_bookworm.id
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#started-1

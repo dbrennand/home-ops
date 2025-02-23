@@ -16,14 +16,24 @@ variable "op_proxmox_virtual_environment_item_name" {
   default     = "proxmox01.net.dbren.uk"
 }
 
-variable "op_pihole_vault_name" {
-  description = "1Password vault name containing the Proxmox virtual environment item."
+variable "op_ssh_vault_name" {
+  description = "1Password vault name containing the SSH key."
+  type        = string
+}
+
+variable "op_ssh_key_name" {
+  description = "1Password SSH key name."
+  type        = string
+}
+
+variable "op_exit01_vault_name" {
+  description = "1Password vault name containing the exit01 item."
   type        = string
   default     = "Home-Ops"
 }
 
-variable "op_pihole_item_name" {
-  description = "1Password virtual environment item name."
+variable "op_exit01_item_name" {
+  description = "1Password exit01 item name."
   type        = string
-  default     = "pihole01.net.dbren.uk"
+  default     = "exit01.net.dbren.uk"
 }
