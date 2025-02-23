@@ -22,7 +22,7 @@ variable "proxmox_container_id" {
 variable "proxmox_container_tags" {
   description = "Tags for the Proxmox LXC."
   type        = list(string)
-  default     = ["lxc"]
+  default     = ["lxc", "opentofu"]
 }
 
 variable "proxmox_container_cores" {
