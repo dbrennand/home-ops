@@ -6,3 +6,4 @@ terraform.tfvars
 .env
 !docker/**/.env
 .venv
+.ansible/
