@@ -67,8 +67,8 @@ variable "proxmox_virtual_environment_template_vm_id" {
 
 variable "proxmox_virtual_environment_template_vm_node_name" {
   description = "Name of the Proxmox VE node where the template Virtual Machine resides on."
-  type = string
-  default = "proxmox01"
+  type        = string
+  default     = "proxmox01"
 }
 
 variable "proxmox_virtual_environment_disk_datastore_id" {

@@ -33,7 +33,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#clone
   clone {
-    vm_id = var.proxmox_virtual_environment_template_vm_id
+    vm_id     = var.proxmox_virtual_environment_template_vm_id
     node_name = var.proxmox_virtual_environment_template_vm_node_name
     # Equivalent to "Full Clone" and modifying the "Target Storage" in Proxmox UI
     datastore_id = var.proxmox_virtual_environment_disk_datastore_id
@@ -72,7 +72,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
       }
     }
     user_account {
-      keys = var.proxmox_vm_keys
+      keys     = var.proxmox_vm_keys
       username = var.proxmox_vm_username
       password = var.proxmox_vm_password
     }
