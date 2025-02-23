@@ -43,7 +43,8 @@ resource "proxmox_virtual_environment_container" "container" {
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#memory-4
   memory {
-    dedicated = var.proxmox_container_memory
+    dedicated = var.proxmox_container_memory_dedicated
+    swap      = var.proxmox_container_memory_swap
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#initialization-2

@@ -31,10 +31,16 @@ variable "proxmox_container_cores" {
   default     = 1
 }
 
-variable "proxmox_container_memory" {
+variable "proxmox_container_memory_dedicated" {
   description = "Amount of memory for the Proxmox LXC."
   type        = number
   default     = 2048
+}
+
+variable "proxmox_container_memory_swap" {
+  description = "Amount of swap memory for the Proxmox LXC."
+  type        = number
+  default     = 512
 }
 
 variable "proxmox_container_hostname" {
