@@ -19,13 +19,13 @@ locals {
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_download_file
-resource "proxmox_virtual_environment_download_file" "latest_debian_bookworm_vztmpl" {
+resource "proxmox_virtual_environment_download_file" "latest_almalinux_vztmpl" {
   content_type       = "vztmpl"
   datastore_id       = var.proxmox_container_download_file_datastore_id
   node_name          = var.proxmox_container_virtual_environment_node_name
-  url                = "https://cloud.debian.org/images/cloud/bookworm/20250210-2019/debian-12-generic-amd64-20250210-2019.tar.xz"
-  checksum           = "130c904cd05da472fe1b61f56de9499c3ba6666fea615fd39a4094a007aa7c846693df8c21e8ea7078756734225a00ecf9c467d4e9d96f4fc3c7d628fd6c6849"
-  checksum_algorithm = "sha512"
+  url                = "https://images.linuxcontainers.org/images/almalinux/8/amd64/cloud/20250223_23:08/rootfs.tar.xz"
+  checksum           = "12ff30f1aff9dec85414806055b65c17f3cad615d755061779257162456c971c"
+  checksum_algorithm = "sha256"
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container
@@ -71,7 +71,8 @@ resource "proxmox_virtual_environment_container" "container" {
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#operating_system-2
   operating_system {
-    template_file_id = proxmox_virtual_environment_download_file.latest_debian_bookworm_vztmpl.id
+    template_file_id = proxmox_virtual_environment_download_file.latest_almalinux_vztmpl.id
+    type             = "centos"
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#started-1
@@ -92,5 +93,11 @@ resource "proxmox_virtual_environment_container" "container" {
   disk {
     datastore_id = var.proxmox_container_disk_datastore_id
     size         = var.proxmox_container_disk_size
+  }
+
+  # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_container#features-2
+  features {
+    keyctl  = true
+    nesting = true
   }
 }
