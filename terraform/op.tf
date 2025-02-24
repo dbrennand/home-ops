@@ -18,3 +18,8 @@ data "onepassword_item" "exit01" {
   vault = var.op_exit01_vault_name
   title = var.op_exit01_item_name
 }
+
+data "onepassword_item" "exit02" {
+  vault = var.op_exit02_vault_name
+  title = var.op_exit02_item_name
+}

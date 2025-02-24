@@ -37,3 +37,15 @@ variable "op_exit01_item_name" {
   type        = string
   default     = "exit01.net.dbren.uk"
 }
+
+variable "op_exit02_vault_name" {
+  description = "1Password vault name containing the exit02 item."
+  type        = string
+  default     = "Home-Ops"
+}
+
+variable "op_exit02_item_name" {
+  description = "1Password exit02 item name."
+  type        = string
+  default     = "exit02.net.dbren.uk"
+}
