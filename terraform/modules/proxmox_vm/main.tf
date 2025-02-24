@@ -82,7 +82,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   disk {
     interface    = "scsi0"
     datastore_id = var.proxmox_vm_virtual_environment_disk_datastore_id
-    file_id      = proxmox_virtual_environment_download_file.latest_debian_bookworm_qcow2_img.id
+    file_id      = proxmox_virtual_environment_download_file.latest_almalinux_qcow2_img.id
     discard      = "on"
     size         = var.proxmox_vm_disk_size
   }
