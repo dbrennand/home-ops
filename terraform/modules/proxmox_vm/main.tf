@@ -47,13 +47,14 @@ EOF
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_download_file
-resource "proxmox_virtual_environment_download_file" "latest_debian_bookworm_qcow2_img" {
+resource "proxmox_virtual_environment_download_file" "latest_almalinux_qcow2_img" {
   content_type       = "iso"
   datastore_id       = var.proxmox_vm_download_file_datastore_id
   node_name          = var.proxmox_vm_virtual_environment_node_name
-  url                = "https://cloud.debian.org/images/cloud/bookworm/20250210-2019/debian-12-generic-amd64-20250210-2019.qcow2"
-  checksum           = "56c236142b9e1427862dad62f7dfa727287599d361e7b71c22e3bd1c10e8a9f958fb820576cb5ec239bcb186cc2134b5742120c0b95aeeda68ed867bf206889a"
-  checksum_algorithm = "sha512"
+  file_name          = "AlmaLinux-9-GenericCloud-9.5-20241120.x86_64.qcow2"
+  url                = "https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-9.5-20241120.x86_64.qcow2"
+  checksum           = "abddf01589d46c841f718cec239392924a03b34c4fe84929af5d543c50e37e37"
+  checksum_algorithm = "sha256"
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm
