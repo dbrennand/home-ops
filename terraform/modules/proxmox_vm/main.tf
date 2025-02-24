@@ -39,8 +39,10 @@ package_update: true
 package_upgrade: true
 packages:
   - qemu-guest-agent
+  - openssh-server
 runcmd:
   - systemctl enable --now qemu-guest-agent
+  - systemctl enable --now openssh-server
   - timedatectl set-timezone Europe/London
 EOF
   }
