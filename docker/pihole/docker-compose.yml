@@ -3,7 +3,7 @@
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:2025.02.3
+    image: pihole/pihole:2025.02.4
     restart: unless-stopped
     ports:
       # DNS Ports
