@@ -23,9 +23,9 @@ resource "proxmox_virtual_environment_download_file" "latest_almalinux_vztmpl" {
   content_type       = "vztmpl"
   datastore_id       = var.proxmox_container_download_file_datastore_id
   node_name          = var.proxmox_container_virtual_environment_node_name
-  file_name          = "almalinux-9-5-cloud_amd64.tar.xz"
-  url                = "https://images.linuxcontainers.org/images/almalinux/8/amd64/cloud/20250223_23:08/rootfs.tar.xz"
-  checksum           = "12ff30f1aff9dec85414806055b65c17f3cad615d755061779257162456c971c"
+  file_name          = "almalinux-9-cloud_amd64.tar.xz"
+  url                = "https://images.linuxcontainers.org/images/almalinux/9/amd64/cloud/20250223_23:08/rootfs.tar.xz"
+  checksum           = "d593648a6a3a3ba6bd8a410e1d3e1688bf12f4fa9e62dcf31aedb8cf729313e5"
   checksum_algorithm = "sha256"
 }
 
