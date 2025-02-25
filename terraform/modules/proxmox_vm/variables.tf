@@ -2,6 +2,11 @@
 # LICENSE: MIT
 # Author: Daniel Brennand
 
+variable "proxmox_vm_id" {
+  description = "ID of the Proxmox Virtual Machine."
+  type        = number
+}
+
 variable "proxmox_vm_name" {
   description = "Name of the Proxmox Virtual Machine."
   type        = string

@@ -15,7 +15,7 @@ terraform {
 
 locals {
   datetime               = timestamp()
-  proxmox_vm_description = "Created by Terraform at ${local.datetime}"
+  proxmox_vm_description = "Created by OpenTofu at ${local.datetime}"
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_file
@@ -24,9 +24,11 @@ resource "proxmox_virtual_environment_file" "cloud_init_config" {
   # Local is the only datastore in my Homelab which supports the snippets content type
   datastore_id = "local"
   node_name    = var.proxmox_vm_virtual_environment_node_name
-  source_raw = {
-    data = <<EOF
+  source_raw {
+    file_name = "cloud-init-config-${var.proxmox_vm_name}.yaml"
+    data      = <<EOF
 #cloud-config
+hostname: ${var.proxmox_vm_name}
 users:
   - name: daniel
     groups: sudo
@@ -42,8 +44,9 @@ packages:
   - openssh-server
 runcmd:
   - systemctl enable --now qemu-guest-agent
-  - systemctl enable --now openssh-server
+  - systemctl enable --now sshd
   - timedatectl set-timezone Europe/London
+  - hostnamectl set-hostname ${var.proxmox_vm_name}
 EOF
   }
 }
@@ -53,7 +56,7 @@ resource "proxmox_virtual_environment_download_file" "latest_almalinux_qcow2_img
   content_type       = "iso"
   datastore_id       = var.proxmox_vm_download_file_datastore_id
   node_name          = var.proxmox_vm_virtual_environment_node_name
-  file_name          = "AlmaLinux-9-GenericCloud-9.5-20241120.x86_64.qcow2"
+  file_name          = "AlmaLinux-9-GenericCloud-9.5-20241120.x86_64.qcow2.img"
   url                = "https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-9.5-20241120.x86_64.qcow2"
   checksum           = "abddf01589d46c841f718cec239392924a03b34c4fe84929af5d543c50e37e37"
   checksum_algorithm = "sha256"
@@ -62,6 +65,7 @@ resource "proxmox_virtual_environment_download_file" "latest_almalinux_qcow2_img
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm
 resource "proxmox_virtual_environment_vm" "vm" {
   name        = var.proxmox_vm_name
+  vm_id       = var.proxmox_vm_id
   description = local.proxmox_vm_description
   tags        = var.proxmox_vm_tags
   node_name   = var.proxmox_vm_virtual_environment_node_name
@@ -80,6 +84,9 @@ resource "proxmox_virtual_environment_vm" "vm" {
     type  = var.proxmox_vm_cpu_type
   }
 
+  # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#scsi_hardware-1
+  scsi_hardware = "virtio-scsi-single"
+
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#disk
   disk {
     interface    = "scsi0"
@@ -87,6 +94,8 @@ resource "proxmox_virtual_environment_vm" "vm" {
     file_id      = proxmox_virtual_environment_download_file.latest_almalinux_qcow2_img.id
     discard      = "on"
     size         = var.proxmox_vm_disk_size
+    ssd          = true
+    iothread     = true
   }
 
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#memory
@@ -109,5 +118,12 @@ resource "proxmox_virtual_environment_vm" "vm" {
   # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#operating_system
   operating_system {
     type = var.proxmox_vm_os_type
+  }
+
+  # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm#network_device-1
+  network_device {
+    bridge   = "vmbr0"
+    enabled  = true
+    firewall = true
   }
 }
