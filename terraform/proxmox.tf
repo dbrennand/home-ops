@@ -28,8 +28,8 @@ module "proxmox_vm_exit01" {
   proxmox_vm_name                                  = "exit01"
   proxmox_vm_id                                    = 101
   proxmox_vm_tags                                  = ["vm", "opentofu", "tailscale", "192.168.0.7"]
-  proxmox_vm_cores                                 = 1
-  proxmox_vm_memory                                = 1024
+  proxmox_vm_cores                                 = 2
+  proxmox_vm_memory                                = 2048
   proxmox_vm_ip                                    = "192.168.0.7/24"
   proxmox_vm_virtual_environment_disk_datastore_id = "lv-ssd-crucial"
   proxmox_vm_virtual_environment_node_name         = "proxmox01"
@@ -43,8 +43,8 @@ module "proxmox_vm_exit02" {
   proxmox_vm_name                                  = "exit02"
   proxmox_vm_id                                    = 104
   proxmox_vm_tags                                  = ["vm", "opentofu", "tailscale", "192.168.0.8"]
-  proxmox_vm_cores                                 = 1
-  proxmox_vm_memory                                = 1024
+  proxmox_vm_cores                                 = 2
+  proxmox_vm_memory                                = 2048
   proxmox_vm_ip                                    = "192.168.0.8/24"
   proxmox_vm_virtual_environment_disk_datastore_id = "local-lvm"
   proxmox_vm_virtual_environment_node_name         = "proxmox02"
