@@ -5,12 +5,23 @@
   vars_files:
     - ../vars/general.yml
   pre_tasks:
-    - name: Ensure packages are installed
+    - name: Update and install packages
       tags: packages
-      ansible.builtin.apt:
-        name: "{{ packages }}"
-        update_cache: true
-        cache_valid_time: 3600
+      block:
+        - name: Apt | Ensure packages are installed
+          when: ansible_facts["os_family"] == "Debian"
+          ansible.builtin.apt:
+            name: "{{ packages }}"
+            update_cache: true
+            cache_valid_time: 3600
+            state: present
+
+        - name: Dnf | Ensure packages are installed
+          when: ansible_facts["os_family"] == "RedHat"
+          ansible.builtin.dnf:
+            name: "{{ packages }}"
+            update_cache: true
+            state: present
   roles:
     - role: ironicbadger.figurine
       tags: figurine
