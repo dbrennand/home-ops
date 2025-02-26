@@ -4,7 +4,6 @@
 # List of packages to install
 packages:
   - sudo
-  - lm-sensors
   - ncdu
   - btop
   - vim
