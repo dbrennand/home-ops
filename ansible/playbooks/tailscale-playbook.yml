@@ -1,5 +1,27 @@
 ---
 - name: Tailscale | Install & Update
   hosts: tailscale
+  pre_tasks:
+    - name: Tailscale | Enable IP forwarding
+      when: |
+        inventory_hostname in groups["exit_node"] or
+        inventory_hostname in groups["subnet_router"]
+      become: true
+      block:
+        - name: Tailscale | Enable IPv4 forwarding
+          ansible.posix.sysctl:
+            name: net.ipv4.ip_forward
+            value: "1"
+            sysctl_file: /etc/sysctl.d/99-tailscale.conf
+            state: present
+            reload: true
+
+        - name: Tailscale | Enable IPv6 forwarding
+          ansible.posix.sysctl:
+            name: net.ipv6.conf.all.forwarding
+            value: "1"
+            sysctl_file: /etc/sysctl.d/99-tailscale.conf
+            state: present
+            reload: true
   roles:
     - role: artis3n.tailscale
