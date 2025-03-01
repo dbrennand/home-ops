@@ -11,8 +11,6 @@ services:
       - "53:53/udp"
       # Default HTTP Port
       - "80:80/tcp"
-      # Default HTTPs Port. FTL will generate a self-signed certificate
-      - "443:443/tcp"
     environment:
       # https://github.com/pi-hole/FTL/blob/master/test/pihole.toml
       # Set the appropriate time zone for your location (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), e.g:
