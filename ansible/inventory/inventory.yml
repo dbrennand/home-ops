@@ -20,12 +20,7 @@ all:
       hosts:
         pihole01.net.dbren.uk:
         media01.net.dbren.uk:
-    # Proxmox LXCs
-    lxc:
-      hosts:
         pihole02.net.dbren.uk:
-        exit01.net.dbren.uk:
-        exit02.net.dbren.uk:
     # Tailscale subnet routers
     subnet_router:
       hosts:
