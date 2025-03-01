@@ -18,7 +18,7 @@ services:
       # Set the appropriate time zone for your location (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), e.g:
       TZ: "Europe/London"
       # Set a password to access the web interface. Not setting one will result in a random password being assigned
-      FTLCONF_webserver_api_password: ""
+      FTLCONF_webserver_api_password: "${FTLCONF_webserver_api_password}"
       # Upstream DNS server(s) for Pi-hole to forward queries to, separated by a semicolon
       # Quad9 https://quad9.net/
       FTLCONF_dns_upstreams: "9.9.9.9;149.112.112.112"
@@ -31,7 +31,7 @@ services:
     # Volumes store your data between container upgrades
     volumes:
       # For persisting Pi-hole's databases and common configuration file
-      - './etc-pihole:/etc/pihole'
+      - "./etc-pihole:/etc/pihole"
     cap_add:
       # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
       # Required if you are using Pi-hole as your NTP client to be able to set the host's system time
