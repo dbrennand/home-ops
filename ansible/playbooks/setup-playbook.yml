@@ -8,9 +8,15 @@
     - role: ironicbadger.figurine
       tags: figurine
   tasks:
+    - name: Include geerlingguy.docker
+      tags: docker
+      when: inventory_hostname in groups["docker"]
+      ansible.builtin.import_role:
+        name: geerlingguy.docker
+
     - name: Include geerlingguy.repo-epel
       when: ansible_facts["os_family"] == "RedHat"
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: geerlingguy.repo-epel
 
     - name: Update and install packages
