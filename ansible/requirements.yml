@@ -12,7 +12,7 @@ roles:
   - name: dbrennand.autorestic
     version: 1.4.0
   - name: artis3n.tailscale
-    version: v4.6.0
+    version: v5.0.0
   - name: geerlingguy.docker
     version: 7.4.5
   - name: geerlingguy.pip
