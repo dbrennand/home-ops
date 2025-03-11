@@ -1,0 +1,8 @@
+{
+    email {env.ACME_EMAIL}
+}
+
+# Cloudflare DNS-01 challenge
+tls {
+    dns cloudflare {env.CF_API_TOKEN}
+}

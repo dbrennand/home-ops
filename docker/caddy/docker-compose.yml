@@ -1,0 +1,25 @@
+---
+# https://github.com/pi-hole/docker-pi-hole
+services:
+  caddy:
+    container_name: caddy
+    image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2025.03.04
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      ACME_EMAIL: "${ACME_EMAIL}"
+      CF_API_TOKEN: "${CF_API_TOKEN}"
+    volumes:
+      - ./conf:/etc/caddy
+      - ./data:/data
+      - ./config:/config
+    networks:
+      - caddy
+
+networks:
+  caddy:
