@@ -5,6 +5,7 @@ services:
     container_name: caddy
     image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2025.03.04
     restart: unless-stopped
+    command: caddy docker-proxy
     cap_add:
       - NET_ADMIN
     ports:
@@ -14,10 +15,15 @@ services:
     environment:
       ACME_EMAIL: "${ACME_EMAIL}"
       CF_API_TOKEN: "${CF_API_TOKEN}"
+      # https://github.com/lucaslorentz/caddy-docker-proxy#caddy-cli
+      CADDY_INGRESS_NETWORKS: caddy
+      CADDY_DOCKER_CADDYFILE_PATH: /etc/caddy/Caddyfile
     volumes:
       - ./conf:/etc/caddy
       - ./data:/data
       - ./config:/config
+      # Required for Caddy to read Docker container labels
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - caddy
 
