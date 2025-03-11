@@ -46,5 +46,6 @@ services:
 
 networks:
   pihole:
+    name: pihole
   caddy:
     external: true
