@@ -36,3 +36,11 @@ services:
       - SYS_TIME
       # Optional, if Pi-hole should get some more processing time
       - SYS_NICE
+    networks:
+      - pihole
+      - caddy
+
+networks:
+  pihole:
+  caddy:
+    external: true
