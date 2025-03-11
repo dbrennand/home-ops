@@ -9,8 +9,8 @@ services:
       # DNS Ports
       - "53:53/tcp"
       - "53:53/udp"
-      # Default HTTP Port
-      - "80:80/tcp"
+    expose:
+      - "80"
     environment:
       # https://github.com/pi-hole/FTL/blob/master/test/pihole.toml
       # Set the appropriate time zone for your location (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), e.g:
@@ -39,6 +39,9 @@ services:
     networks:
       - pihole
       - caddy
+    labels:
+      caddy: "${FQDN}"
+      caddy.reverse_proxy: "{{ upstreams 80 }}"
 
 networks:
   pihole:
