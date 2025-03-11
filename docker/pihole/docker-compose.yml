@@ -22,7 +22,7 @@ services:
       FTLCONF_dns_upstreams: "9.9.9.9;149.112.112.112"
       # Enable DNSSEC
       FTLCONF_dns_dnssec: "true"
-      # Permit all origins (for TailScale)
+      # Permit all origins (for Tailscale)
       FTLCONF_dns_listeningMode: "ALL"
       # Configure DNS domain
       FTLCONF_dns_domain: "net.dbren.uk"
