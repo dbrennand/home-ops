@@ -6,13 +6,15 @@ collections:
     version: 10.4.0
   - name: ansible.posix
     version: 2.0.0
+  - name: sbarbett.pihole
+    version: 1.1.0
+  - name: artis3n.tailscale
+    version: 0.2.1
 roles:
   - name: dbrennand.caddy_docker
     version: 3.2.0
   - name: dbrennand.autorestic
     version: 1.4.0
-  - name: artis3n.tailscale
-    version: v4.6.0
   - name: geerlingguy.docker
     version: 7.4.7
   - name: geerlingguy.pip

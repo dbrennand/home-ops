@@ -24,4 +24,4 @@
             state: present
             reload: true
   roles:
-    - role: artis3n.tailscale
+    - role: artis3n.tailscale.device
