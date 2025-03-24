@@ -1,0 +1,61 @@
+---
+# vars file for pihole-records.yml
+# Variables used by the sbarbett.pihole.manage_local_records role
+pihole_hosts:
+  - name: https://pihole01.net.dbren.uk
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      62366431333230363337373531613832373765383863633031383735613739653834386664333562
+      3432303031656561646630616463333334303137653266360a386238646535313463343664663761
+      64386361396564376363326564376661313439333436333761316435303361313932396131653738
+      3534306262393634610a323862386462306438663630376530626134363461333637386662633864
+      64326366353761653465346465313563616335323363333031336436376539356365
+  - name: https://pihole02.net.dbren.uk
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      30336166336366623365323938306433353032306233653032643464313333656165363466363465
+      3232636639636466633533666138333962303739343737320a373364643566613033346334663061
+      33626133626162623134386263313933663139643566373365373130653062356438363166386637
+      6532376165323236660a653234646464633464643261363236616530643532386538616139633466
+      34376238333761633335326536633730623038626335633037383539653361653933
+pihole_records:
+  - name: pihole01.net.dbren.uk
+    type: A
+    data: 192.168.0.2
+    state: present
+  - name: proxmox02.net.dbren.uk
+    type: A
+    data: 192.168.0.3
+    state: present
+  - name: proxmox01.net.dbren.uk
+    type: A
+    data: 192.168.0.4
+    state: present
+  - name: pihole02.net.dbren.uk
+    type: A
+    data: 192.168.0.5
+    state: present
+  - name: backup01.net.dbren.uk
+    type: A
+    data: 192.168.0.6
+    state: present
+  - name: exit01.net.dbren.uk
+    type: A
+    data: 192.168.0.7
+    state: present
+  - name: exit02.net.dbren.uk
+    type: A
+    data: 192.168.0.8
+    state: present
+  - name: media01.net.dbren.uk
+    type: A
+    data: 192.168.0.9
+    state: present
+  - name: auth.net.dbren.uk
+    type: CNAME
+    data: media01.net.dbren.uk
+    state: present
+  - name: paperless.net.dbren.uk
+    type: CNAME
+    data: media01.net.dbren.uk
+    state: present
