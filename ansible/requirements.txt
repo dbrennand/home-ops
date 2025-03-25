@@ -1,4 +1,4 @@
-ansible-core==2.18.3
+ansible-core==2.18.4
 passlib==1.7.4
 jmespath==1.0.1
 pihole6api==0.1.7
