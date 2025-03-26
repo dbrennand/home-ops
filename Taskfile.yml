@@ -3,7 +3,7 @@ version: "3"
 vars:
   PROJECT_ROOT:
     sh: git rev-parse --show-toplevel
-  VENV_PATH: "{{ .PROJECT_ROOT }}/.venv"
+  VENV_PATH: "{{ .PROJECT_ROOT }}/ansible/.venv"
   ANSIBLE_PROJECT_PATH: "{{ .PROJECT_ROOT }}/ansible"
 
 tasks:
@@ -18,18 +18,11 @@ tasks:
       - sh: test -f op-ansible-vault.sh
         msg: op-ansible-vault.sh file does not exist {{ .ANSIBLE_PROJECT_PATH }}.
 
-  venv:build:
-    desc: |
-      Build Python virtual environment using uv.
-    internal: true
-    cmds:
-      - uv venv {{ .VENV_PATH }}
-      - uv pip install -r {{ .ANSIBLE_PROJECT_PATH }}/requirements.txt
-
   venv:
-    desc: Create Python virtual environment in {{ .VENV_PATH }}
+    desc: Create the Python virtual environment
+    dir: "{{ .ANSIBLE_PROJECT_PATH }}"
     cmds:
-      - task: venv:build
+      - uv sync
 
   ansible:hosts:
     desc: List Ansible hosts configured in the inventory.
