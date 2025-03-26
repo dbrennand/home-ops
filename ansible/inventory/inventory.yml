@@ -9,6 +9,7 @@ all:
     exit02.net.dbren.uk:
     backup01.net.dbren.uk:
     media01.net.dbren.uk:
+    k3s01.net.dbren.uk:
   children:
     # Proxmox cluster nodes
     proxmox:
