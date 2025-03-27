@@ -63,3 +63,7 @@ pihole_records:
     type: CNAME
     data: media01.net.dbren.uk
     state: present
+  - name: awx.net.dbren.uk
+    type: CNAME
+    data: k3s01.net.dbren.uk
+    state: present
