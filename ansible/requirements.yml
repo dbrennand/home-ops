@@ -27,3 +27,5 @@ roles:
     version: 1.0.3
   - name: geerlingguy.repo-epel
     version: 3.1.1
+  - name: xanmanning.k3s
+    version: v3.4.4
