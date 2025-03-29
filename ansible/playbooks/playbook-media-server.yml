@@ -2,7 +2,7 @@
 - name: Media Server | Setup
   hosts: media01.net.dbren.uk
   vars_files:
-    - ../vars/media.yml
+    - ../vars/media-server.yml
   handlers:
     - name: Restart monit systemd service
       become: true

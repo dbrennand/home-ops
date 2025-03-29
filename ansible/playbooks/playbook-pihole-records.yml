@@ -3,6 +3,6 @@
   hosts: localhost
   gather_facts: false
   vars_files:
-    ../vars/pihole_records.yml
+    ../vars/pihole-records.yml
   roles:
     - role: sbarbett.pihole.manage_local_records

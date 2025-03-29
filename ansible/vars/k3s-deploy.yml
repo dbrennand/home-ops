@@ -17,5 +17,5 @@ k3s_server_manifests_urls:
   - url: https://github.com/jetstack/cert-manager/releases/download/v1.15.1/cert-manager.yaml
     filename: cert-manager.yaml
 k3s_server_manifests_templates:
-  - ../templates/k3s/cert-manager-cloudflare-secret.yml.j2
-  - ../templates/k3s/cert-manager-cloudflare-issuer.yml.j2
+  - ../templates/k3s-deploy/cert-manager-cloudflare-secret.yml.j2
+  - ../templates/k3s-deploy/cert-manager-cloudflare-issuer.yml.j2

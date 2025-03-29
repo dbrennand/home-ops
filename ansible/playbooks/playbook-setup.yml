@@ -3,7 +3,7 @@
   hosts: all
   become: true
   vars_files:
-    - ../vars/general.yml
+    - ../vars/setup.yml
   roles:
     - role: ironicbadger.figurine
       tags: figurine

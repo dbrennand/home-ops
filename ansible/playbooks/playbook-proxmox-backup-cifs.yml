@@ -7,7 +7,7 @@
       ansible.builtin.systemd:
         daemon_reload: true
   vars_files:
-    - ../vars/proxmox_backup.yml
+    - ../vars/proxmox-backup-cifs.yml
   tasks:
     - name: Create Samba credentials file
       ansible.builtin.copy:
