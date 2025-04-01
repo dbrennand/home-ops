@@ -1,0 +1,52 @@
+---
+name: Build Execution Environment
+on:
+  workflow_dispatch: # Allows manual execution
+  push:
+    paths:
+      - ansible/ee/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.13
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install ansible-builder==3.1.0
+          sudo apt install -y podman
+
+      - name: Login to GitHub Container Registry
+        uses: redhat-actions/podman-login@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+      - name: Build Execution Environment image
+        working-directory: ansible/ee
+        run: ansible-builder build --tag "ghcr.io/dbrennand/home-ops:${{ github.sha }}" --extra-build-cli-args '--platform linux/amd64,linux/arm64'
+
+      - name: Determine the ID of the Execution Environment image
+        run: echo "IMAGE_ID=$(podman images -q "ghcr.io/dbrennand/home-ops:${{ github.sha }}")" >> $GITHUB_ENV
+
+      - name: Create the latest tag
+        run: podman tag "${IMAGE_ID}" "ghcr.io/dbrennand/home-ops:latest"
+
+      - name: Push Execution Environment image to GitHub Container Registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ghcr.io/dbrennand/home-ops
+          tags: ${{ github.sha }} latest
+          registry: ghcr.io
