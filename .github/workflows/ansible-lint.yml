@@ -12,4 +12,4 @@ jobs:
       - name: Run ansible-lint
         uses: ansible/ansible-lint@main
         with:
-          requirements_file: ansible/requirements.yml
+          requirements_file: ansible/ee/requirements.yml
