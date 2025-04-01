@@ -14,6 +14,10 @@ jobs:
       contents: write
       packages: write
     steps:
+      - name: Get short SHA commit hash
+        id: short_sha
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -36,17 +40,18 @@ jobs:
 
       - name: Build Execution Environment image
         working-directory: ansible/ee
-        run: ansible-builder build --tag "ghcr.io/dbrennand/home-ops:${{ github.sha }}" --extra-build-cli-args '--platform linux/amd64,linux/arm64'
+        run: ansible-builder build --tag "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}" --extra-build-cli-args '--platform linux/amd64,linux/arm64'
 
       - name: Determine the ID of the Execution Environment image
-        run: echo "IMAGE_ID=$(podman images -q "ghcr.io/dbrennand/home-ops:${{ github.sha }}")" >> $GITHUB_ENV
+        id: ee_id
+        run: echo "IMAGE_ID=$(podman images -q "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}")" >> $GITHUB_OUTPUT
 
       - name: Create the latest tag
-        run: podman tag "${IMAGE_ID}" "ghcr.io/dbrennand/home-ops:latest"
+        run: podman tag "${{ steps.ee_id.outputs.IMAGE_ID }}" "ghcr.io/dbrennand/home-ops:latest"
 
       - name: Push Execution Environment image to GitHub Container Registry
         uses: redhat-actions/push-to-registry@v2
         with:
           image: ghcr.io/dbrennand/home-ops
-          tags: ${{ github.sha }} latest
+          tags: ${{ steps.short_sha.outputs.SHORT_SHA }} latest
           registry: ghcr.io
