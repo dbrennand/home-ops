@@ -44,9 +44,13 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
 
+      - name: Get the Docker Buildx builder name
+        id: builder_name
+        run: echo "BUILDER_NAME=$(docker buildx ls --format '{{.Name}}' | grep 'builder-')" >> $GITHUB_OUTPUT
+
       - name: Build Execution Environment image
         working-directory: ansible/ee
-        run: ansible-builder build -vvv --container-runtime docker --tag "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}" --extra-build-cli-args '--platform linux/amd64,linux/arm64'
+        run: ansible-builder build -vvv --container-runtime docker --tag "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}" --extra-build-cli-args "--builder ${{ steps.builder_name.outputs.BUILDER_NAME }} --platform linux/amd64,linux/arm64"
 
       - name: Determine the ID of the Execution Environment image
         id: ee_id
