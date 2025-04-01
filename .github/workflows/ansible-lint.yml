@@ -1,8 +1,9 @@
 ---
 name: Ansible Lint
 on:
-  - push
-  - pull_request
+  push:
+    paths:
+      - ansible/**
 
 jobs:
   ansible-lint:
