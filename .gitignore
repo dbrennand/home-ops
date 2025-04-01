@@ -7,3 +7,5 @@ terraform.tfvars
 !docker/**/.env
 .venv
 .ansible/
+ansible/ee/context
+ansible-navigator.log
