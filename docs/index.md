@@ -20,9 +20,9 @@ The goals of this repository are:
 - Document my Homelab setup and configuration for future reference and in case of disaster recovery.
 - Share knowledge and learnings with others.
 
-## :simple-ansible: Ansible Playbooks
+## :simple-ansible: Ansible Content
 
-Ansible playbooks used to configure my Homelab infrastructure and deploy applications are located in the [ansible](https://github.com/dbrennand/home-ops/tree/dev/ansible) directory.
+Ansible content used to configure my Homelab infrastructure and deploy applications are located in the [ansible](https://github.com/dbrennand/home-ops/tree/dev/ansible) directory.
 
 ## 📋 Taskfile
 

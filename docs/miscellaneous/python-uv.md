@@ -11,5 +11,5 @@ brew install uv
 Then, install Python using `uv`:
 
 ```bash
-uv python install 3.11
+uv python install 3.13
 ```
