@@ -27,31 +27,35 @@ jobs:
           python-version: 3.13
 
       - name: Install dependencies
-        run: |
-          python3 -m pip install ansible-builder==3.1.0
-          sudo apt install -y podman
+        run: python3 -m pip install ansible-builder==3.1.0
 
       - name: Login to GitHub Container Registry
-        uses: redhat-actions/podman-login@v1
+        uses: docker/login-action@v3
         with:
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
 
       - name: Build Execution Environment image
         working-directory: ansible/ee
-        run: ansible-builder build -vvv --tag "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}" --extra-build-cli-args '--platform linux/amd64,linux/arm64'
+        run: ansible-builder build -vvv --container-runtime docker --tag "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}" --extra-build-cli-args '--platform linux/amd64,linux/arm64'
 
       - name: Determine the ID of the Execution Environment image
         id: ee_id
-        run: echo "IMAGE_ID=$(podman images -q "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}")" >> $GITHUB_OUTPUT
+        run: echo "IMAGE_ID=$(docker images -q "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}")" >> $GITHUB_OUTPUT
 
       - name: Create the latest tag
-        run: podman tag "${{ steps.ee_id.outputs.IMAGE_ID }}" "ghcr.io/dbrennand/home-ops:latest"
+        run: docker tag "${{ steps.ee_id.outputs.IMAGE_ID }}" "ghcr.io/dbrennand/home-ops:latest"
 
       - name: Push Execution Environment image to GitHub Container Registry
-        uses: redhat-actions/push-to-registry@v2
-        with:
-          image: ghcr.io/dbrennand/home-ops
-          tags: ${{ steps.short_sha.outputs.SHORT_SHA }} latest
-          registry: ghcr.io
+        run: |
+          docker push ghcr.io/dbrennand/home-ops:latest
+          docker push ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}
