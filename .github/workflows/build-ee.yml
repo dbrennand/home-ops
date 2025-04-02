@@ -47,7 +47,7 @@ jobs:
 
       - name: Build Execution Environment image
         working-directory: ansible/ee
-        run: ansible-builder build -vvv --container-runtime docker --tag "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}" --extra-build-cli-args "--builder ${{ steps.docker_buildx.outputs.name }} --platform linux/amd64,linux/arm64"
+        run: ansible-builder build -vvv --container-runtime docker --tag "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}" --extra-build-cli-args "--load --builder ${{ steps.docker_buildx.outputs.name }} --platform linux/amd64,linux/arm64"
 
       - name: Determine the ID of the Execution Environment image
         id: ee_id
