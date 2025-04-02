@@ -73,7 +73,7 @@ tasks:
 
   ansible:requirements:
     desc: Install Ansible requirements
-    dir: "{{ .ANSIBLE_PROJECT_PATH }}"
+    dir: "{{ .ANSIBLE_PROJECT_PATH }}/ee"
     cmds:
       - "uv run ansible-galaxy install {{ .CLI_ARGS }} -r requirements.yml"
     preconditions:
