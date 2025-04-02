@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=ghcr.io/ansible/community-ansible-dev-tools:v25.2.1
+ARG BASE_IMAGE=ghcr.io/ansible/community-ansible-dev-tools:v25.4.0
 FROM $BASE_IMAGE
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md
