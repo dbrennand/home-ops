@@ -1,0 +1,15 @@
+---
+# SSH keys from 1Password are added to the SSH agent.
+# See: https://developer.1password.com/docs/ssh/agent/compatibility/#ssh-auth-sock
+# OrbStack handles forwarding the SSH agent on the host to the Execution Environment
+# and sets the SSH_AUTH_SOCK environment variable.
+# https://docs.orbstack.dev/docker/#ssh-agent-forwarding
+ansible-navigator:
+  execution-environment:
+    container-engine: docker
+    image: ghcr.io/dbrennand/home-ops:latest
+    # This environment variable is passed to the Execution Environment to authenticate
+    # the op CLI. See ee/op_export.sh for further details.
+    environment-variables:
+      pass:
+        - ONEPASSWORD_SERVICE_ACCOUNT_TOKEN
