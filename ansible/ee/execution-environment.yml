@@ -11,19 +11,19 @@ dependencies:
   python: requirements.txt
   galaxy: requirements.yml
 additional_build_files:
-  - src: op_export.sh
+  - src: custom_entrypoint.sh
     dest: scripts
 additional_build_steps:
   prepend_base:
     - RUN rpm --import https://downloads.1password.com/linux/keys/1password.asc
     - RUN echo -e "[1password]\nname=1Password Stable Channel\nbaseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch\nenabled=1\ngpgcheck=1\ngpgkey=\"https://downloads.1password.com/linux/keys/1password.asc\"" > /etc/yum.repos.d/1password.repo # noqa yaml[line-length]
     - RUN microdnf install -y python3 python3-pip openssh-clients git jq 1password-cli
-    - COPY _build/scripts/op_export.sh /bin/op_export.sh
-    - RUN chmod +x /bin/op_export.sh
+    - COPY _build/scripts/custom_entrypoint.sh /bin/custom_entrypoint.sh
+    - RUN chmod +x /bin/custom_entrypoint.sh
   append_final:
-    - RUN cat /opt/builder/bin/entrypoint >> /bin/op_export.sh
+    - RUN cat /opt/builder/bin/entrypoint >> /bin/custom_entrypoint.sh
     - RUN $PYCMD -m pip install --no-cache-dir dumb-init==1.2.5
 options:
   package_manager_path: /usr/bin/microdnf
   container_init:
-    entrypoint: '["/bin/op_export.sh", "dumb-init"]'
+    entrypoint: '["/bin/custom_entrypoint.sh", "dumb-init"]'

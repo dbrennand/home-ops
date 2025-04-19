@@ -1,15 +1,24 @@
 ---
-# SSH keys from 1Password are added to the SSH agent.
-# See: https://developer.1password.com/docs/ssh/agent/compatibility/#ssh-auth-sock
-# OrbStack handles forwarding the SSH agent on the host to the Execution Environment
-# and sets the SSH_AUTH_SOCK environment variable.
-# https://docs.orbstack.dev/docker/#ssh-agent-forwarding
 ansible-navigator:
   execution-environment:
     container-engine: docker
     image: ghcr.io/dbrennand/home-ops:latest
-    # This environment variable is passed to the Execution Environment to authenticate
-    # the op CLI. See ee/op_export.sh for further details.
+    container-options:
+      # SSH keys from 1Password are added to the SSH agent.
+      # See: https://developer.1password.com/docs/ssh/agent/compatibility/#ssh-auth-sock
+      # OrbStack creates the same path as Docker to bind the host's SSH agent socket into
+      # the Execution Environment. See below links:
+      # https://docs.docker.com/desktop/features/networking/#ssh-agent-forwarding
+      # https://docs.orbstack.dev/docker/#ssh-agent-forwarding
+      # This allows the Execution Environment to access the 1Password SSH agent socket.
+      - "--volume=/run/host-services/ssh-auth.sock:/agent.sock"
     environment-variables:
+      # We don't set the SSH_AUTH_SOCK to /agent.sock here because of observations seen in
+      # https://github.com/ansible/ansible-navigator/issues/1591#issuecomment-2816701294
+      # The variable precedence in this file is overridden by ansible-runner.
+      # To workaround this issue, as we're already using a custom entrypoint script
+      # (see ee/custom_entrypoint.sh), we override the SSH_AUTH_SOCK there instead.
       pass:
+        # This environment variable is passed to the Execution Environment to authenticate
+        # the op CLI. See ee/custom_entrypoint.sh for further details.
         - ONEPASSWORD_SERVICE_ACCOUNT_TOKEN
