@@ -1,7 +1,7 @@
 ---
 # subnet_router group vars
-# artis3n.tailscale role vars
-# https://github.com/artis3n/ansible-role-tailscale#role-variables
+# artis3n.tailscale collection machine role vars
+# https://github.com/artis3n/ansible-collection-tailscale/blob/main/roles/machine/README.md#variables
 tailscale_args: >-
   --accept-dns=false --ssh
   --advertise-routes=192.168.0.2/32,192.168.0.3/32,192.168.0.4/32,192.168.0.5/32,192.168.0.6/32,192.168.0.7/32,192.168.0.8/32,192.168.0.9/32,192.168.0.10/32,192.168.0.11/32,192.168.0.12/32

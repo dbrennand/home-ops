@@ -1,6 +1,6 @@
 ---
 # proxmox group_vars
 ansible_user: root
-# artis3n.tailscale role vars
-# https://github.com/artis3n/ansible-role-tailscale#role-variables
+# artis3n.tailscale collection machine role vars
+# https://github.com/artis3n/ansible-collection-tailscale/blob/main/roles/machine/README.md#variables
 tailscale_args: --accept-dns=false --ssh
