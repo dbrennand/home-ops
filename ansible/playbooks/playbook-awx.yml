@@ -1,12 +1,22 @@
 ---
-- name: AWX | Add Credentials, Inventories, Projects and Templates
+- name: AWX | Register Execution Environment, Credentials, Projects and Inventories
   hosts: localhost
+  gather_facts: false
   connection: local
   vars:
     controller_host: awx.net.dbren.uk
     controller_username: "{{ lookup('community.general.onepassword', 'awx.net.dbren.uk', field='username', vault='Home-Ops') }}"
     controller_password: "{{ lookup('community.general.onepassword', 'awx.net.dbren.uk', vault='Home-Ops') }}"
   tasks:
+    - name: Register Execution Environment (EE)
+      awx.awx.execution_environment:
+        name: Home-Ops
+        image: ghcr.io/dbrennand/home-ops:latest
+        state: present
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+
     - name: Create AWX Home-Ops Source Control Credential
       awx.awx.credential:
         name: AWX Home-Ops
@@ -15,6 +25,47 @@
         credential_type: Source Control
         inputs:
           ssh_key_data: "{{ lookup('community.general.onepassword_ssh_key', 'q25yyvantxbo33vyqsnjyabcxi', vault='Home-Ops', ssh_format=true) }}"
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+        state: present
+
+    - name: Create Home-Ops Project
+      awx.awx.project:
+        name: Home-Ops
+        description: Home-Ops Project
+        organization: Default
+        credential: AWX Home-Ops
+        default_environment: Home-Ops
+        scm_type: git
+        scm_update_on_launch: true
+        scm_url: git@github.com:dbrennand/home-ops.git
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+        state: present
+
+    - name: Create Home-Ops Inventory
+      awx.awx.inventory:
+        name: Home-Ops
+        description: Home-Ops Inventory
+        organization: Default
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+        state: present
+
+    - name: Create Home-Ops Inventory Source
+      awx.awx.inventory_source:
+        credential: AWX Home-Ops
+        description: Home-Ops Inventory Source
+        organization: Default
+        name: Home-Ops Inventory Source
+        inventory: Home-Ops
+        source: scm
+        source_path: ansible/inventory/inventory.yml
+        source_project: Home-Ops
+        update_on_launch: true
         controller_host: "{{ controller_host }}"
         controller_username: "{{ controller_username }}"
         controller_password: "{{ controller_password }}"
