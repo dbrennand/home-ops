@@ -1,0 +1,21 @@
+---
+- name: AWX | Add Credentials, Inventories, Projects and Templates
+  hosts: localhost
+  connection: local
+  vars:
+    controller_host: awx.net.dbren.uk
+    controller_username: "{{ lookup('community.general.onepassword', 'awx.net.dbren.uk', field='username', vault='Home-Ops') }}"
+    controller_password: "{{ lookup('community.general.onepassword', 'awx.net.dbren.uk', vault='Home-Ops') }}"
+  tasks:
+    - name: Create AWX Home-Ops Source Control Credential
+      awx.awx.credential:
+        name: AWX Home-Ops
+        description: AWX Home-Ops Deploy Key
+        organization: Default
+        credential_type: Source Control
+        inputs:
+          ssh_key_data: "{{ lookup('community.general.onepassword_ssh_key', 'q25yyvantxbo33vyqsnjyabcxi', vault='Home-Ops', ssh_format=true) }}"
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+        state: present
