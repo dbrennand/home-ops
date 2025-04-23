@@ -1,17 +1,9 @@
 ---
 # tailscale group_vars
-# artis3n.tailscale role vars
-# https://github.com/artis3n/ansible-role-tailscale#role-variables
-# Generated via: https://login.tailscale.com/admin/settings/keys
-tailscale_authkey: !vault |
-  $ANSIBLE_VAULT;1.1;AES256
-  32326565376638386436646136333666363737656566663637653065323336353731366432336632
-  3837656339383634656139626666363136663639373431350a643736353764373365303430353637
-  36356662343065376330373863343831373030326237646137366266633130626662393764336262
-  6635393033633930660a376634653361363564646634333737363762346166633439653035333732
-  62346530343965333137393064626631653039373039643864346435656463366130613761373933
-  36373564656166653130336266313139383435333466376561373865336161303433373162386135
-  303839393064386333383166353630623635
+# artis3n.tailscale collection machine role vars
+# https://github.com/artis3n/ansible-collection-tailscale/blob/main/roles/machine/README.md#variables
+# Generated via: https://login.tailscale.com/admin/settings/oauth
+tailscale_authkey: "{{ lookup('community.general.onepassword', 'Tailscale OAuth', vault='Home-Ops') }}"
 tailscale_oauth_ephemeral: false
 tailscale_oauth_preauthorized: false
 tailscale_args: --ssh
