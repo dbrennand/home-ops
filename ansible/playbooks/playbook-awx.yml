@@ -17,10 +17,10 @@
         controller_username: "{{ controller_username }}"
         controller_password: "{{ controller_password }}"
 
-    - name: Create AWX Home-Ops Source Control Credential
+    - name: Create Home-Ops AWX Source Control Credential
       awx.awx.credential:
-        name: AWX Home-Ops
-        description: AWX Home-Ops Deploy Key
+        name: Home-Ops
+        description: Home-Ops AWX Deploy Key
         organization: Default
         credential_type: Source Control
         inputs:
