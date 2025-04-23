@@ -19,13 +19,7 @@ caddy_docker_caddyfile: |-
     import cloudflare
     reverse_proxy host.docker.internal:1080
   }
-caddy_docker_image: caddy:2.8.4-alpine
-caddy_docker_builder_image: caddy:2.8.4-builder
-caddy_docker_plugins:
-  # Allows Caddy to obtain TLS certificates for a Cloudflare managed domain
-  - github.com/caddy-dns/cloudflare@89f16b9
-  # Allows Caddy site config to be applied via Docker container labels
-  - github.com/lucaslorentz/caddy-docker-proxy/v2@v2.9.1
+caddy_docker_image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2025.04.20
 caddy_docker_command: caddy docker-proxy
 caddy_docker_etc_hosts:
   host.docker.internal: host-gateway
@@ -78,28 +72,10 @@ autorestic_config:
       # Name of the B2 bucket
       path: dabpaperless
       # Key used by restic to encrypt backups
-      key: !vault |
-        $ANSIBLE_VAULT;1.1;AES256
-        32333134326635633035336666626532353662623831373438643831643463643964396339386434
-        3863356266643530313936363431363165303533643830610a373164386338393030343430396532
-        33343865666137633835303163633536323162646533336531373039616539326536343965653134
-        3335353463626134330a303064386461616262626336643532653232616437376634386134666634
-        64383737333236613631613233623836303061306530366430306531656131383662
+      key: "{{ lookup('community.general.onepassword', 'Backblaze', section='dabpaperless', field='RESTIC_REPOSITORY_PASSWORD', vault='Home-Ops') }}"
       # Backblaze B2 application ID and key
       env:
-        B2_ACCOUNT_ID: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          65336264653862633866366561626563616635373033653235313739303834656236393639373236
-          3034313634613166323338396565326362666638663963380a373365653861656637346539626462
-          33633265363031326361353638363561376536323061656638616333646133346639343862303761
-          3730633030333463390a643336666537303531363034356234383930303831383062633462366632
-          31323465373637613366386535366139366566336361343861336432376539643438
-        B2_ACCOUNT_KEY: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          39623239383130353437623063343434656432373763613666636161326435313339346539373233
-          3435333539333565303462376134623864393062346266390a633135626439313666376461363733
-          61343062663732643765623064393066636636356230616666623235363732363437643539626239
-          3365396463336138640a653533653938363136326536643161353437666535333633386632643631
-          65343935643839323133633633393236346231353166633234643139373831346131
+        B2_ACCOUNT_ID: "{{ lookup('community.general.onepassword', 'Backblaze', section='dabpaperless', field='B2_ACCOUNT_ID', vault='Home-Ops') }}"
+        B2_ACCOUNT_KEY: "{{ lookup('community.general.onepassword', 'Backblaze', section='dabpaperless', field='B2_ACCOUNT_KEY', vault='Home-Ops') }}"
 autorestic_cron: true
 autorestic_cron_verbose: true
