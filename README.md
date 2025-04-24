@@ -2,6 +2,7 @@
 
 ![Ansible-Lint](https://github.com/dbrennand/home-ops/actions/workflows/ansible-lint.yml/badge.svg)
 ![Build Execution Environment](https://github.com/dbrennand/home-ops/actions/workflows/build-ee.yml/badge.svg)
+![Clean up Execution Environments](https://github.com/dbrennand/home-ops/actions/workflows/cleanup-ee.yml/badge.svg)
 ![GitHub Pages](https://github.com/dbrennand/home-ops/actions/workflows/gh-pages.yml/badge.svg)
 ![Terraform Lint](https://github.com/dbrennand/home-ops/actions/workflows/tflint.yml/badge.svg)
 
