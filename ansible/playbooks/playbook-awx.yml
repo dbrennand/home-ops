@@ -19,7 +19,7 @@
 
     - name: Create Home-Ops AWX Source Control Credential
       awx.awx.credential:
-        name: Home-Ops
+        name: Home-Ops AWX Deploy Key
         description: Home-Ops AWX Deploy Key
         organization: Default
         credential_type: Source Control
@@ -30,12 +30,25 @@
         controller_password: "{{ controller_password }}"
         state: present
 
+    - name: Create Home-Ops SSH Key Machine Credential
+      awx.awx.credential:
+        name: Home-Ops SSH Key
+        description: Home-Ops SSH Key
+        organization: Default
+        credential_type: Machine
+        inputs:
+          ssh_key_data: "{{ lookup('community.general.onepassword_ssh_key', 'jugz6ucagnwgjepx6d6r2j5xem', vault='Home-Ops', ssh_format=true) }}"
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+        state: present
+
     - name: Create Home-Ops Project
       awx.awx.project:
         name: Home-Ops
         description: Home-Ops Project
         organization: Default
-        credential: AWX Home-Ops
+        credential: Home-Ops AWX Deploy Key
         default_environment: Home-Ops
         scm_type: git
         scm_update_on_launch: true
@@ -57,7 +70,7 @@
 
     - name: Create Home-Ops Inventory Source
       awx.awx.inventory_source:
-        credential: AWX Home-Ops
+        credential: Home-Ops AWX Deploy Key
         description: Home-Ops Inventory Source
         organization: Default
         name: Home-Ops Inventory Source
