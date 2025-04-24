@@ -9,8 +9,10 @@ on:
 jobs:
   cleanup:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
-      - name: Delete
+      - name: Delete Container Images older than the 10 latest versions
         uses: actions/delete-package-versions@v5
         with:
           package-name: home-ops
