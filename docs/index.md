@@ -1,6 +1,7 @@
 # :material-home: Home Operations
 
 ![](https://github.com/dbrennand/home-ops/actions/workflows/ansible-lint.yml/badge.svg)
+![](https://github.com/dbrennand/home-ops/actions/workflows/build-ee.yml/badge.svg)
 ![](https://github.com/dbrennand/home-ops/actions/workflows/gh-pages.yml/badge.svg)
 ![](https://github.com/dbrennand/home-ops/actions/workflows/tflint.yml/badge.svg)
 
