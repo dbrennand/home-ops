@@ -43,6 +43,36 @@
         controller_password: "{{ controller_password }}"
         state: present
 
+    - name: Create 1Password Service Account Token Credential Type
+      tags: op_cred_type
+      awx.awx.credential_type:
+        name: 1Password Service Account Token
+        description: 1Password Service Account Token
+        inputs: |
+          {
+            "fields": [
+              {
+                "id": "service_account_token",
+                "type": "string",
+                "label": "1Password Service Account Token",
+                "secret": true
+              }
+            ],
+            "required": [
+              "service_account_token"
+            ]
+          }
+        injectors: |
+          {
+            "env": {
+              "OP_SERVICE_ACCOUNT_TOKEN": "{% raw %}{{ service_account_token }}{% endraw %}"
+            }
+          }
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+        state: present
+
     - name: Create Home-Ops Project
       awx.awx.project:
         name: Home-Ops
