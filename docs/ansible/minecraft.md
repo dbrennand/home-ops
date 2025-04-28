@@ -1,9 +1,10 @@
 # :material-minecraft: Minecraft
 
-!!! note "Decommissioned"
-    The Minecraft servers have been decommissioned. This page has been kept for reference.
+!!! note
 
-The Minecraft [playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/minecraft-playbook.yml) is used to deploy Minecraft servers on Ubuntu Server 22.04 LTS in my Homelab.
+    This page has been archived and kept for reference.
+
+The Minecraft [playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/playbook-minecraft.yml) is used to deploy Minecraft servers on Ubuntu Server 22.04 LTS in my Homelab.
 
 ## :simple-ansible: Ansible Playbook
 
@@ -11,11 +12,11 @@ The playbook configures two Minecraft servers, `minecraft01` and `minecraft02`; 
 
 ## Vanilla Server
 
-The `minecraft01` server is deployed with [Paper MC](https://papermc.io/). Server specific settings are located in [`ansible/vars/paper_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/paper_minecraft.yml).
+The `minecraft01` server is deployed with [Paper MC](https://papermc.io/). Server specific settings are located in [`ansible/vars/paper_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/paper-minecraft.yml).
 
 ## Modded Server
 
-The `minecraft02` server is deployed with the [All the Mods 9 (ATM9)](https://www.curseforge.com/minecraft/modpacks/all-the-mods-9) modpack. Server specific settings are located in [`ansible/vars/modded_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/modded_minecraft.yml).
+The `minecraft02` server is deployed with the [All the Mods 9 (ATM9)](https://www.curseforge.com/minecraft/modpacks/all-the-mods-9) modpack. Server specific settings are located in [`ansible/vars/modded_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/modded-minecraft.yml).
 
 ### Staging the Modpack Server ZIP File
 
@@ -30,7 +31,7 @@ To run ATM9 on the `minecraft02` server, the modpack server ZIP file must be sta
     scp /path/to/Server-Files-0.2.41.zip minecraft02.net.dbren.uk:~/modpacks/
     ```
 
-3. Update the [`ansible/vars/modded_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/modded_minecraft.yml) file with the correct modpack server ZIP file name:
+3. Update the [`ansible/vars/modded_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/modded-minecraft.yml) file with the correct modpack server ZIP file name:
 
     ```yaml
     minecraft_options:
@@ -41,7 +42,7 @@ To run ATM9 on the `minecraft02` server, the modpack server ZIP file must be sta
 
 The Ansible playbook is configured to deploy the [itzg/mc-backup](https://github.com/itzg/docker-mc-backup) container image which will backup the Minecraft server files and world to a Backblaze B2 S3 bucket. This occurs every 24 hours.
 
-See [dbrennand | home-ops Backblaze](https://homeops.danielbrennand.com/infrastructure/backblaze/) for more information on how to configure the Backblaze B2 S3 bucket.
+See [dbrennand | home-ops Backblaze](../infrastructure/backblaze.md) for more information on how to configure the Backblaze B2 S3 bucket.
 
 ### itzg/mc-backup - Removing Stale Locks
 
@@ -61,11 +62,11 @@ docker restart minecraft-backup; docker exec -it minecraft-backup restic -r b2:<
 
 ## :simple-tailscale: Tailscale
 
-The Tailscale [playbook](https://homeops.danielbrennand.com/ansible/tailscale/) is used on the server to allow friends to connect to the server remotely.
+Tailscale is used on the server to allow friends to connect to the server remotely.
 
-## :simple-terraform: Terraform
+## :simple-opentofu: OpenTofu
 
-Both servers are deployed using [Terraform](https://www.terraform.io/). See [dbrennand | home-ops - Terraform](https://homeops.danielbrennand.com/infrastructure/terraform/) for more information.
+Both servers are deployed using [OpenTofu](../infrastructure/opentofu.md).
 
 ## Usage
 

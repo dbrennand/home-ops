@@ -75,13 +75,9 @@ ssh-copy-id root@proxmox01.net.dbren.uk
     lvextend -l +100%FREE /dev/pve/data
     ```
 
-2. Use the [`proxmox-storage-playbook.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-storage-playbook.yml) to configure the Proxmox storage on Node 1 (Primary).
+2. Use the [`playbook-proxmox-storage.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/playbook-proxmox-storage.yml) to configure the Proxmox storage on Node 1 (Primary).
 
-### Establish Proxmox Cluster
-
-!!! note
-
-    I chose to not automate the following steps because it only needs to be done once.
+### Create the Proxmox Cluster
 
 1. Navigate to the Proxmox GUI on Node 1 (Primary) and go to `Datacenter` > `Cluster` > `Create Cluster`:
 
@@ -107,11 +103,7 @@ Due to the Proxmox cluster only consisting of two nodes, there is no way to esta
 
 Without quorum, if one node goes down, the other node will not be able to determine if it is the only node left in the cluster or if the other node is still running. This is often referred to as a *split-brain* scenario. Luckily, Proxmox's Corosync supports an external vote server (known as a Corosync Quorum Device (QDevice)) to act as a tie-breaker. This lightweight daemon can be run on a device such as a Raspberry Pi.
 
-1. Execute the [`proxmox-external-vote.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-external-vote.yml) playbook to configure the Proxmox nodes and external vote server on the Raspberry Pi:
-
-    ```bash
-    cd ansible && task ansible:play -- playbooks/proxmox-external-vote.yml
-    ```
+1. Execute the [`playbook-proxmox-external-vote.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/playbook-proxmox-external-vote.yml) playbook to configure the Proxmox nodes and external vote server on the Raspberry Pi.
 
 2. On Proxmox Node 1 (Primary), execute the following command to add the QDevice to the cluster:
 

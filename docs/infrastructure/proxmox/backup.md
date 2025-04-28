@@ -95,7 +95,7 @@ The PBS requires a datastore to store backups. In my setup, I have two datastore
 
 #### Hetzner Storagebox Datastore
 
-1. Use the [`proxmox-storage-playbook.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/proxmox-backup-cifs.yml) to mount the CIFS share on the PBS.
+1. Use the [`playbook-proxmox-backup-cifs.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/playbook-proxmox-backup-cifs.yml) to mount the CIFS share on the PBS.
 
 2. SSH to the PBS and create the datastore:
 

@@ -1,4 +1,4 @@
-# :simple-backblaze: Backblaze
+# :simple-backblaze: Backblaze Object Storage (S3)
 
 [Backblaze B2 Cloud Storage](https://www.backblaze.com/cloud-storage) is used in my Homelab to store backups and provide object storage for various applications.
 
