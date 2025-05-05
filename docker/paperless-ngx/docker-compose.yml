@@ -2,7 +2,7 @@
 # https://github.com/paperless-ngx/paperless-ngx/tree/main/docker/compose
 services:
   broker:
-    image: docker.io/library/redis:7
+    image: docker.io/library/redis:8
     container_name: paperless_ngx_redis
     restart: unless-stopped
     networks:
