@@ -6,4 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "ansible-dev-tools>=25.2.1",
+    "jmespath>=1.0.1",
+    "passlib>=1.7.4",
+    "pihole6api>=0.1.7",
 ]
