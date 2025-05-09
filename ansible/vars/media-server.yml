@@ -5,21 +5,16 @@
 caddy_docker_caddyfile: |-
   {
     email {$ACME_EMAIL}
-  }
-
-  # Cloudflare DNS-01 challenge
-  (cloudflare) {
-    tls {
-      dns cloudflare {$CLOUDFLARE_API_TOKEN}
-    }
+    # Cloudflare DNS-01 challenge
+    dns cloudflare {$CLOUDFLARE_API_TOKEN}
   }
 
   # OpenMediaVault
   media01.{$DOMAIN} {
-    import cloudflare
     reverse_proxy host.docker.internal:1080
   }
-caddy_docker_image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2025.04.20
+# renovate: depName=ghcr.io/dbrennand/caddy-docker-proxy-cloudflare datasource=docker
+caddy_docker_image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2025.05.01
 caddy_docker_command: caddy docker-proxy
 caddy_docker_etc_hosts:
   host.docker.internal: host-gateway
@@ -38,7 +33,9 @@ caddy_docker_environment_variables:
 
 # dbrennand.autorestic role vars
 # https://github.com/dbrennand/ansible-role-autorestic?tab=readme-ov-file#role-variables
+# renovate: depName=cupcakearmy/autorestic datasource=github-releases
 autorestic_version: 1.8.3
+# renovate: depName=restic/restic datasource=github-releases
 autorestic_restic_version: 0.17.3
 autorestic_config:
   version: 2

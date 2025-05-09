@@ -1,10 +1,4 @@
 {
     email {env.ACME_EMAIL}
-}
-
-# Cloudflare DNS-01 challenge
-(cloudflare) {
-    tls {
-        dns cloudflare {env.CF_API_TOKEN}
-    }
+    dns cloudflare {env.CF_API_TOKEN}
 }
