@@ -63,7 +63,7 @@ services:
       caddy.reverse_proxy: "{{ upstreams 8000 }}"
 
   gotenberg:
-    image: docker.io/gotenberg/gotenberg:8.20
+    image: docker.io/gotenberg/gotenberg:8.21
     container_name: paperless_ngx_gotenberg
     restart: unless-stopped
     networks:
