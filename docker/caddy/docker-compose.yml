@@ -6,8 +6,6 @@ services:
     image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2025.05.01
     restart: unless-stopped
     command: caddy docker-proxy
-    cap_add:
-      - NET_ADMIN
     ports:
       - "80:80"
       - "443:443"
