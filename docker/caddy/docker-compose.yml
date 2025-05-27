@@ -1,5 +1,4 @@
 ---
-# https://github.com/pi-hole/docker-pi-hole
 services:
   caddy:
     container_name: caddy
