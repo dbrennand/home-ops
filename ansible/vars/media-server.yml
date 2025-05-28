@@ -19,7 +19,7 @@ caddy_docker_caddyfile: |-
     reverse_proxy host.docker.internal:1080
   }
 # renovate: depName=ghcr.io/dbrennand/caddy-docker-proxy-cloudflare datasource=docker
-caddy_docker_image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2025.05.01
+caddy_docker_image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2025.04.01
 caddy_docker_command: caddy docker-proxy
 caddy_docker_etc_hosts:
   host.docker.internal: host-gateway
