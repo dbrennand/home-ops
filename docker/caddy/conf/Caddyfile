@@ -1,4 +1,9 @@
 {
     email {env.ACME_EMAIL}
-    dns cloudflare {env.CF_API_TOKEN}
+}
+
+(cloudflare) {
+    tls {
+        dns cloudflare {env.CF_API_TOKEN}
+    }
 }

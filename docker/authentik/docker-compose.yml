@@ -74,6 +74,7 @@ services:
       - redis
     labels:
       caddy: auth.{$$DOMAIN}
+      caddy.import: cloudflare
       caddy.reverse_proxy: "{{ upstreams 9000 }}"
 
   worker:

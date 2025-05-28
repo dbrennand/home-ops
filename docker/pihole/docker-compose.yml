@@ -41,6 +41,7 @@ services:
       - caddy
     labels:
       caddy: "${FQDN}"
+      caddy.import: cloudflare
       caddy.reverse_proxy: "{{ upstreams 80 }}"
 
 networks:

@@ -5,12 +5,17 @@
 caddy_docker_caddyfile: |-
   {
     email {$ACME_EMAIL}
-    # Cloudflare DNS-01 challenge
-    dns cloudflare {$CLOUDFLARE_API_TOKEN}
+  }
+
+  (cloudflare) {
+    tls {
+      dns cloudflare {$CLOUDFLARE_API_TOKEN}
+    }
   }
 
   # OpenMediaVault
   media01.{$DOMAIN} {
+    import cloudflare
     reverse_proxy host.docker.internal:1080
   }
 # renovate: depName=ghcr.io/dbrennand/caddy-docker-proxy-cloudflare datasource=docker
