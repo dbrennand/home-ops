@@ -14,7 +14,7 @@ collections:
     version: 24.6.1
 roles:
   - name: dbrennand.caddy_docker
-    version: 3.2.0
+    version: 4.0.0
   - name: dbrennand.autorestic
     version: 1.4.0
   - name: geerlingguy.docker
