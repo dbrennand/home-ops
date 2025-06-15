@@ -3,6 +3,8 @@ name: Build Execution Environment
 on:
   workflow_dispatch: # Allows manual execution
   push:
+    branches:
+      - dev
     paths:
       - ansible/ee/**
 
