@@ -9,6 +9,10 @@ terraform {
       source  = "1Password/onepassword"
       version = "2.1.2"
     }
+    hcloud = {
+      source  = "hetznercloud/hcloud"
+      version = "~> 1.45"
+    }
   }
   backend "s3" {
     skip_region_validation      = true

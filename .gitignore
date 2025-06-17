@@ -3,7 +3,6 @@
 *.tfstate*
 terraform.tfvars
 .DS_Store
-.env
 !docker/**/.env
 .venv
 .ansible/
