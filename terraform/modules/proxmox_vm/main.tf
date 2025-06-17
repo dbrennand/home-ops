@@ -14,8 +14,7 @@ terraform {
 }
 
 locals {
-  datetime               = timestamp()
-  proxmox_vm_description = "Created by OpenTofu at ${local.datetime}"
+  proxmox_vm_description = "Created by OpenTofu."
 }
 
 # https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_file
