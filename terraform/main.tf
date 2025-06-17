@@ -13,6 +13,10 @@ terraform {
       source  = "hetznercloud/hcloud"
       version = "~> 1.45"
     }
+    http = {
+      source = "hashicorp/http"
+      version = "3.5.0"
+    }
   }
   backend "s3" {
     skip_region_validation      = true
