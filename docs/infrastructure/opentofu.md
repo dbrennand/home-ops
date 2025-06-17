@@ -22,27 +22,20 @@ The [1Password Terraform provider](https://search.opentofu.org/provider/1passwor
     brew install opentofu
     ```
 
-2. Populate the `.env` file with the required variables:
+2. Initialize OpenTofu providers and the S3 backend:
 
     ```bash
     cd terraform
-    cp .env.example .env
-    vim .env
-    ```
-
-3. Initialize OpenTofu providers and the S3 backend:
-
-    ```bash
     op run --env-file=./.env -- tofu init
     ```
 
-4. Plan the deployment:
+3. Plan the deployment:
 
     ```bash
     op run --env-file=./.env -- tofu plan
     ```
 
-5. If everything looks good, apply the deployment:
+4. If everything looks good, apply the deployment:
 
     ```bash
     op run --env-file=./.env -- tofu apply
