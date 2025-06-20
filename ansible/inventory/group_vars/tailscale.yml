@@ -3,7 +3,7 @@
 # artis3n.tailscale collection machine role vars
 # https://github.com/artis3n/ansible-collection-tailscale/blob/main/roles/machine/README.md#variables
 # Generated via: https://login.tailscale.com/admin/settings/oauth
-tailscale_authkey: "{{ lookup('community.general.onepassword', 'Tailscale OAuth', vault='Home-Ops') }}"
+tailscale_authkey: "{{ lookup('community.general.onepassword', 'Tailscale OAuth Home-Ops Tag', vault='Home-Ops') }}"
 tailscale_oauth_ephemeral: false
 tailscale_oauth_preauthorized: false
 tailscale_args: --ssh
