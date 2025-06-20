@@ -17,7 +17,7 @@ tasks:
     dir: "{{ .ANSIBLE_PROJECT_PATH }}"
     cmds:
       - uv add -r ee/requirements.txt
-      - uv run ansible-galaxy install -r ee/requirements.yml
+      - "uv run ansible-galaxy install -r ee/requirements.yml {{ .CLI_ARGS }}"
     preconditions:
       - sh: command -v {{ .VENV_PATH }}/bin/ansible-galaxy
         msg: ansible-galaxy is not installed. Have you ran 'task venv'?
