@@ -23,6 +23,7 @@ all:
         pihole01.net.dbren.uk:
         media01.net.dbren.uk:
         pihole02.net.dbren.uk:
+        homeops.hetzner.dbren.uk:
     # Tailscale subnet routers
     subnet_router:
       hosts:

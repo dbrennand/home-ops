@@ -3,6 +3,8 @@
 
 # List of packages to install
 packages:
+  - tar
+  - unzip
   - sudo
   - ncdu
   - btop
