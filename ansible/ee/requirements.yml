@@ -26,7 +26,7 @@ roles:
     version: refactor/ssh-regexp
   - name: ironicbadger.figurine
     src: https://github.com/ironicbadger/ansible-role-figurine
-    version: 1.0.3
+    version: main
   - name: geerlingguy.repo-epel
     version: 3.1.1
   - name: xanmanning.k3s
