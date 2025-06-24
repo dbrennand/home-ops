@@ -29,7 +29,7 @@ resource "hcloud_firewall" "home_ops" {
 resource "hcloud_server" "home_ops" {
   name         = "Home-Ops"
   image        = "alma-9"
-  server_type  = "cax11"
+  server_type  = "cpx11"
   location     = "hel1"
   user_data    = <<EOF
 #cloud-config
