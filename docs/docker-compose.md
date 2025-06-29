@@ -27,5 +27,5 @@ Each directory contains a `.env` file which references secrets from a 1Password 
 3. Deploy the application:
 
     ```bash
-    cd caddy && op run -- docker compose up -d
+    cd caddy && op run --env-file=./.env -- docker compose up -d
     ```
