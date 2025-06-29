@@ -78,4 +78,4 @@ Next, I perform the following steps to deploy AWX:
 
 ## Configuration
 
-An [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/playbook-awx.yml) is used to configure AWX with the [Execution Environment](execution-environment.md), credentials, project and inventories.
+An [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/playbook-awx.yml) is used to configure AWX with the [Execution Environment](execution-environment.md), credentials, project, inventories and Discord notification template.
