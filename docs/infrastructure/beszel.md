@@ -13,3 +13,11 @@ Each Homelab device has the [Beszel binary agent](https://beszel.dev/guide/what-
 Alongside the Beszel Hub is a Tailscale [sidecar](https://tailscale.com/blog/docker-tailscale-guide) container which allows the Hub to communicate with devices on my home network, and only be accessible over Tailscale using [Tailscale serve](https://tailscale.com/kb/1312/serve).
 
 The sidecar container accepts my [Tailnet's configured DNS servers](https://github.com/dbrennand/home-ops/blob/dev/docker/beszel/docker-compose.yml#L11) and [accepts subnet routes](https://github.com/dbrennand/home-ops/blob/dev/docker/beszel/docker-compose.yml#L10). This is what allows the Beszel Hub to communicate with devices on my home network.
+
+## Discord Webhook Notifications
+
+The Beszel Hub is configured to send notifications into a Discord channel when certain system thresholds are breached for over 10 minutes.
+
+```
+generic://discord.com/api/webhooks/...?template=json&messagekey=content
+```
