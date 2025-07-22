@@ -14,7 +14,7 @@ collections:
     version: 24.6.1
 roles:
   - name: dbrennand.beszel
-    version: 1.4.1
+    version: 1.5.0
   - name: dbrennand.caddy_docker
     version: 4.0.0
   - name: dbrennand.autorestic
