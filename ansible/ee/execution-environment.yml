@@ -3,7 +3,7 @@ version: 3
 images:
   base_image:
     # renovate: depName=ghcr.io/almalinux/10-kitten-minimal datasource=docker
-    name: ghcr.io/almalinux/10-kitten-minimal:10-kitten-20250204
+    name: ghcr.io/almalinux/10-minimal:10.0-20250803
 dependencies:
   ansible_core:
     # renovate: depName=ansible-core datasource=pypi
