@@ -10,10 +10,10 @@ tasks:
   venv:
     desc: Create the Python virtual environment using uv.
     dir: "{{ .ANSIBLE_PROJECT_PATH }}"
-    cmd: "uv sync {{ .CLI_ARGS }}"
+    cmd: "uv sync --dev {{ .CLI_ARGS }}"
 
-  ansible:requirements:
-    desc: Install Ansible requirements.
+  ansible:install:requirements:
+    desc: Install Ansible requirements locally.
     dir: "{{ .ANSIBLE_PROJECT_PATH }}"
     cmds:
       - uv add -r ee/requirements.txt
@@ -22,7 +22,12 @@ tasks:
       - sh: command -v {{ .VENV_PATH }}/bin/ansible-galaxy
         msg: ansible-galaxy is not installed. Have you ran 'task venv'?
 
-  ansible:ee:
+  ansible:ee:requirements:
+    desc: Generate Ansible EE Python requirements.txt.
+    dir: "{{ .ANSIBLE_PROJECT_PATH }}"
+    cmd: uv export --no-hashes --no-header --no-annotate --no-dev --format requirements.txt > ee/requirements.txt
+
+  ansible:ee:build:
     desc: Build the Ansible Execution Environment.
     dir: "{{ .ANSIBLE_PROJECT_PATH }}/ee"
-    cmd: ansible-builder build --container-runtime docker --tag ghcr.io/dbrennand/home-ops:latest -vvv
+    cmd: uv run ansible-builder build --container-runtime docker --tag ghcr.io/dbrennand/home-ops:latest -vvv

@@ -5,8 +5,13 @@ description = "Home-Ops Ansible Content."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "ansible-dev-tools>=25.2.1",
     "jmespath>=1.0.1",
     "passlib>=1.7.4",
     "pihole6api>=0.1.7",
+]
+
+[dependency-groups]
+dev = [
+    "ansible-core==2.18.7",
+    "ansible-lint==25.8.1",
 ]
