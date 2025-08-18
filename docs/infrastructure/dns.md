@@ -60,11 +60,11 @@ The secondary Pi-hole (`pihole02.net.dbren.uk`) is deployed on a Proxmox VM. The
 
 ## :simple-pihole: Managing DNS A and CNAME Records
 
-An [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/playbook-pihole-records.yml) is used to manage DNS A and CNAME records for both Pi-hole instances.
+An [Ansible playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-pihole-records.yml) is used to manage DNS A and CNAME records for both Pi-hole instances.
 
 ## :simple-tailscale: Tailscale
 
-Both of the Pi-hole hosts are configured with [Tailscale](https://tailscale.com/) to provide ad-blocking whilst on the go. Tailscale is deployed using an [Ansible playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/playbook-tailscale.yml).
+Both of the Pi-hole hosts are configured with [Tailscale](https://tailscale.com/) to provide ad-blocking whilst on the go. Tailscale is deployed using an [Ansible playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-tailscale.yml).
 
 The following steps are to be performed once Tailscale has been configured on both the Pi-hole hosts:
 

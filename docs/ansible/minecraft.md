@@ -4,7 +4,7 @@
 
     This page has been archived and kept for reference.
 
-The Minecraft [playbook](https://github.com/dbrennand/home-ops/blob/dev/ansible/playbooks/playbook-minecraft.yml) is used to deploy Minecraft servers on Ubuntu Server 22.04 LTS in my Homelab.
+The Minecraft [playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-minecraft.yml) is used to deploy Minecraft servers on Ubuntu Server 22.04 LTS in my Homelab.
 
 ## :simple-ansible: Ansible Playbook
 
@@ -12,11 +12,11 @@ The playbook configures two Minecraft servers, `minecraft01` and `minecraft02`; 
 
 ## Vanilla Server
 
-The `minecraft01` server is deployed with [Paper MC](https://papermc.io/). Server specific settings are located in [`ansible/vars/paper_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/paper-minecraft.yml).
+The `minecraft01` server is deployed with [Paper MC](https://papermc.io/). Server specific settings are located in [`ansible/vars/paper_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/main/ansible/vars/paper-minecraft.yml).
 
 ## Modded Server
 
-The `minecraft02` server is deployed with the [All the Mods 9 (ATM9)](https://www.curseforge.com/minecraft/modpacks/all-the-mods-9) modpack. Server specific settings are located in [`ansible/vars/modded_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/modded-minecraft.yml).
+The `minecraft02` server is deployed with the [All the Mods 9 (ATM9)](https://www.curseforge.com/minecraft/modpacks/all-the-mods-9) modpack. Server specific settings are located in [`ansible/vars/modded_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/main/ansible/vars/modded-minecraft.yml).
 
 ### Staging the Modpack Server ZIP File
 
@@ -31,7 +31,7 @@ To run ATM9 on the `minecraft02` server, the modpack server ZIP file must be sta
     scp /path/to/Server-Files-0.2.41.zip minecraft02.net.dbren.uk:~/modpacks/
     ```
 
-3. Update the [`ansible/vars/modded_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/dev/ansible/vars/modded-minecraft.yml) file with the correct modpack server ZIP file name:
+3. Update the [`ansible/vars/modded_minecraft.yml`](https://github.com/dbrennand/home-ops/blob/main/ansible/vars/modded-minecraft.yml) file with the correct modpack server ZIP file name:
 
     ```yaml
     minecraft_options:

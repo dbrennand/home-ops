@@ -28,8 +28,8 @@ Ansible content used to configure my Homelab infrastructure and deploy applicati
 
 ## 📋 Taskfile
 
-This repository uses [Taskfile](https://taskfile.dev) to quickly perform repetitive [tasks](https://github.com/dbrennand/home-ops/blob/dev/Taskfile.yml).
+This repository uses [Taskfile](https://taskfile.dev) to quickly perform repetitive [tasks](https://github.com/dbrennand/home-ops/blob/main/Taskfile.yml).
 
 ## :material-license: License
 
-[MIT](https://github.com/dbrennand/home-ops/blob/dev/LICENSE)
+[MIT](https://github.com/dbrennand/home-ops/blob/main/LICENSE)

@@ -2,7 +2,7 @@ ARG BASE_IMAGE=ghcr.io/ansible/community-ansible-dev-tools:v25.5.2
 FROM $BASE_IMAGE
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md
-LABEL org.opencontainers.image.source "https://github.com/dbrennand/home-ops/blob/dev/.devcontainer/Dockerfile"
+LABEL org.opencontainers.image.source "https://github.com/dbrennand/home-ops/blob/main/.devcontainer/Dockerfile"
 LABEL org.opencontainers.image.authors "Daniel Brennand"
 LABEL org.opencontainers.image.licenses "MIT"
 LABEL org.opencontainers.image.base.name $BASE_IMAGE
