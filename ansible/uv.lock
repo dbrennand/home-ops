@@ -20,9 +20,9 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "jmespath", specifier = ">=1.0.1" },
-    { name = "passlib", specifier = ">=1.7.4" },
-    { name = "pihole6api", specifier = ">=0.1.7" },
+    { name = "jmespath", specifier = "==1.0.1" },
+    { name = "passlib", specifier = "==1.7.4" },
+    { name = "pihole6api", specifier = "==0.2.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -379,14 +379,14 @@ wheels = [
 
 [[package]]
 name = "pihole6api"
-version = "0.1.9"
+version = "0.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d2/01/30c0db308c8943f43ac0f79d3f9e240672fbd9a9d6f7571b13eed3494aa3/pihole6api-0.1.9.tar.gz", hash = "sha256:49dc1d2b23b3b13c89dff82bbff6638f299fcf6bcdd7151c25be5a4063626088", size = 13626, upload-time = "2025-04-17T04:06:49.039Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/02/14/6706814feb88dfddc65192182f349c487b4d3bb6312d77084f4cd3395d6f/pihole6api-0.2.0.tar.gz", hash = "sha256:938f4aa6a34235029f96dda48fe819b7ad1f39ecf5052944c36097ea6b1577e3", size = 14052, upload-time = "2025-06-03T14:43:34.862Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d5/e5/3e2b178b6f1bc792dee6d5fe66b99e83f85306a834c27315564c0cb8a2c2/pihole6api-0.1.9-py3-none-any.whl", hash = "sha256:a814da7ebd6fc8ec986bc0994b17a83c76aa81db4d6f3a7bfffe750fcad97f40", size = 17112, upload-time = "2025-04-17T04:06:47.861Z" },
+    { url = "https://files.pythonhosted.org/packages/19/27/f7b04143bfc8a155941af372033ee299a4d4f1400bffdc32c545e7ebc913/pihole6api-0.2.0-py3-none-any.whl", hash = "sha256:7c327e6f66a3e20bc1322e282e7e2d24158f6efa080aadd3d2f023d262a672a3", size = 17523, upload-time = "2025-06-03T14:43:33.783Z" },
 ]
 
 [[package]]
