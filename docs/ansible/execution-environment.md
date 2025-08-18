@@ -6,7 +6,7 @@ The EE is built using [`ansible-builder`](https://ansible.readthedocs.io/project
 
 ## :simple-files: Execution Environment Files
 
-Files relating to the Execution Environment are located in [`ansible/ee`](https://github.com/dbrennand/home-ops/tree/dev/ansible/ee).
+Files relating to the Execution Environment are located in [`ansible/ee`](https://github.com/dbrennand/home-ops/tree/main/ansible/ee).
 
 | File Path                                                                                                                      | Description                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
@@ -21,7 +21,7 @@ The 1Password CLI is [installed](https://github.com/dbrennand/home-ops/blob/main
 
 ## :simple-githubactions: Automated Build
 
-A [GitHub Action](https://github.com/dbrennand/home-ops/blob/main/.github/workflows/build-ee.yml) is set up to automatically re-build the EE when changes are made to files in [`ansible/ee`](https://github.com/dbrennand/home-ops/tree/dev/ansible/ee).
+A [GitHub Action](https://github.com/dbrennand/home-ops/blob/main/.github/workflows/build-ee.yml) is set up to automatically re-build the EE when changes are made to files in [`ansible/ee`](https://github.com/dbrennand/home-ops/tree/main/ansible/ee).
 
 ## Using the Execution Environment
 

@@ -2,7 +2,7 @@
 
 [Beszel](https://beszel.dev/) is a simple, lightweight server monitoring solution that I use to monitor all my Homelab devices.
 
-The Beszel Hub is hosted on a VPS deployed on [Hetzner Cloud](hetzner.md). The Beszel Hub is deployed using [Docker Compose](https://github.com/dbrennand/home-ops/tree/dev/docker/beszel) using the method documented [here](../docker-compose.md).
+The Beszel Hub is hosted on a VPS deployed on [Hetzner Cloud](hetzner.md). The Beszel Hub is deployed using [Docker Compose](https://github.com/dbrennand/home-ops/tree/main/docker/beszel) using the method documented [here](../docker-compose.md).
 
 ![Beszel Dashboard](../assets/images/Beszel.png)
 

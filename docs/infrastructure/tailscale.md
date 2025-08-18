@@ -6,7 +6,7 @@
 
 Tailscale is used in my Homelab to remotely access services. I've written a little more about this [here](https://danielbrennand.com/blog/tailscale/).
 
-An [Ansible playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-tailscale.yml) is used to install and configure Tailscale on all devices in my Homelab. The configuration for each device is managed via Ansible [group](https://github.com/dbrennand/home-ops/tree/dev/ansible/inventory/group_vars) and [host](https://github.com/dbrennand/home-ops/tree/dev/ansible/inventory/host_vars) vars.
+An [Ansible playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-tailscale.yml) is used to install and configure Tailscale on all devices in my Homelab. The configuration for each device is managed via Ansible [group](https://github.com/dbrennand/home-ops/tree/main/ansible/inventory/group_vars) and [host](https://github.com/dbrennand/home-ops/tree/main/ansible/inventory/host_vars) vars.
 
 ## Tailscale OAuth Client
 

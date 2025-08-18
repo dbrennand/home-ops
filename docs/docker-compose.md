@@ -1,6 +1,6 @@
 # Docker Compose
 
-[Docker Compose](https://docs.docker.com/compose/) is used to deploy certain applications in my Homelab. The [docker](https://github.com/dbrennand/home-ops/tree/dev/docker) directory contains subdirectories for each application.
+[Docker Compose](https://docs.docker.com/compose/) is used to deploy certain applications in my Homelab. The [docker](https://github.com/dbrennand/home-ops/tree/main/docker) directory contains subdirectories for each application.
 
 ## Environment Variables
 
