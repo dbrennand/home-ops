@@ -3,16 +3,28 @@
         "config:recommended",
         ":dependencyDashboard"
     ],
-    "packageRules": [
+    "regexManagers": [
         {
-            "matchDatasources": [
-                "docker"
+            "fileMatch": [
+                "(^|/)execution-environment\\.ya?ml$"
             ],
-            "matchPackageNames": [
-                "postgres",
-                "gotenberg"
+            "matchStrings": [
+                "# renovate: depName=(?<depName>[^\\s]+) datasource=(?<datasource>docker)\\s*\\n\\s*name:\\s*(?<depName2>[^:]+):(?<currentValue>[^\\s]+)"
             ],
-            "enabled": false
+            "datasourceTemplate": "{{datasource}}",
+            "depNameTemplate": "{{depName}}",
+            "versioningTemplate": "docker"
+        },
+        {
+            "fileMatch": [
+                "(^|/)execution-environment\\.ya?ml$"
+            ],
+            "matchStrings": [
+                "# renovate: depName=(?<depName>[^\\s]+) datasource=(?<datasource>pypi)\\s*\\n\\s*package_pip:\\s*(?<depName2>[^=]+)==(?<currentValue>[^\\s]+)"
+            ],
+            "datasourceTemplate": "{{datasource}}",
+            "depNameTemplate": "{{depName}}",
+            "versioningTemplate": "pep440"
         }
     ]
 }
