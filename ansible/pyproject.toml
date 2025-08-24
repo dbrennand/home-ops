@@ -13,5 +13,5 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ansible-core==2.18.7",
-    "ansible-lint==25.8.1",
+    "ansible-lint==25.8.2",
 ]
