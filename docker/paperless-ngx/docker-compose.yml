@@ -24,7 +24,7 @@ services:
       POSTGRES_PASSWORD: ${PG_PASS}
 
   webserver:
-    image: ghcr.io/paperless-ngx/paperless-ngx:2.17
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.18
     container_name: paperless_ngx
     restart: unless-stopped
     depends_on:
