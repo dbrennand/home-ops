@@ -1,0 +1,30 @@
+---
+services:
+  stirling-pdf:
+    image: ghcr.io/stirling-tools/stirling-pdf:1.2.0
+    container_name: stirling_pdf
+    restart: unless-stopped
+    networks:
+      - stirling_pdf
+      - caddy
+    expose:
+      - 8080
+    volumes:
+      - ./StirlingPDF/trainingData:/usr/share/tessdata # Required for extra OCR languages
+      - ./StirlingPDF/extraConfigs:/configs
+      - ./StirlingPDF/customFiles:/customFiles/
+      - ./StirlingPDF/logs:/logs/
+      - ./StirlingPDF/pipeline:/pipeline/
+    environment:
+      - DISABLE_ADDITIONAL_FEATURES=false
+      - LANGS=en_GB
+    labels:
+      caddy: stirling.{$$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{{ upstreams 8080 }}"
+
+networks:
+  stirling_pdf:
+    name: stirling_pdf
+  caddy:
+    external: true
