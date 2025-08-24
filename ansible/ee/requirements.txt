@@ -1,5 +1,5 @@
 certifi==2025.4.26
-charset-normalizer==3.4.2
+charset-normalizer==3.4.3
 idna==3.10
 jmespath==1.0.1
 passlib==1.7.4
