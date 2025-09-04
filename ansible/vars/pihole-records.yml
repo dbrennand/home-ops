@@ -3,9 +3,9 @@
 # Variables used by the sbarbett.pihole.manage_local_records role
 pihole_hosts:
   - name: https://pihole01.net.dbren.uk
-    password: "{{ lookup('community.general.onepassword', 'pihole01.net.dbren.uk', vault='Home-Ops') }}"
+    password: "{{ lookup('community.general.onepassword', '5yy7sjcaynjsgd6j4jidnp44w4', vault='Home-Ops') }}"
   - name: https://pihole02.net.dbren.uk
-    password: "{{ lookup('community.general.onepassword', 'pihole02.net.dbren.uk', vault='Home-Ops') }}"
+    password: "{{ lookup('community.general.onepassword', 'xl76x3v4gexwsspprbv3q5kmie', vault='Home-Ops') }}"
 pihole_records:
   - name: pihole01.net.dbren.uk
     type: A
@@ -48,6 +48,14 @@ pihole_records:
     data: media01.net.dbren.uk
     state: present
   - name: paperless.net.dbren.uk
+    type: CNAME
+    data: media01.net.dbren.uk
+    state: present
+  - name: stirling.net.dbren.uk
+    type: CNAME
+    data: media01.net.dbren.uk
+    state: present
+  - name: tools.net.dbren.uk
     type: CNAME
     data: media01.net.dbren.uk
     state: present
