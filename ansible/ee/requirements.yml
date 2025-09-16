@@ -12,9 +12,9 @@ collections:
     version: 1.0.1
   - name: awx.awx
     version: 24.6.1
+  - name: community.beszel
+    version: 0.3.0
 roles:
-  - name: dbrennand.beszel
-    version: 1.5.1
   - name: dbrennand.caddy_docker
     version: 4.0.0
   - name: dbrennand.autorestic

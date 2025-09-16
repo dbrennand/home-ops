@@ -2,6 +2,6 @@
 - name: Deploy Beszel Binary Agent
   hosts: all
   roles:
-    - role: dbrennand.beszel
+    - role: community.beszel.agent
       vars:
-        beszel_public_key: "{{ lookup('community.general.onepassword', 'Beszel', field='PUBLIC_KEY', vault='Home-Ops') }}"
+        agent_public_key: "{{ lookup('community.general.onepassword', 'Beszel', field='PUBLIC_KEY', vault='Home-Ops') }}"
