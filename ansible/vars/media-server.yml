@@ -1,40 +1,5 @@
 ---
 # vars file for media-playbook.yml
-# dbrennand.caddy_docker role vars
-# https://github.com/dbrennand/ansible-role-caddy-docker
-caddy_docker_caddyfile: |-
-  {
-    email {$ACME_EMAIL}
-  }
-
-  (cloudflare) {
-    tls {
-      dns cloudflare {$CLOUDFLARE_API_TOKEN}
-    }
-  }
-
-  # OpenMediaVault
-  media01.{$DOMAIN} {
-    import cloudflare
-    reverse_proxy host.docker.internal:1080
-  }
-caddy_docker_image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2025.04.01
-caddy_docker_command: caddy docker-proxy
-caddy_docker_etc_hosts:
-  host.docker.internal: host-gateway
-caddy_docker_extra_volumes:
-  # Required for Caddy to read Docker container labels
-  - /var/run/docker.sock:/var/run/docker.sock
-caddy_docker_environment_variables:
-  # Variables used in the Caddyfile
-  # https://github.com/lucaslorentz/caddy-docker-proxy#caddy-cli
-  CADDY_INGRESS_NETWORKS: caddy
-  CADDY_DOCKER_CADDYFILE_PATH: /etc/caddy/Caddyfile
-  # Values come from group_vars/all.yml
-  DOMAIN: "{{ domain }}"
-  CLOUDFLARE_API_TOKEN: "{{ cloudflare_api_token }}"
-  ACME_EMAIL: "{{ acme_email }}"
-
 # dbrennand.autorestic role vars
 # https://github.com/dbrennand/ansible-role-autorestic?tab=readme-ov-file#role-variables
 autorestic_version: 1.8.3

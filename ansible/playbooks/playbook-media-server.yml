@@ -30,8 +30,6 @@
     - role: geerlingguy.docker
       tags: docker
       become: true
-    - role: dbrennand.caddy_docker
-      tags: caddy_docker
   tasks:
     - name: OpenMediaVault | Patches
       tags: omv
