@@ -2,7 +2,7 @@
 version: "3.9"
 services:
   tailscale:
-    image: ghcr.io/tailscale/tailscale:v1.86.5
+    image: ghcr.io/tailscale/tailscale:v1.88.2
     container_name: tailscale_gatus
     hostname: status
     restart: unless-stopped
