@@ -1,0 +1,14 @@
+{
+    email {env.ACME_EMAIL}
+}
+
+(cloudflare) {
+    tls {
+        dns cloudflare {env.CF_API_TOKEN}
+    }
+}
+# OpenMediaVault
+media01.{env.DOMAIN} {
+  import cloudflare
+  reverse_proxy host.docker.internal:1080
+}
