@@ -1,0 +1,109 @@
+storage:
+  type: sqlite
+  path: /data/data.db
+  caching: true
+
+ui:
+  title: Home-Ops | Status Page
+  description: Home-Ops | Status Page
+  header: Home-Ops | Status Page
+  logo: https://avatars.githubusercontent.com/u/52419383
+  link: https://github.com/dbrennand/home-ops
+  buttons:
+    - name: GitHub
+      link: https://github.com/dbrennand/home-ops
+    - name: Docs
+      link: https://homeops.dbren.uk
+
+endpoints:
+  - name: Proxmox Node 1
+    group: Home-Ops
+    url: "https://proxmox01.net.dbren.uk:8006"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Proxmox Node 2
+    group: Home-Ops
+    url: "https://proxmox02.net.dbren.uk:8006"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Proxmox Backup Server
+    group: Home-Ops
+    url: "https://backup01.net.dbren.uk:8007"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Pi-hole Primary
+    group: Home-Ops
+    url: "https://pihole01.net.dbren.uk/admin"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Pi-hole Secondary
+    group: Home-Ops
+    url: "https://pihole02.net.dbren.uk/admin"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: OpenMediaVault
+    group: Home-Ops
+    url: "https://media01.net.dbren.uk"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Authentik
+    group: Home-Ops
+    url: "https://auth.net.dbren.uk"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Paperless-ngx
+    group: Home-Ops
+    url: "https://paperless.net.dbren.uk"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Stirling PDF
+    group: Home-Ops
+    url: "https://stirling.net.dbren.uk"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: AWX
+    group: Home-Ops
+    url: "https://awx.net.dbren.uk"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Beszel Hub
+    group: Home-Ops
+    url: "https://beszel.macaroni-beardie.ts.net"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Blog
+    group: External
+    url: "https://dbren.uk"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Home-Ops Docs
+    group: External
+    url: "https://homeops.dbren.uk"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"

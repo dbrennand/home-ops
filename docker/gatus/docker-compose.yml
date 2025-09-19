@@ -1,0 +1,36 @@
+---
+version: "3.9"
+services:
+  tailscale:
+    image: ghcr.io/tailscale/tailscale:v1.86.5
+    container_name: tailscale_gatus
+    hostname: status
+    restart: unless-stopped
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}?ephemeral=false
+      - TS_EXTRA_ARGS=--accept-routes --advertise-tags=tag:external
+      - TS_ACCEPT_DNS=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+      - TS_SERVE_CONFIG=/config/serve.json
+    volumes:
+      - tailscale_gatus:/var/lib/tailscale
+      - ./config:/config
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+
+  gatus:
+    image: ghcr.io/twin/gatus:v5.24.0
+    container_name: gatus
+    restart: unless-stopped
+    depends_on:
+      - tailscale
+    network_mode: service:tailscale
+    volumes:
+      - ./config:/config
+      - ./data:/data/
+
+volumes:
+  tailscale_gatus:
