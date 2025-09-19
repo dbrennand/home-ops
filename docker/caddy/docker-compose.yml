@@ -12,6 +12,7 @@ services:
     environment:
       ACME_EMAIL: "${ACME_EMAIL}"
       CF_API_TOKEN: "${CF_API_TOKEN}"
+      DOMAIN: "${DOMAIN}"
       # https://github.com/lucaslorentz/caddy-docker-proxy#caddy-cli
       CADDY_INGRESS_NETWORKS: caddy
       CADDY_DOCKER_CADDYFILE_PATH: /etc/caddy/Caddyfile
@@ -23,6 +24,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - caddy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 networks:
   caddy:
