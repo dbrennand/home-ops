@@ -1,12 +1,9 @@
 # 🏠 🛠 Home Operations
 
-![Ansible-Lint](https://github.com/dbrennand/home-ops/actions/workflows/ansible-lint.yml/badge.svg)
-![Build Execution Environment](https://github.com/dbrennand/home-ops/actions/workflows/build-ee.yml/badge.svg)
-![Clean up Execution Environments](https://github.com/dbrennand/home-ops/actions/workflows/cleanup-ee.yml/badge.svg)
-![GitHub Pages](https://github.com/dbrennand/home-ops/actions/workflows/gh-pages.yml/badge.svg)
-![Terraform Lint](https://github.com/dbrennand/home-ops/actions/workflows/tflint.yml/badge.svg)
+Home Operations repository for managing my Homelab infrastructure.
 
-Mono repository for managing my Homelab infrastructure 🏠 🛠
+[![AWX](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.macaroni-beardie.ts.net%2Fapi%2Fv1%2Fendpoints%2Fhome-ops_awx%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=ansible&logoColor=white&label=AWX)](https://status.macaroni-beardie.ts.net)
+[![Beszel Hub](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.macaroni-beardie.ts.net%2Fapi%2Fv1%2Fendpoints%2Fhome-ops_beszel-hub%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=statuspage&logoColor=white&label=Beszel%20Hub)](https://status.macaroni-beardie.ts.net)
 
 ## 📝 Overview
 
