@@ -11,7 +11,7 @@ services:
       - paperless_ngx_redis:/data
 
   db:
-    image: docker.io/library/postgres:16
+    image: docker.io/library/postgres:18
     container_name: paperless_ngx_postgres
     restart: unless-stopped
     networks:
