@@ -1,0 +1,40 @@
+---
+services:
+  tailscale:
+    image: ghcr.io/tailscale/tailscale:v1.88.2
+    container_name: tailscale_forgejo
+    hostname: git
+    restart: unless-stopped
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}?ephemeral=false
+      - TS_EXTRA_ARGS=--accept-routes --advertise-tags=tag:forgejo
+      - TS_ACCEPT_DNS=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+      - TS_SERVE_CONFIG=/config/serve.json
+    volumes:
+      - tailscale_forgejo:/var/lib/tailscale
+      - ./config:/config
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:11
+    container_name: forgejo
+    restart: unless-stopped
+    network_mode: service:tailscale
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
+      - FORGEJO__server__ROOT_URL=https://${FORGEJO_HOSTNAME}
+      - FORGEJO__server__SSH_DOMAIN=${FORGEJO_HOSTNAME}
+    volumes:
+      - ./forgejo/data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  tailscale_forgejo:
