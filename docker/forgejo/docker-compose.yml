@@ -21,7 +21,7 @@ services:
       - NET_ADMIN
 
   forgejo:
-    image: codeberg.org/forgejo/forgejo:11
+    image: codeberg.org/forgejo/forgejo:12
     container_name: forgejo
     restart: unless-stopped
     network_mode: service:tailscale
