@@ -1,13 +1,13 @@
 ---
 services:
-  tailscale_beszel:
+  tailscale:
     image: ghcr.io/tailscale/tailscale:v1.88.2
     container_name: tailscale_beszel
     hostname: beszel
     restart: unless-stopped
     environment:
       - TS_AUTHKEY=${TS_AUTHKEY}?ephemeral=false
-      - TS_EXTRA_ARGS=--accept-routes --advertise-tags=tag:external
+      - TS_EXTRA_ARGS=--accept-routes --advertise-tags=tag:beszel-hub
       - TS_ACCEPT_DNS=true
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_USERSPACE=false
@@ -24,8 +24,8 @@ services:
     container_name: beszel
     restart: unless-stopped
     depends_on:
-      - tailscale_beszel
-    network_mode: service:tailscale_beszel
+      - tailscale
+    network_mode: service:tailscale
     volumes:
       - ./beszel_data:/beszel_data
 
