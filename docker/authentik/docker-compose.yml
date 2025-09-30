@@ -48,7 +48,7 @@ services:
       - authentik_redis:/data
 
   server:
-    image: ghcr.io/goauthentik/server:2025.8.3
+    image: ghcr.io/goauthentik/server:2025.8.4
     container_name: authentik_server
     restart: unless-stopped
     command: server
@@ -78,7 +78,7 @@ services:
       caddy.reverse_proxy: "{{ upstreams 9000 }}"
 
   worker:
-    image: ghcr.io/goauthentik/server:2025.8.3
+    image: ghcr.io/goauthentik/server:2025.8.4
     container_name: authentik_worker
     restart: unless-stopped
     command: worker
