@@ -1,7 +1,7 @@
 ---
 services:
   tailscale:
-    image: ghcr.io/tailscale/tailscale:v1.88.2
+    image: ghcr.io/tailscale/tailscale:v1.88.3
     container_name: tailscale_forgejo
     hostname: git
     restart: unless-stopped
