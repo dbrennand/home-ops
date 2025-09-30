@@ -21,7 +21,7 @@ services:
       - NET_ADMIN
 
   gatus:
-    image: ghcr.io/twin/gatus:v5.25.0
+    image: ghcr.io/twin/gatus:v5.25.2
     container_name: gatus
     restart: unless-stopped
     depends_on:
