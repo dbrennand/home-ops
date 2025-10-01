@@ -6,7 +6,7 @@ The Beszel Hub is hosted on a VPS deployed on [Hetzner Cloud](hetzner.md). The B
 
 ![Beszel Dashboard](../assets/images/Beszel.png)
 
-Each Homelab device has the [Beszel binary agent](https://beszel.dev/guide/what-is-beszel#architecture) which communicates system metrics to the Hub. I deploy this agent using my [dbrennand.beszel](https://github.com/dbrennand/ansible-role-beszel) Ansible role which I run from an Ansible playbook [`playbook-beszel-agent.yml`](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-beszel-agent.yml).
+Each Homelab device has the [Beszel binary agent](https://beszel.dev/guide/what-is-beszel#architecture) which communicates system metrics to the Hub. I deploy this agent using the [`community.beszel.agent`](https://github.com/ansible-collections/community.beszel) Ansible role which I run from an Ansible playbook [`playbook-beszel-agent.yml`](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-beszel-agent.yml).
 
 ## :simple-tailscale: Tailscale Sidecar
 
