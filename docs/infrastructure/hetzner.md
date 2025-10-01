@@ -6,4 +6,7 @@
 
 I have a single cloud VPS provisioned on Hetzner. The VPS is deployed using [OpenTofu](https://github.com/dbrennand/home-ops/blob/main/terraform/hetzner.tf) using the method documented [here](./opentofu.md).
 
-I'm currently using this VPS as a remote monitoring host by running [Beszel](./beszel.md) to monitor all my Homelab devices over Tailscale.
+I'm currently using this VPS for:
+
+- Remotely monitoring via Tailscale all my Homelab devices using [Beszel](./beszel.md).
+- Hosting a [status](https://status.macaroni-beardie.ts.net/) page using [Tailscale Funnel](https://tailscale.com/kb/1223/funnel). All devices are accessed remotely via Tailscale.
