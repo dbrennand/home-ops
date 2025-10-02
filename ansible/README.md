@@ -1,3 +1,3 @@
 # Ansible
 
-The Ansible playbooks in this repository are used to configure my Homelab servers and deploy applications.
+The Ansible content in this repository are used to configure my servers and deploy applications in my Homelab.
