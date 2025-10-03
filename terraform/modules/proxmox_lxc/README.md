@@ -1,4 +1,4 @@
-# OpenTofu Module - Proxmox LXC
+# OpenTofu Module - Proxmox LXC (Deprecated)
 
 This module creates a Proxmox LXC based on the provided parameters.
 

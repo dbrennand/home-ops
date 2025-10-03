@@ -1,4 +1,4 @@
-# OpenTofu Module - Proxmox Virtual Machine
+# OpenTofu Module - Proxmox Virtual Machine (Deprecated)
 
 This module creates a Proxmox Virtual Machine (VM) based on the provided parameters.
 
