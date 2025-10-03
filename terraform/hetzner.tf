@@ -31,6 +31,7 @@ resource "hcloud_server" "home_ops" {
   image        = "alma-9"
   server_type  = "cpx11"
   location     = "hel1"
+  backups      = true
   user_data    = <<EOF
 #cloud-config
 users:
