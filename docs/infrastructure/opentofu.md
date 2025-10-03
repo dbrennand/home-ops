@@ -4,7 +4,7 @@
 
 ## Custom Module(s)
 
-My Home-Ops project contains two OpenTofu modules I've created, but as of writing I'm only using the [`proxmox_vm`](https://github.com/dbrennand/home-ops/tree/main/terraform/modules/proxmox_vm) module. This module deploys VMs with [AlmaLinux](https://almalinux.org/) 9 as the operating system, and creates a cloud-init configuration so each VM is ready for use when booted.
+My Home-Ops project contains three OpenTofu modules I've created. The only active one is [`proxmox_cloud_init_config`](https://github.com/dbrennand/home-ops/tree/main/terraform/modules/proxmox_cloud_init_config) which I use to create a Cloud-init configuration file for each VM. I previously used the [`proxmox_vm`](https://github.com/dbrennand/home-ops/tree/main/terraform/modules/proxmox_vm) module but I've found that it doesn't provide enough flexibility for me anymore so I've deprecated it.
 
 ## OpenTofu State
 
@@ -12,7 +12,7 @@ The [OpenTofu state](https://opentofu.org/docs/language/state/) is stored in a B
 
 ## :lock: Secrets
 
-The [1Password Terraform provider](https://search.opentofu.org/provider/1password/onepassword/latest) is used to retrieve credentials for Proxmox and an SSH key used during VM creation by the [`proxmox_vm`](https://github.com/dbrennand/home-ops/tree/main/terraform/modules/proxmox_vm) module.
+The [1Password Terraform provider](https://search.opentofu.org/provider/1password/onepassword/latest) is used to retrieve credentials for Proxmox and an SSH key used during VM creation.
 
 ## Usage
 
