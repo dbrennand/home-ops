@@ -31,7 +31,7 @@ services:
       caddy.reverse_proxy: "{{ upstreams 8080 }}"
 
   mongo:
-    image: mongo:6
+    image: mongo:8
     networks:
       - your_spotify
     restart: unless-stopped
