@@ -1,0 +1,55 @@
+---
+# https://github.com/Yooooomi/your_spotify?tab=readme-ov-file#using-docker-compose
+
+networks:
+  caddy:
+    external: true
+  your_spotify:
+    name: your_spotify
+
+services:
+  server:
+    image: yooooomi/your_spotify_server:1.14.0
+    container_name: your_spotify_server
+    restart: unless-stopped
+    expose:
+      - 8080
+    networks:
+      - caddy
+      - your_spotify
+    depends_on:
+      - mongo
+    environment:
+      API_ENDPOINT: https://spotify-api.net.dbren.uk
+      CLIENT_ENDPOINT: https://spotify-stats.net.dbren.uk
+      SPOTIFY_PUBLIC: ${SPOTIFY_PUBLIC}
+      SPOTIFY_SECRET: ${SPOTIFY_SECRET}
+      CORS: https://spotify-stats.net.dbren.uk
+    labels:
+      caddy: spotify-api.{$$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{{ upstreams 8080 }}"
+
+  mongo:
+    image: mongo:6
+    networks:
+      - your_spotify
+    restart: unless-stopped
+    volumes:
+      - ./database:/data/db
+
+  web:
+    image: yooooomi/your_spotify_client:1.14.0
+    container_name: your_spotify_client
+    restart: unless-stopped
+    networks:
+      - caddy
+      - your_spotify
+    expose:
+      - 3000
+    environment:
+      API_ENDPOINT: https://spotify-api.net.dbren.uk
+    labels:
+      caddy: spotify-stats.{$$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{{ upstreams 3000 }}"

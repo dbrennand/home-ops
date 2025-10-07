@@ -55,7 +55,11 @@ pihole_records:
     type: CNAME
     data: media01.net.dbren.uk
     state: present
-  - name: tools.net.dbren.uk
+  - name: spotify-stats.net.dbren.uk
+    type: CNAME
+    data: media01.net.dbren.uk
+    state: present
+  - name: spotify-api.net.dbren.uk
     type: CNAME
     data: media01.net.dbren.uk
     state: present
