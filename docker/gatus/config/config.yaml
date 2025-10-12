@@ -58,9 +58,9 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
       - "[CERTIFICATE_EXPIRATION] > 48h"
-  - name: Authentik
+  - name: Pocket ID
     group: Home-Ops
-    url: "https://auth.net.dbren.uk"
+    url: "https://idp.net.dbren.uk"
     interval: 5m
     conditions:
       - "[STATUS] == 200"
