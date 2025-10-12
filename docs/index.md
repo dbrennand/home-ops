@@ -1,5 +1,3 @@
-<div align="center">
-
 # 🏠 🛠 Home Operations
 
 Home Operations repository for managing my Homelab infrastructure.
@@ -10,8 +8,6 @@ Home Operations repository for managing my Homelab infrastructure.
 [![Pi-hole](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.macaroni-beardie.ts.net%2Fapi%2Fv1%2Fendpoints%2Fhome-ops_pi-hole-primary%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=pihole&logoColor=white&label=Pi-hole)](https://status.macaroni-beardie.ts.net)
 [![Proxmox](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.macaroni-beardie.ts.net%2Fapi%2Fv1%2Fendpoints%2Fhome-ops_proxmox-node-1%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=proxmox&logoColor=white&label=Proxmox)](https://status.macaroni-beardie.ts.net)
 [![Pocket ID](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.macaroni-beardie.ts.net%2Fapi%2Fv1%2Fendpoints%2Fhome-ops_pocket-id%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=auth0&logoColor=white&label=Pocket%20ID)](https://status.macaroni-beardie.ts.net)
-
-</div>
 
 ## 📝 Overview
 
