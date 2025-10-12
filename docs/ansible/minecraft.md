@@ -2,7 +2,7 @@
 
 !!! note
 
-    This page has been archived and kept for reference.
+    This page has been archived and kept for reference. Some of the links on this page may no longer work.
 
 The Minecraft [playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-minecraft.yml) is used to deploy Minecraft servers on Ubuntu Server 22.04 LTS in my Homelab.
 
