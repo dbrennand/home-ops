@@ -47,9 +47,9 @@ pihole_records:
     type: A
     data: 192.168.0.11
     state: present
-  - name: auth.net.dbren.uk
+  - name: idp.net.dbren.uk
     type: CNAME
-    data: media01.net.dbren.uk
+    data: idp01.net.dbren.uk
     state: present
   - name: paperless.net.dbren.uk
     type: CNAME

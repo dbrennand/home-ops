@@ -1,0 +1,32 @@
+---
+# https://raw.githubusercontent.com/pocket-id/pocket-id/main/docker-compose.yml
+services:
+  pocket-id:
+    image: ghcr.io/pocket-id/pocket-id:v1.13.1
+    container_name: pocket-id
+    restart: unless-stopped
+    env_file: .env
+    expose:
+      - 1411
+    volumes:
+      - "./data:/app/data"
+    networks:
+      - pocket-id
+      - caddy
+    # Optional healthcheck
+    healthcheck:
+      test: ["CMD", "/app/pocket-id", "healthcheck"]
+      interval: 1m30s
+      timeout: 5s
+      retries: 2
+      start_period: 10s
+    labels:
+      caddy: idp.{$$DOMAIN}
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{{ upstreams 1411 }}"
+
+networks:
+  pocket-id:
+    name: pocket-id
+  caddy:
+    external: true
