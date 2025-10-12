@@ -16,9 +16,9 @@ resource "hcloud_firewall" "home_ops" {
   }
   # https://tailscale.com/kb/1150/cloud-hetzner#step-2-allow-udp-port-41641
   rule {
-    direction  = "in"
-    protocol   = "udp"
-    port       = "41641"
+    direction = "in"
+    protocol  = "udp"
+    port      = "41641"
     source_ips = [
       "0.0.0.0/0",
       "::/0"
