@@ -11,6 +11,7 @@ all:
     media01.net.dbren.uk:
     k3s01.net.dbren.uk:
     homeops.hetzner.dbren.uk:
+    idp01.net.dbren.uk:
   children:
     # Proxmox cluster nodes
     proxmox:
@@ -24,6 +25,7 @@ all:
         media01.net.dbren.uk:
         pihole02.net.dbren.uk:
         homeops.hetzner.dbren.uk:
+        idp01.net.dbren.uk:
     # Tailscale subnet routers
     subnet_router:
       hosts:
