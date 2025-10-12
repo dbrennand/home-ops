@@ -12,7 +12,7 @@ all:
     k3s01.net.dbren.uk:
     homeops.hetzner.dbren.uk:
     idp01.net.dbren.uk:
-    komodo01.net.dbren.uk:
+    apps01.net.dbren.uk:
   children:
     # Proxmox cluster nodes
     proxmox:
@@ -27,7 +27,7 @@ all:
         pihole02.net.dbren.uk:
         homeops.hetzner.dbren.uk:
         idp01.net.dbren.uk:
-        komodo01.net.dbren.uk:
+        apps01.net.dbren.uk:
     # Tailscale subnet routers
     subnet_router:
       hosts:
@@ -53,4 +53,4 @@ all:
         backup01.net.dbren.uk:
         homeops.hetzner.dbren.uk:
         idp01.net.dbren.uk:
-        komodo01.net.dbren.uk:
+        apps01.net.dbren.uk:

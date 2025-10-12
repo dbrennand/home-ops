@@ -47,13 +47,13 @@ pihole_records:
     type: A
     data: 192.168.0.11
     state: present
-  - name: komodo01.net.dbren.uk
+  - name: apps01.net.dbren.uk
     type: A
     data: 192.168.0.12
     state: present
   - name: komodo.net.dbren.uk
     type: CNAME
-    data: komodo01.net.dbren.uk
+    data: apps01.net.dbren.uk
     state: present
   - name: idp.net.dbren.uk
     type: CNAME

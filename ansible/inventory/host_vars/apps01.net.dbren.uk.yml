@@ -1,5 +1,5 @@
 ---
-# komodo01.net.dbren.uk host_vars
+# apps01.net.dbren.uk host_vars
 # artis3n.tailscale collection machine role vars
 # https://github.com/artis3n/ansible-collection-tailscale/blob/main/roles/machine/README.md#variables
 tailscale_args: --accept-dns=false --ssh
