@@ -93,6 +93,13 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
       - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: Komodo
+    group: Home-Ops
+    url: "https://komodo.net.dbren.uk"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
   - name: Blog
     group: External
     url: "https://dbren.uk"
