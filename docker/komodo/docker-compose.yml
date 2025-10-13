@@ -68,32 +68,6 @@ services:
       caddy.import: cloudflare
       caddy.reverse_proxy: "{{ upstreams 9120 }}"
 
-  periphery:
-    image: ghcr.io/moghtech/komodo-periphery:1.19.5
-    container_name: komodo-periphery
-    restart: unless-stopped
-    networks:
-      - komodo
-    environment:
-      TZ: ${TZ}
-      PERIPHERY_ROOT_DIRECTORY: /etc/komodo
-      PERIPHERY_PASSKEYS: ${KOMODO_PASSKEY}
-      PERIPHERY_DISABLE_TERMINALS: ${PERIPHERY_DISABLE_TERMINALS}
-      PERIPHERY_SSL_ENABLED: ${PERIPHERY_SSL_ENABLED}
-      PERIPHERY_INCLUDE_DISK_MOUNTS: ${PERIPHERY_INCLUDE_DISK_MOUNTS}
-      PERIPHERY_LOGGING_PRETTY: ${PERIPHERY_LOGGING_PRETTY}
-      PERIPHERY_PRETTY_STARTUP_CONFIG: ${PERIPHERY_PRETTY_STARTUP_CONFIG}
-    volumes:
-      # Mount external docker socket
-      - /var/run/docker.sock:/var/run/docker.sock
-      # Allow Periphery to see processes outside of container
-      - /proc:/proc
-      # Komodo Periphery root directory
-      - /etc/komodo:/etc/komodo
-    labels:
-      # Prevent Komodo from stopping with StopAllContainers
-      komodo.skip:
-
 volumes:
   # Mongo
   mongo-data:
