@@ -17,4 +17,8 @@ dependencies = [
 dev = [
     "ansible-core==2.18.7",
     "ansible-lint==25.9.2",
+    "go-task-bin==3.45.4",
+]
+docs = [
+    "mkdocs-material>=9.6.21",
 ]
