@@ -10,7 +10,7 @@ dependencies:
     package_pip: ansible-core==2.18.7
   ansible_runner:
     # renovate: depName=ansible-runner datasource=pypi
-    package_pip: ansible-runner==2.4.1
+    package_pip: ansible-runner==2.4.2
   python: requirements.txt
   galaxy: requirements.yml
 additional_build_files:
