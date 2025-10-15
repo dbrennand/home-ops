@@ -31,10 +31,7 @@ pihole_records:
     type: A
     data: 192.168.0.7
     state: present
-  - name: exit02.net.dbren.uk
-    type: A
-    data: 192.168.0.8
-    state: present
+  # 192.168.0.8 is free
   - name: media01.net.dbren.uk
     type: A
     data: 192.168.0.9
