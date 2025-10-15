@@ -6,7 +6,6 @@ all:
     proxmox01.net.dbren.uk:
     proxmox02.net.dbren.uk:
     exit01.net.dbren.uk:
-    exit02.net.dbren.uk:
     backup01.net.dbren.uk:
     media01.net.dbren.uk:
     k3s01.net.dbren.uk:
@@ -37,7 +36,6 @@ all:
     exit_node:
       hosts:
         exit01.net.dbren.uk:
-        exit02.net.dbren.uk:
         homeops.hetzner.dbren.uk:
     # Hosts with Tailscale installed
     tailscale:
