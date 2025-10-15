@@ -38,21 +38,6 @@ module "proxmox_vm_exit01" {
   proxmox_vm_started                               = true
 }
 
-module "proxmox_vm_exit02" {
-  source                                           = "./modules/proxmox_vm"
-  proxmox_vm_name                                  = "exit02"
-  proxmox_vm_id                                    = 104
-  proxmox_vm_tags                                  = ["vm", "opentofu", "tailscale", "192.168.0.8"]
-  proxmox_vm_cores                                 = 2
-  proxmox_vm_memory                                = 2048
-  proxmox_vm_ip                                    = "192.168.0.8/24"
-  proxmox_vm_virtual_environment_disk_datastore_id = "local-lvm"
-  proxmox_vm_virtual_environment_node_name         = "proxmox02"
-  proxmox_vm_cloud_init_config_ssh_authorized_keys = data.onepassword_item.ssh_key.public_key
-  proxmox_vm_disk_size                             = 50
-  proxmox_vm_started                               = true
-}
-
 module "proxmox_vm_k3s01" {
   source                                           = "./modules/proxmox_vm"
   proxmox_vm_name                                  = "k3s01"
