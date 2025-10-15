@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=ghcr.io/ansible/community-ansible-dev-tools:v25.8.3
+ARG BASE_IMAGE=docker.io/library/python:3.13.8-slim
 FROM $BASE_IMAGE
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md
@@ -9,8 +9,14 @@ LABEL org.opencontainers.image.base.name $BASE_IMAGE
 LABEL org.opencontainers.image.title "home-ops"
 LABEL org.opencontainers.image.description "home-ops VSCode Dev Container"
 
-# mkdocs-material
-RUN pip install mkdocs-material==9.5.24
+# Tooling
+RUN apt update && \
+    apt -y install git \
+    openssh-client \
+    locales-all
+
+# uv
+COPY --from=ghcr.io/astral-sh/uv:0.9.2 /uv /uvx /bin/
 
 # OpenTofu
-COPY --from=ghcr.io/opentofu/opentofu:1.10.6 /usr/local/bin/tofu /usr/local/bin/tofu
+COPY --from=ghcr.io/opentofu/opentofu:1.10.6 /usr/local/bin/tofu /bin/tofu

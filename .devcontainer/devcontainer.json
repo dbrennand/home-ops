@@ -2,15 +2,7 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
-    // https://github.com/ansible/ansible-dev-tools/blob/main/.devcontainer/docker/devcontainer.json
-    "containerUser": "root",
     "updateRemoteUserUID": true,
-    "runArgs": [
-        "--privileged",
-        "--device",
-        "/dev/fuse",
-        "--hostname=ansible-dev-container"
-    ],
     "mounts": [
         "source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,type=bind"
     ],
@@ -28,5 +20,5 @@
             ]
         }
     },
-    "postStartCommand": "git config --global --unset gpg.'ssh'.program && ansible-galaxy install -r ansible/ee/requirements.yml"
+    "postStartCommand": "uv sync --directory ansible --dev"
 }
