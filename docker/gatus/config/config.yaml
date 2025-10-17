@@ -16,7 +16,7 @@ ui:
       link: https://homeops.dbren.uk
 
 endpoints:
-  - name: Proxmox Node 1
+  - name: Proxmox
     group: Home-Ops
     url: "https://proxmox01.net.dbren.uk:8006"
     interval: 5m
