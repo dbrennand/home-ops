@@ -23,13 +23,6 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
       - "[CERTIFICATE_EXPIRATION] > 48h"
-  - name: Proxmox Node 2
-    group: Home-Ops
-    url: "https://proxmox02.net.dbren.uk:8006"
-    interval: 5m
-    conditions:
-      - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 48h"
   - name: Proxmox Backup Server
     group: Home-Ops
     url: "https://backup01.net.dbren.uk:8007"
