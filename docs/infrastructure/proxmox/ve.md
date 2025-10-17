@@ -214,23 +214,27 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
 
 2. Enter the following details and click **Add**:
 
+    !!! note
+
+        The following Proxmox Backup Server datastore was called `backup01`.
+
     | Setting     | Value                                                          |
     | ----------- | -------------------------------------------------------------- |
-    | ID          | `backup01-backup01`                                            |
+    | ID          | `backup01-Remote`                                              |
     | Server      | `backup01.net.dbren.uk`                                        |
-    | Datastore   | `backup01`                                                     |
+    | Datastore   | `Remote`                                                       |
     | Username    | `root@pam`                                                     |
     | Password    | Enter password                                                 |
     | Fingerprint | Copy from Proxmox Backup Server Dashboard > `Show Fingerprint` |
     | Encryption  | Upload an existing client encryption key                       |
 
-3. Repeat the steps above for `backup02`:
+3. Repeat the steps above for `Local` (formerly `backup02`):
 
     | Setting     | Value                                                          |
     | ----------- | -------------------------------------------------------------- |
-    | ID          | `backup01-backup02`                                            |
+    | ID          | `backup01-Local`                                               |
     | Server      | `backup01.net.dbren.uk`                                        |
-    | Datastore   | `backup02`                                                     |
+    | Datastore   | `Local`                                                        |
     | Username    | `root@pam`                                                     |
     | Password    | Enter password                                                 |
     | Fingerprint | Copy from Proxmox Backup Server Dashboard > `Show Fingerprint` |
@@ -240,7 +244,7 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
 
     | Setting                 | Value                  |
     | ----------------------- | ---------------------- |
-    | Storage                 | `backup01-backup02`    |
+    | Storage                 | `backup01-Local`       |
     | Schedule                | `01:00`                |
     | Selection Mode          | `Exclude selected VMs` |
     | Mode                    | `Snapshot`             |
