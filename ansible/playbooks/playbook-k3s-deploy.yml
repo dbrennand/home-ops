@@ -3,20 +3,5 @@
   hosts: k3s01.net.dbren.uk
   vars_files:
     - ../vars/k3s-deploy.yml
-  pre_tasks:
-    - name: Install SELinux dependencies
-      become: true
-      ansible.builtin.package:
-        name:
-          - container-selinux
-          - selinux-policy-base
-        state: present
-
-    - name: Install K3s SELinux RPM
-      become: true
-      ansible.builtin.dnf:
-        name: https://rpm.rancher.io/k3s/latest/common/centos/9/noarch/k3s-selinux-1.6-1.el9.noarch.rpm
-        disable_gpg_check: true
-        state: present
   roles:
     - role: xanmanning.k3s
