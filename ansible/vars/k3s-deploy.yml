@@ -1,7 +1,7 @@
 ---
 # vars file for k3s-playbook.yml
 # https://github.com/PyratLabs/ansible-role-k3s?tab=readme-ov-file#role-variables
-k3s_release_version: v1.33.3+k3s1
+k3s_release_version: v1.34.1+k3s1
 k3s_registration_address: k3s01.net.dbren.uk
 k3s_become: true
 k3s_install_hard_links: true
@@ -12,9 +12,10 @@ k3s_server:
     - "{{ ansible_fqdn }}"
   disable-cloud-controller: true
   write-kubeconfig-mode: "644"
+  selinux: true
 k3s_server_manifests_urls:
   # cert-manager - https://github.com/kurokobo/awx-on-k3s/tree/main/acme
-  - url: https://github.com/jetstack/cert-manager/releases/download/v1.18.2/cert-manager.yaml
+  - url: https://github.com/jetstack/cert-manager/releases/download/v1.19.1/cert-manager.yaml
     filename: cert-manager.yaml
 k3s_server_manifests_templates:
   - ../templates/k3s-deploy/cert-manager-cloudflare-secret.yml.j2
