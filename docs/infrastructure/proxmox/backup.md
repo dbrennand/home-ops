@@ -100,7 +100,7 @@ The PBS requires a datastore to store backups. In my setup, I have two datastore
 2. SSH to the PBS and create the datastore:
 
     ```bash
-    proxmox-backup-manager datastore create backup01 /mnt/storagebox --gc-schedule "sun 04:00"
+    proxmox-backup-manager datastore create Remote /mnt/storagebox --gc-schedule "sun 04:00"
     ```
 
 #### Local Datastore
@@ -114,13 +114,13 @@ The PBS requires a datastore to store backups. In my setup, I have two datastore
 2. Create the datastore:
 
     ```bash
-    proxmox-backup-manager disk fs create backup02 --disk sdb --filesystem ext4 --add-datastore true
+    proxmox-backup-manager disk fs create Local --disk sdb --filesystem ext4 --add-datastore true
     ```
 
 3. Configure the datastore:
 
     ```bash
-    proxmox-backup-manager datastore update backup02 --gc-schedule "sun 04:00"
+    proxmox-backup-manager datastore update Local --gc-schedule "sun 04:00"
     ```
 
 ### Verify Job Creation
@@ -128,7 +128,7 @@ The PBS requires a datastore to store backups. In my setup, I have two datastore
 The verify job is used to verify the integrity of the backups. SSH to the PBS and use the following command to create the verify job:
 
 ```bash
-proxmox-backup-manager verify-job create verify-backup02 --store backup02 --schedule "03:00" --ignore-verified=true --outdated-after=30
+proxmox-backup-manager verify-job create verify-Local --store Local --schedule "03:00" --ignore-verified=true --outdated-after=30
 ```
 
 ### Sync Job Creation
@@ -137,10 +137,10 @@ proxmox-backup-manager verify-job create verify-backup02 --store backup02 --sche
 
     This makes sure that I have a local copy of backups and an offsite copy on the Hetzner Storagebox.
 
-Configure the backups to sync from the `backup02` datastore to `backup01` datastore:
+Configure the backups to sync from the `Local` datastore to `Remote` datastore:
 
 ```bash
-proxmox-backup-manager sync-job create sync-pull-backup02-backup01 --owner 'root@pam' --store backup01 --remote-store backup02 --schedule "02:00" --remove-vanished=true
+proxmox-backup-manager sync-job create sync-pull-Local-Remote --owner 'root@pam' --store Remote --remote-store Local --schedule "02:00" --remove-vanished=true
 ```
 
 ### :simple-letsencrypt: HTTPS - Web Interface with Let's Encrypt
