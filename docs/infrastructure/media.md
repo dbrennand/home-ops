@@ -10,7 +10,7 @@ Media server for hosting files and various containerised services.
 
 The media server is deployed as a VM on Proxmox using the [OpenMediaVault ISO](https://www.openmediavault.org/download.html).
 
-1. Download the ISO to the Node 1 (Primary) storage.
+1. Download the ISO to the Node 1 storage.
 
 2. Navigate to `proxmox01` > `Create VM`.
 

@@ -183,13 +183,13 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
 
     Choose `backup01` to exclude from backups and click **OK**.
 
-# Archived Steps
+## Archived Steps
 
 !!! note
 
     The documentation under this heading are old steps used when I had a 2 node Proxmox VE cluster. I've kept them here in case I ever need them again in the future.
 
-## Create the Proxmox Cluster
+### Create the Proxmox Cluster
 
 1. Navigate to the Proxmox GUI on Node 1 (Primary) and go to `Datacenter` > `Cluster` > `Create Cluster`:
 
@@ -205,7 +205,7 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
 
 5. Wait for the cluster to establish. You will know when this has completed as on each node's GUIs you should now see the other node listed under `Datacenter`.
 
-## :material-vote: Create External Vote Server
+### :material-vote: Create External Vote Server
 
 Due to the Proxmox cluster only consisting of two nodes, there is no way to establish quorum.
 
