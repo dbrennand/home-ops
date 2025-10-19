@@ -147,7 +147,18 @@ The media server is deployed as a VM on Proxmox using the [OpenMediaVault ISO](h
 
     ![OMV Shared Folders](../assets/images/OMVSharedFolders.png)
 
-4. Navigate to `Services` > `SMB/CIFS` > `Settings` and configure the following settings:
+4. Navigate to `Services` > `SSH` and configure the following settings:
+
+    | Setting                   | Value |
+    | ------------------------- | ----- |
+    | Password Authentication   | ❌     |
+    | Public Key Authentication | ✅     |
+
+### SMB/CIFS
+
+The steps below can be used to create a SMB/CIFS share for the Paperless-ngx consume directory.
+
+1. Navigate to `Services` > `SMB/CIFS` > `Settings` and configure the following settings:
 
     | Setting                  | Value  |
     | ------------------------ | ------ |
@@ -155,7 +166,7 @@ The media server is deployed as a VM on Proxmox using the [OpenMediaVault ISO](h
     | Browsable                | ✅      |
     | Minimum protocol version | `SMB3` |
 
-5. Navigate to `Services` > `SMB/CIFS` > `Shares` and click the `+` symbol to add a new share with the following configuration:
+2. Navigate to `Services` > `SMB/CIFS` > `Shares` and click the `+` symbol to add a new share with the following configuration:
 
     | Setting             | Value                              |
     | ------------------- | ---------------------------------- |
@@ -170,10 +181,3 @@ The media server is deployed as a VM on Proxmox using the [OpenMediaVault ISO](h
     The share configuration should look like below:
 
     ![OMV SMB Share](../assets/images/OMVSMBShare.png)
-
-6. Navigate to `Services` > `SSH` and configure the following settings:
-
-    | Setting                   | Value |
-    | ------------------------- | ----- |
-    | Password Authentication   | ❌     |
-    | Public Key Authentication | ✅     |
