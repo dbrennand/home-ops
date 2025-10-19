@@ -6,9 +6,9 @@
 
 ## Deployment
 
-PBS is deployed as a virtual machine on the Proxmox VE cluster on Node 1 (Primary). The PBS deployment is via an [ISO](https://proxmox.com/en/downloads/proxmox-backup-server) image.
+PBS is deployed as a virtual machine on the Proxmox VE Node 1. The PBS deployment is via an [ISO](https://proxmox.com/en/downloads/proxmox-backup-server) image.
 
-1. Download the ISO to the Node 1 (Primary) storage.
+1. Download the ISO to the Node 1 storage.
 
 2. Navigate to `proxmox01` > `Create VM`.
 

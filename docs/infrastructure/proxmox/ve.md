@@ -6,7 +6,7 @@
 
 ## Proxmox VE Specs
 
-### Node 1 (Primary)
+### Node 1
 
 [Minisforum Venus Series UN1265](https://store.minisforum.uk/collections/intel/products/un1265)
 
@@ -19,22 +19,7 @@
 | Storage (External) | Samsung SSD 870 QVO 1TB                                                           |
 | Storage (External) | 64GB USB                                                                          |
 
-
-### Node 2 (Secondary)
-
-[Intel NUC6CAYB](https://www.intel.com/content/dam/support/us/en/documents/boardsandkits/NUC6CAYB_TechProdSpec.pdf)
-
-| Component          | Details                       |
-| ------------------ | ----------------------------- |
-| CPU                | Intel Celeron J3455 @ 1.50Ghz |
-| Memory             | 8GB                           |
-| Storage (Internal) | 240GB SSD                     |
-
-## Installation
-
-!!! note
-
-    The following instructions are for Node 1 (Primary). Modify the *install disk*, *FQDN* and *IP Address* values for Node 2 (Secondary).
+## Deployment
 
 1. Power on the node and enter the BIOS.
 
@@ -59,7 +44,7 @@
 
 ## Post Installation
 
-Below are the post installation steps for configuring the Proxmox VE nodes.
+Below are the post installation steps for configuring the Proxmox VE node.
 
 Copy SSH public key to the Proxmox VE node's `authorized_keys` file:
 
@@ -75,58 +60,7 @@ ssh-copy-id root@proxmox01.net.dbren.uk
     lvextend -l +100%FREE /dev/pve/data
     ```
 
-2. Use the [`playbook-proxmox-storage.yml`](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-proxmox-storage.yml) to configure the Proxmox storage on Node 1 (Primary).
-
-### Create the Proxmox Cluster
-
-1. Navigate to the Proxmox GUI on Node 1 (Primary) and go to `Datacenter` > `Cluster` > `Create Cluster`:
-
-    | Setting | Value      |
-    | ------- | ---------- |
-    | Name    | `home-ops` |
-
-2. Once the cluster has been created, click **Join Information** and copy the alphanumeric string to the clipboard.
-
-3. Navigate to the Proxmox GUI on Node 2 (Secondary) and go to `Datacenter` > `Cluster` > `Join Cluster` and paste the alphanumeric string into the text box.
-
-4. Enter Node 1's root password for the *peer's root password* field and click **Join 'home-ops'**.
-
-5. Wait for the cluster to establish. You will know when this has completed as on each node's GUIs you should now see the other node listed under `Datacenter`.
-
-#### :material-vote: Create External Vote Server
-
-Due to the Proxmox cluster only consisting of two nodes, there is no way to establish quorum.
-
-!!! quote "What's Quroum?"
-
-    A [quorum](https://pve.proxmox.com/wiki/Cluster_Manager#_quorum) is the minimum number of votes that a distributed transaction has to obtain in order to be allowed to perform an operation in a distributed system.
-
-Without quorum, if one node goes down, the other node will not be able to determine if it is the only node left in the cluster or if the other node is still running. This is often referred to as a *split-brain* scenario. Luckily, Proxmox's Corosync supports an external vote server (known as a Corosync Quorum Device (QDevice)) to act as a tie-breaker. This lightweight daemon can be run on a device such as a Raspberry Pi.
-
-1. Execute the [`playbook-proxmox-external-vote.yml`](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-proxmox-external-vote.yml) playbook to configure the Proxmox nodes and external vote server on the Raspberry Pi.
-
-2. On Proxmox Node 1 (Primary), execute the following command to add the QDevice to the cluster:
-
-    ```bash
-    pvecm qdevice setup 192.168.0.3
-    ```
-
-3. Once added, verify the QDevice is online:
-
-    ```bash
-    pvecm status
-    ```
-
-If the QDevice is successfully added, you should see the following:
-
-```
-Membership information
-----------------------
-    Nodeid      Votes    Qdevice Name
-0x00000001          1    A,V,NMW 192.168.0.4 (local)
-0x00000002          1    A,V,NMW 192.168.0.3
-0x00000000          1            Qdevice
-```
+2. Use the [`playbook-proxmox-storage.yml`](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-proxmox-storage.yml) to configure the Proxmox storage on Node 1.
 
 ### :simple-letsencrypt: HTTPS - Web Interface with Let's Encrypt
 
@@ -136,11 +70,7 @@ Membership information
 
     Furthermore, you will need to obtain your domain's zone ID. This can be found in the Cloudflare dashboard page for the domain, on the right side under *API* > *Zone ID*.
 
-!!! note
-
-    These steps only need to performed once on each Proxmox node. Once configured, the certificate will be automatically renewed.
-
-1. Login to the Proxmox GUI on Node 1 (Primary) and go to `Datacenter` > `ACME` > *Accounts* and click **Add**:
+1. Login to the Proxmox GUI on Node 1 and go to `Datacenter` > `ACME` > *Accounts* and click **Add**:
 
     | Setting        | Value              |
     | -------------- | ------------------ |
@@ -204,13 +134,13 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
     bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install
     ```
 
-## :material-clock-time-nine: Configure Backup Schedules
+### :material-clock-time-nine: Configure Backup Schedules
 
 !!! note
 
     The following steps are to be completed once the [Proxmox Backup Server](https://homeops.danielbrennand.com/infrastructure/proxmox/backup/) has been deployed and configured.
 
-1. Navigate to the Proxmox GUI on Node 1 (Primary) and go to `Datacenter` > `Storage` > `Add` and choose `Proxmox Backup Server`.
+1. Navigate to the Proxmox GUI on Node 1 and go to `Datacenter` > `Storage` > `Add` and choose `Proxmox Backup Server`.
 
 2. Enter the following details and click **Add**:
 
@@ -252,3 +182,70 @@ Once completed, the `pveproxy.service` will reload the web interface and show th
     | Retention - Keep Weekly | 2                      |
 
     Choose `backup01` to exclude from backups and click **OK**.
+
+# Archived Steps
+
+!!! note
+
+    The documentation under this heading are old steps used when I had a 2 node Proxmox VE cluster. I've kept them here in case I ever need them again in the future.
+
+## Create the Proxmox Cluster
+
+1. Navigate to the Proxmox GUI on Node 1 (Primary) and go to `Datacenter` > `Cluster` > `Create Cluster`:
+
+    | Setting | Value      |
+    | ------- | ---------- |
+    | Name    | `home-ops` |
+
+2. Once the cluster has been created, click **Join Information** and copy the alphanumeric string to the clipboard.
+
+3. Navigate to the Proxmox GUI on Node 2 (Secondary) and go to `Datacenter` > `Cluster` > `Join Cluster` and paste the alphanumeric string into the text box.
+
+4. Enter Node 1's root password for the *peer's root password* field and click **Join 'home-ops'**.
+
+5. Wait for the cluster to establish. You will know when this has completed as on each node's GUIs you should now see the other node listed under `Datacenter`.
+
+## :material-vote: Create External Vote Server
+
+Due to the Proxmox cluster only consisting of two nodes, there is no way to establish quorum.
+
+!!! quote "What's Quroum?"
+
+    A [quorum](https://pve.proxmox.com/wiki/Cluster_Manager#_quorum) is the minimum number of votes that a distributed transaction has to obtain in order to be allowed to perform an operation in a distributed system.
+
+Without quorum, if one node goes down, the other node will not be able to determine if it is the only node left in the cluster or if the other node is still running. This is often referred to as a *split-brain* scenario. Luckily, Proxmox's Corosync supports an external vote server (known as a Corosync Quorum Device (QDevice)) to act as a tie-breaker. This lightweight daemon can be run on a device such as a Raspberry Pi.
+
+1. On each Proxmox VE cluster node, install `corosync-qdevice`:
+
+    ```bash
+    apt-get -y install corosync-qdevice
+    ```
+
+2. On the Raspberry Pi, install `corosync-qnetd`:
+
+    ```bash
+    sudo apt-get -y install corosync-qnetd
+    ```
+
+3. On Proxmox Node 1 (Primary), execute the following command to add the QDevice to the cluster:
+
+    ```bash
+    pvecm qdevice setup 192.168.0.3
+    ```
+
+4. Once added, verify the QDevice is online:
+
+    ```bash
+    pvecm status
+    ```
+
+If the QDevice is successfully added, you should see the following:
+
+```
+Membership information
+----------------------
+    Nodeid      Votes    Qdevice Name
+0x00000001          1    A,V,NMW 192.168.0.4 (local)
+0x00000002          1    A,V,NMW 192.168.0.3
+0x00000000          1            Qdevice
+```
