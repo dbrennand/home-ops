@@ -1,6 +1,6 @@
 # :simple-opentofu: OpenTofu
 
-[OpenTofu](https://opentofu.org/) (a fork of Terraform) is used to deploy infrastructure in my Homelab. Resources located in [`terraform`](https://github.com/dbrennand/home-ops/tree/main/terraform/) are used to deploy VMs on my Proxmox VE cluster.
+[OpenTofu](https://opentofu.org/) (a fork of Terraform) is used to deploy infrastructure in my Homelab. Resources located in [`terraform`](https://github.com/dbrennand/home-ops/tree/main/terraform/) are used to deploy VMs on my Proxmox VE node.
 
 ## Custom Module(s)
 
