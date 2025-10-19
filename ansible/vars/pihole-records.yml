@@ -11,10 +11,7 @@ pihole_records:
     type: A
     data: 192.168.0.2
     state: present
-  - name: proxmox02.net.dbren.uk
-    type: A
-    data: 192.168.0.3
-    state: present
+  # 192.168.0.3 is free
   - name: proxmox01.net.dbren.uk
     type: A
     data: 192.168.0.4

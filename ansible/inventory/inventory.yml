@@ -4,7 +4,6 @@ all:
     pihole01.net.dbren.uk:
     pihole02.net.dbren.uk:
     proxmox01.net.dbren.uk:
-    proxmox02.net.dbren.uk:
     exit01.net.dbren.uk:
     backup01.net.dbren.uk:
     media01.net.dbren.uk:
@@ -17,7 +16,6 @@ all:
     proxmox:
       hosts:
         proxmox01.net.dbren.uk:
-        proxmox02.net.dbren.uk:
     # Hosts with Docker
     docker:
       hosts:
