@@ -20,7 +20,7 @@ roles:
   - name: dbrennand.autorestic
     version: 1.4.0
   - name: geerlingguy.docker
-    version: 7.7.0
+    version: 7.8.0
   - name: geerlingguy.pip
     version: 3.1.0
   - name: geerlingguy.security
