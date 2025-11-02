@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=docker.io/library/python:3.13.8-slim
+ARG BASE_IMAGE=docker.io/library/python:3.14.0-slim
 FROM $BASE_IMAGE
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md
