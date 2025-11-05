@@ -1,5 +1,5 @@
 ---
-# vars file for proxmox-backup-cifs.yml
+# vars file for playbook-proxmox-backup-cifs.yml
 cifs_share: "{{ lookup('community.general.onepassword', 'Hetzner StorageBox', field='CIFS_SHARE', vault='Home-Ops') }}"
 mountpoint: /mnt/storagebox
 smb_username: "{{ lookup('community.general.onepassword', 'Hetzner StorageBox', field='username', vault='Home-Ops') }}"

@@ -1,5 +1,5 @@
 ---
-# vars file for k3s-playbook.yml
+# vars file for playbook-k3s-deploy.yml
 # https://github.com/PyratLabs/ansible-role-k3s?tab=readme-ov-file#role-variables
 k3s_release_version: v1.34.1+k3s1
 k3s_registration_address: k3s01.net.dbren.uk

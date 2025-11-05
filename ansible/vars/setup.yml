@@ -1,5 +1,5 @@
 ---
-# vars file for setup-playbook.yml
+# vars file for playbook-setup.yml
 
 # List of packages to install
 packages:

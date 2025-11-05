@@ -1,5 +1,5 @@
 ---
-# vars file for media-playbook.yml
+# vars file for playbook-media-server.yml
 # dbrennand.autorestic role vars
 # https://github.com/dbrennand/ansible-role-autorestic?tab=readme-ov-file#role-variables
 autorestic_version: 1.8.3
