@@ -30,20 +30,6 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
       - "[CERTIFICATE_EXPIRATION] > 48h"
-  - name: Pi-hole Primary
-    group: Home-Ops
-    url: "https://pihole01.net.dbren.uk/admin"
-    interval: 5m
-    conditions:
-      - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 48h"
-  - name: Pi-hole Secondary
-    group: Home-Ops
-    url: "https://pihole02.net.dbren.uk/admin"
-    interval: 5m
-    conditions:
-      - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 48h"
   - name: OpenMediaVault
     group: Home-Ops
     url: "https://media01.net.dbren.uk"
@@ -103,6 +89,13 @@ endpoints:
   - name: Home-Ops Docs
     group: External
     url: "https://homeops.dbren.uk"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: NextDNS
+    group: External
+    url: "https://ping.nextdns.io/"
     interval: 5m
     conditions:
       - "[STATUS] == 200"
