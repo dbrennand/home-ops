@@ -1,0 +1,39 @@
+---
+# Config for https://github.com/dbrennand/NextDNS-Rewrites
+profile_name: "Main"
+
+rewrites:
+  # A Records
+  # 192.168.0.2 is free
+  # 192.168.0.3 is free
+  - name: proxmox01.net.dbren.uk
+    content: 192.168.0.4
+  # 192.168.0.5 is free
+  - name: backup01.net.dbren.uk
+    content: 192.168.0.6
+  - name: exit01.net.dbren.uk
+    content: 192.168.0.7
+  # 192.168.0.8 is free
+  - name: media01.net.dbren.uk
+    content: 192.168.0.9
+  - name: k3s01.net.dbren.uk
+    content: 192.168.0.10
+  - name: idp01.net.dbren.uk
+    content: 192.168.0.11
+  - name: apps01.net.dbren.uk
+    content: 192.168.0.12
+  # CNAME Records
+  - name: komodo.net.dbren.uk
+    content: apps01.net.dbren.uk
+  - name: idp.net.dbren.uk
+    content: idp01.net.dbren.uk
+  - name: paperless.net.dbren.uk
+    content: media01.net.dbren.uk
+  - name: stirling.net.dbren.uk
+    content: media01.net.dbren.uk
+  - name: spotify-stats.net.dbren.uk
+    content: media01.net.dbren.uk
+  - name: spotify-api.net.dbren.uk
+    content: media01.net.dbren.uk
+  - name: awx.net.dbren.uk
+    content: k3s01.net.dbren.uk
