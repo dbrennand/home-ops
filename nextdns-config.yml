@@ -22,18 +22,15 @@ rewrites:
     content: 192.168.0.11
   - name: apps01.net.dbren.uk
     content: 192.168.0.12
-  # CNAME Records
-  - name: komodo.net.dbren.uk
-    content: apps01.net.dbren.uk
   - name: idp.net.dbren.uk
-    content: idp01.net.dbren.uk
+    content: 192.168.0.11
   - name: paperless.net.dbren.uk
-    content: media01.net.dbren.uk
+    content: 192.168.0.9
   - name: stirling.net.dbren.uk
-    content: media01.net.dbren.uk
+    content: 192.168.0.9
   - name: spotify-stats.net.dbren.uk
-    content: media01.net.dbren.uk
+    content: 192.168.0.9
   - name: spotify-api.net.dbren.uk
-    content: media01.net.dbren.uk
+    content: 192.168.0.9
   - name: awx.net.dbren.uk
-    content: k3s01.net.dbren.uk
+    content: 192.168.0.10
