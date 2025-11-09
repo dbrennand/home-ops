@@ -3,9 +3,7 @@
   hosts: tailscale
   pre_tasks:
     - name: Tailscale | Enable IP forwarding
-      when: |
-        inventory_hostname in groups["exit_node"] or
-        inventory_hostname in groups["subnet_router"]
+      when: inventory_hostname in groups["subnet_router"]
       become: true
       block:
         - name: Tailscale | Enable IPv4 forwarding

@@ -24,11 +24,7 @@ all:
     # Tailscale subnet routers
     subnet_router:
       hosts:
-    # Tailscale exit nodes
-    exit_node:
-      hosts:
         exit01.net.dbren.uk:
-        homeops.hetzner.dbren.uk:
     # Tailscale hosts
     tailscale:
       vars:
@@ -37,7 +33,6 @@ all:
       children:
         proxmox:
         subnet_router:
-        exit_node:
       hosts:
         media01.net.dbren.uk:
         backup01.net.dbren.uk:
