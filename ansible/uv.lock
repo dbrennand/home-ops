@@ -16,7 +16,6 @@ dependencies = [
     { name = "idna" },
     { name = "jmespath" },
     { name = "passlib" },
-    { name = "pihole6api" },
     { name = "requests" },
     { name = "urllib3" },
 ]
@@ -38,7 +37,6 @@ requires-dist = [
     { name = "idna", specifier = "==3.11" },
     { name = "jmespath", specifier = "==1.0.1" },
     { name = "passlib", specifier = "==1.7.4" },
-    { name = "pihole6api", specifier = "==0.2.0" },
     { name = "requests", specifier = "==2.32.5" },
     { name = "urllib3", specifier = "==2.5.0" },
 ]
@@ -581,18 +579,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/ca/bc/f35b8446f4531a7cb215605d100cd88b7ac6f44ab3fc94870c120ab3adbf/pathspec-0.12.1.tar.gz", hash = "sha256:a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712", size = 51043, upload-time = "2023-12-10T22:30:45Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/cc/20/ff623b09d963f88bfde16306a54e12ee5ea43e9b597108672ff3a408aad6/pathspec-0.12.1-py3-none-any.whl", hash = "sha256:a0d503e138a4c123b27490a4f7beda6a01c6f288df0e4a8b79c7eb0dc7b4cc08", size = 31191, upload-time = "2023-12-10T22:30:43.14Z" },
-]
-
-[[package]]
-name = "pihole6api"
-version = "0.2.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "requests" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/02/14/6706814feb88dfddc65192182f349c487b4d3bb6312d77084f4cd3395d6f/pihole6api-0.2.0.tar.gz", hash = "sha256:938f4aa6a34235029f96dda48fe819b7ad1f39ecf5052944c36097ea6b1577e3", size = 14052, upload-time = "2025-06-03T14:43:34.862Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/19/27/f7b04143bfc8a155941af372033ee299a4d4f1400bffdc32c545e7ebc913/pihole6api-0.2.0-py3-none-any.whl", hash = "sha256:7c327e6f66a3e20bc1322e282e7e2d24158f6efa080aadd3d2f023d262a672a3", size = 17523, upload-time = "2025-06-03T14:43:33.783Z" },
 ]
 
 [[package]]

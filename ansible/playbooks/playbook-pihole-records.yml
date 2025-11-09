@@ -1,8 +1,0 @@
----
-- name: Manage Pi-hole DNS Records
-  hosts: localhost
-  gather_facts: false
-  vars_files:
-    ../vars/pihole-records.yml
-  roles:
-    - role: sbarbett.pihole.manage_local_records

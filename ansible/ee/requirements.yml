@@ -6,8 +6,6 @@ collections:
     version: 11.4.1
   - name: ansible.posix
     version: 2.1.0
-  - name: sbarbett.pihole
-    version: 1.1.1
   - name: artis3n.tailscale
     version: 1.0.1
   - name: awx.awx

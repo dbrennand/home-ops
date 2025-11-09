@@ -7,7 +7,6 @@ requires-python = ">=3.13"
 dependencies = [
     "jmespath==1.0.1",
     "passlib==1.7.4",
-    "pihole6api==0.2.0",
     "charset-normalizer==3.4.4",
     "requests==2.32.5",
     "urllib3==2.5.0",
