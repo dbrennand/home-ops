@@ -1,8 +1,6 @@
 ---
 all:
   hosts:
-    pihole01.net.dbren.uk:
-    pihole02.net.dbren.uk:
     proxmox01.net.dbren.uk:
     exit01.net.dbren.uk:
     backup01.net.dbren.uk:
@@ -12,30 +10,26 @@ all:
     idp01.net.dbren.uk:
     apps01.net.dbren.uk:
   children:
-    # Proxmox cluster nodes
+    # Proxmox
     proxmox:
       hosts:
         proxmox01.net.dbren.uk:
-    # Hosts with Docker
+    # Docker
     docker:
       hosts:
-        pihole01.net.dbren.uk:
         media01.net.dbren.uk:
-        pihole02.net.dbren.uk:
         homeops.hetzner.dbren.uk:
         idp01.net.dbren.uk:
         apps01.net.dbren.uk:
     # Tailscale subnet routers
     subnet_router:
       hosts:
-        pihole01.net.dbren.uk:
-        pihole02.net.dbren.uk:
     # Tailscale exit nodes
     exit_node:
       hosts:
         exit01.net.dbren.uk:
         homeops.hetzner.dbren.uk:
-    # Hosts with Tailscale installed
+    # Tailscale hosts
     tailscale:
       vars:
         # Ensures other group_vars have higher precedence than tailscale group_vars
