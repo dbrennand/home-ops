@@ -2,7 +2,7 @@
 services:
   stirling-pdf:
     image: ghcr.io/stirling-tools/stirling-pdf:1.5.0
-    container_name: stirling_pdf
+    container_name: stirling-pdf
     restart: unless-stopped
     networks:
       - stirling_pdf
@@ -24,7 +24,7 @@ services:
       caddy.reverse_proxy: "{{ upstreams 8080 }}"
 
 networks:
-  stirling_pdf:
-    name: stirling_pdf
+  stirling-pdf:
+    name: stirling-pdf
   caddy:
     external: true

@@ -4,19 +4,19 @@
 networks:
   caddy:
     external: true
-  your_spotify:
-    name: your_spotify
+  your-spotify:
+    name: your-spotify
 
 services:
   server:
     image: yooooomi/your_spotify_server:1.14.0
-    container_name: your_spotify_server
+    container_name: your-spotify-server
     restart: unless-stopped
     expose:
       - 8080
     networks:
       - caddy
-      - your_spotify
+      - your-spotify
     depends_on:
       - mongo
     environment:
@@ -33,18 +33,18 @@ services:
   mongo:
     image: mongo:6
     networks:
-      - your_spotify
+      - your-spotify
     restart: unless-stopped
     volumes:
       - ./database:/data/db
 
   web:
     image: yooooomi/your_spotify_client:1.14.0
-    container_name: your_spotify_client
+    container_name: your-spotify-client
     restart: unless-stopped
     networks:
       - caddy
-      - your_spotify
+      - your-spotify
     expose:
       - 3000
     environment:
