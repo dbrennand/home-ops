@@ -31,5 +31,3 @@ roles:
     version: 3.1.1
   - name: xanmanning.k3s
     version: v3.6.1
-  - name: bpbradley.komodo
-    version: v1.3
