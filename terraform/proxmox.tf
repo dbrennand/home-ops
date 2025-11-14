@@ -8,39 +8,6 @@ provider "proxmox" {
   }
 }
 
-module "proxmox_vm_exit01" {
-  source                                           = "./modules/proxmox_vm"
-  proxmox_vm_name                                  = "exit01"
-  proxmox_vm_id                                    = 101
-  proxmox_vm_tags                                  = ["vm", "opentofu", "tailscale", "192.168.0.7"]
-  proxmox_vm_cores                                 = 2
-  proxmox_vm_memory                                = 2048
-  proxmox_vm_ip                                    = "192.168.0.7/24"
-  proxmox_vm_virtual_environment_disk_datastore_id = "lv-ssd-crucial"
-  proxmox_vm_virtual_environment_node_name         = "proxmox01"
-  proxmox_vm_cloud_init_config_ssh_authorized_keys = data.onepassword_item.ssh_key.public_key
-  proxmox_vm_disk_size                             = 50
-  proxmox_vm_started                               = true
-}
-
-module "proxmox_vm_k3s01" {
-  source                                           = "./modules/proxmox_vm"
-  proxmox_vm_name                                  = "k3s01"
-  proxmox_vm_id                                    = 105
-  proxmox_vm_tags                                  = ["vm", "opentofu", "tailscale", "192.168.0.10"]
-  proxmox_vm_cores                                 = 4
-  proxmox_vm_memory                                = 8192
-  proxmox_vm_ip                                    = "192.168.0.10/24"
-  proxmox_vm_virtual_environment_disk_datastore_id = "lv-ssd-crucial"
-  proxmox_vm_virtual_environment_node_name         = "proxmox01"
-  proxmox_vm_cloud_init_config_ssh_authorized_keys = data.onepassword_item.ssh_key.public_key
-  proxmox_vm_disk_size                             = 100
-  proxmox_vm_started                               = true
-}
-
-# Below content is Proxmox resources provisioned on or after 12 October 2025
-# I've found that my proxmox_vm module is to restrictive and I have deprecated it
-
 resource "proxmox_virtual_environment_download_file" "almalinux_9_latest_cloud_image" {
   content_type       = "iso"
   datastore_id       = "local"
