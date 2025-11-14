@@ -20,7 +20,7 @@ services:
     cap_add:
       - NET_ADMIN
   beszel:
-    image: ghcr.io/henrygd/beszel/beszel:0.15.4
+    image: ghcr.io/henrygd/beszel/beszel:0.16.1
     container_name: beszel
     restart: unless-stopped
     depends_on:
