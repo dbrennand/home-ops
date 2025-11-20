@@ -45,3 +45,9 @@ nodes:
           officialExtensions:
             - siderolabs/qemu-guest-agent
             - siderolabs/tailscale
+patches:
+  # Disable cluster discovery as it is not required for a single node
+  - |-
+    cluster:
+      discovery:
+        enabled: false
