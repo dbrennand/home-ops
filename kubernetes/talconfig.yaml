@@ -1,0 +1,47 @@
+---
+clusterName: home-ops
+talosVersion: v1.11.5
+kubernetesVersion: v1.34.1
+endpoint: https://talos01.net.dbren.uk:6443
+domain: net.dbren.uk
+allowSchedulingOnControlPlanes: true
+nodes:
+  - hostname: talos01
+    ipAddress: 192.168.0.10
+    controlPlane: true
+    installDisk: /dev/sda
+    machineSpec:
+      mode: metal
+      arch: amd64
+      secureboot: true
+      useUKI: true
+    nameservers:
+      - 45.90.28.138
+      - 45.90.30.138
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 192.168.0.10/24
+    certSANs:
+      - 192.168.0.10
+      - talos01.net.dbren.uk
+    userVolumes:
+      # Data volume for AWX
+      - name: data
+        provisioning:
+          diskSelector:
+            match: disk.transport == "virtio"
+          maxSize: 20GiB
+    # Extension configuration
+    machineFiles:
+      - content: |
+          TS_AUTHKEY=${ts_authkey}
+        permissions: 420
+        path: /var/etc/tailscale/auth.env
+        op: create
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/qemu-guest-agent
+            - siderolabs/tailscale
