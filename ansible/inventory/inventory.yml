@@ -6,7 +6,6 @@ all:
     exit01.net.dbren.uk:
     backup01.net.dbren.uk:
     media01.net.dbren.uk:
-    k3s01.net.dbren.uk:
     homeops.hetzner.dbren.uk:
     idp01.net.dbren.uk:
     apps01.net.dbren.uk:
