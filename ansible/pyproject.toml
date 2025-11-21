@@ -3,7 +3,7 @@ name = "ansible"
 version = "0.1.0"
 description = "Home-Ops Ansible Content."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
     "jmespath==1.0.1",
     "passlib==1.7.4",
@@ -16,9 +16,9 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ansible-core==2.18.7",
-    "ansible-lint==25.9.2",
-    "go-task-bin==3.45.4",
+    "ansible-core==2.20.0",
+    "ansible-lint==25.11.0",
+    "go-task-bin==3.45.5",
 ]
 docs = [
     "mkdocs-material>=9.6.21",
