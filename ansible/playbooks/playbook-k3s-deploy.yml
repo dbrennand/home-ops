@@ -1,7 +1,0 @@
----
-- name: Deploy K3s cluster
-  hosts: k3s01.net.dbren.uk
-  vars_files:
-    - ../vars/k3s-deploy.yml
-  roles:
-    - role: xanmanning.k3s
