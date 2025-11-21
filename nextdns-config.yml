@@ -17,12 +17,6 @@ rewrites:
   # 192.168.0.8 is free
   - name: media01.net.dbren.uk
     content: 192.168.0.9
-  - name: idp01.net.dbren.uk
-    content: 192.168.0.11
-  - name: apps01.net.dbren.uk
-    content: 192.168.0.12
-  - name: idp.net.dbren.uk
-    content: 192.168.0.11
   - name: paperless.net.dbren.uk
     content: 192.168.0.9
   - name: stirling.net.dbren.uk
@@ -31,5 +25,13 @@ rewrites:
     content: 192.168.0.9
   - name: spotify-api.net.dbren.uk
     content: 192.168.0.9
+  - name: talos01.net.dbren.uk
+    content: 192.168.0.10
   - name: awx.net.dbren.uk
     content: 192.168.0.10
+  - name: idp01.net.dbren.uk
+    content: 192.168.0.11
+  - name: idp.net.dbren.uk
+    content: 192.168.0.11
+  - name: apps01.net.dbren.uk
+    content: 192.168.0.12
