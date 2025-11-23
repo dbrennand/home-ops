@@ -12,6 +12,10 @@ An [Ansible playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/pl
 
 For devices to authenticate to the Tailnet an [OAuth client](https://login.tailscale.com/admin/settings/oauth) is required.
 
+## Tailscale Auth Key
+
+[Talos](kubernetes/talos.md) authenticates to Tailscale using an [auth key](https://tailscale.com/kb/1085/auth-keys#generate-an-auth-key).
+
 ## DNS
 
 My Tailnet is configured to use [NextDNS](./dns.md) as the upstream DNS provider. This blocks trackers and ads as well as provide DNS resolution for my Homelab without the maintenance overhead of maintaining my own DNS server.
