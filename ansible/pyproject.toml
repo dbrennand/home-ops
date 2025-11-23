@@ -12,6 +12,7 @@ dependencies = [
     "urllib3==2.5.0",
     "certifi==2025.10.5",
     "idna==3.11",
+    "cffi==2.0.0"
 ]
 
 [dependency-groups]
