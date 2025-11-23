@@ -164,6 +164,6 @@ talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=192.168.
     talosctl kubeconfig --talosconfig=./clusterconfig/talosconfig --nodes=192.168.0.10
     ```
 
-Once the machine configuration has finished applying the node should show as below:
+Once the machine configuration has finished applying and `etcd` has finished set up the node should show as below:
 
 ![Talos Deployed](../../assets/images/TalosDeployed.png)
