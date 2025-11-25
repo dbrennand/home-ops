@@ -89,3 +89,5 @@ patches:
     name: tailscale
     environment:
       - TS_AUTHKEY=${ts_authkey}
+  # Kube-vip Cloud Controller
+  - https://raw.githubusercontent.com/kube-vip/kube-vip-cloud-provider/main/manifest/kube-vip-cloud-controller.yaml
