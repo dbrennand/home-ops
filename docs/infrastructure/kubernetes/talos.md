@@ -17,11 +17,11 @@ In my Homelab I have a single [Talos Linux](https://www.talos.dev/) node which r
 
 Talos Linux's node state is defined by a [machine configuration](https://docs.siderolabs.com/talos/v1.11/reference/configuration/overview). Machine configuration is applied to the node during initial deployment. The [`talhelper`](https://budimanjojo.github.io/talhelper/latest/) CLI tool generates the machine configuration declaratively from three files:
 
-| File Name                                                                                               | Description                                                                                       |
-| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| [`talconfig.yaml`](https://github.com/dbrennand/home-ops/blob/main/kubernetes/talconfig.yaml)           | Primary configuration file used to generate the machine configuration.                            |
-| [`talenv.sops.yaml`](https://github.com/dbrennand/home-ops/blob/main/kubernetes/talenv.sops.yaml)       | Stores environment variables which are templated using `envsubst` into the machine configuration. |
-| [`talsecret.sops.yaml`](https://github.com/dbrennand/home-ops/blob/main/kubernetes/talsecret.sops.yaml) | Stores secrets used by Talos.                                                                     |
+| File Name                                                                                                     | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| [`talconfig.yaml`](https://github.com/dbrennand/home-ops/blob/main/kubernetes/talos/talconfig.yaml)           | Primary configuration file used to generate the machine configuration.                            |
+| [`talenv.sops.yaml`](https://github.com/dbrennand/home-ops/blob/main/kubernetes/talos/talenv.sops.yaml)       | Stores environment variables which are templated using `envsubst` into the machine configuration. |
+| [`talsecret.sops.yaml`](https://github.com/dbrennand/home-ops/blob/main/kubernetes/talos/talsecret.sops.yaml) | Stores secrets used by Talos.                                                                     |
 
 ## Prerequisites
 
@@ -142,7 +142,7 @@ Talos will now have booted into maintenance mode and is waiting for machine conf
 These steps only need to be performed during the initial set up of Talos and assume you've already created the `talconfig.yaml`, `talenv.sops.yaml` and `.sops.yaml` files.
 
 ```bash
-cd kubernetes
+cd kubernetes/talos
 talhelper gensecret > talsecret.sops.yaml
 sops -e -i talsecret.sops.yaml
 sops -e -i talenv.sops.yaml
