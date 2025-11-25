@@ -1,4 +1,4 @@
-# Talos Linux
+# :simple-talos: Talos Linux
 
 In my Homelab I have a single [Talos Linux](https://www.talos.dev/) node which runs various Kubernetes workloads.
 

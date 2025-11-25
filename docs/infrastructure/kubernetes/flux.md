@@ -1,4 +1,4 @@
-# Flux
+# :simple-flux: Flux
 
 [FluxCD](https://fluxcd.io/) is deployed on my [Talos](./talos.md) Kubernetes node to adopt a [GitOps](https://fluxcd.io/flux/concepts/#gitops) approach to deploying applications on Kubernetes. My [GitHub repository](https://github.com/dbrennand/home-ops/tree/main/kubernetes) is the source of truth for Kubernetes applications I have deployed.
 
@@ -46,3 +46,5 @@ brew install fluxcd/tap/flux
     ```bash
     flux check
     ```
+
+## Creating the SOPS Age Secret
