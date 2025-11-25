@@ -20,8 +20,8 @@ brew install fluxcd/tap/flux
 
 !!! abstract
 
-    [Reference Documentation - GitHub PAT](https://fluxcd.io/flux/installation/bootstrap/github/#github-pat).
-    [Reference Documentation - GitHub Personal Account](https://fluxcd.io/flux/installation/bootstrap/github/#github-personal-account).
+    - [Reference Documentation - GitHub PAT](https://fluxcd.io/flux/installation/bootstrap/github/#github-pat).
+    - [Reference Documentation - GitHub Personal Account](https://fluxcd.io/flux/installation/bootstrap/github/#github-personal-account).
 
 1. Export the GitHub PAT:
 
