@@ -1,7 +1,9 @@
-certifi==2025.10.5
+certifi==2025.11.12
+cffi==2.0.0
 charset-normalizer==3.4.4
 idna==3.11
 jmespath==1.0.1
 passlib==1.7.4
+pycparser==2.22 ; implementation_name != 'PyPy'
 requests==2.32.5
 urllib3==2.5.0
