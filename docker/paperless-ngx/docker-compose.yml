@@ -3,19 +3,19 @@
 services:
   broker:
     image: docker.io/library/redis:7
-    container_name: paperless_ngx_redis
+    container_name: paperless-ngx-redis
     restart: unless-stopped
     networks:
-      - paperless_ngx
+      - paperless-ngx
     volumes:
-      - paperless_ngx_redis:/data
+      - paperless-ngx-redis:/data
 
   db:
     image: docker.io/library/postgres:16
-    container_name: paperless_ngx_postgres
+    container_name: paperless-ngx-postgres
     restart: unless-stopped
     networks:
-      - paperless_ngx
+      - paperless-ngx
     volumes:
       - ./database:/var/lib/postgresql/data
     environment:
@@ -25,7 +25,7 @@ services:
 
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:2.20
-    container_name: paperless_ngx
+    container_name: paperless-ngx
     restart: unless-stopped
     depends_on:
       - db
@@ -33,7 +33,7 @@ services:
       - gotenberg
       - tika
     networks:
-      - paperless_ngx
+      - paperless-ngx
       - caddy
     expose:
       - 8000
@@ -43,12 +43,12 @@ services:
       - /srv/dev-disk-by-uuid-8b39b057-49ce-42d6-90c9-2b138ef4dee3/media:/usr/src/paperless/media
       - /srv/dev-disk-by-uuid-8b39b057-49ce-42d6-90c9-2b138ef4dee3/consume:/usr/src/paperless/consume
     environment:
-      PAPERLESS_REDIS: redis://paperless_ngx_redis:6379
-      PAPERLESS_DBHOST: paperless_ngx_postgres
+      PAPERLESS_REDIS: redis://paperless-ngx-redis:6379
+      PAPERLESS_DBHOST: paperless-ngx-postgres
       PAPERLESS_DBPASS: ${PG_PASS}
       PAPERLESS_TIKA_ENABLED: 1
-      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless_ngx_gotenberg:3000
-      PAPERLESS_TIKA_ENDPOINT: http://paperless_ngx_tika:9998
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-ngx-gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://paperless-ngx-tika:9998
       PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
       PAPERLESS_TIME_ZONE: ${PAPERLESS_TIME_ZONE}
       PAPERLESS_URL: ${PAPERLESS_URL}
@@ -65,10 +65,10 @@ services:
 
   gotenberg:
     image: docker.io/gotenberg/gotenberg:8.25
-    container_name: paperless_ngx_gotenberg
+    container_name: paperless-ngx-gotenberg
     restart: unless-stopped
     networks:
-      - paperless_ngx
+      - paperless-ngx
     # The gotenberg chromium route is used to convert .eml files. We do not
     # want to allow external content like tracking pixels or even javascript.
     command:
@@ -78,17 +78,17 @@ services:
 
   tika:
     image: docker.io/apache/tika:latest
-    container_name: paperless_ngx_tika
+    container_name: paperless-ngx-tika
     restart: unless-stopped
     networks:
-      - paperless_ngx
+      - paperless-ngx
 
 volumes:
-  paperless_ngx_redis:
+  paperless-ngx-redis:
     driver: local
 
 networks:
-  paperless_ngx:
-    name: paperless_ngx
+  paperless-ngx:
+    name: paperless-ngx
   caddy:
     external: true
