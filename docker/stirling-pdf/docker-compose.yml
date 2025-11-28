@@ -5,7 +5,7 @@ services:
     container_name: stirling-pdf
     restart: unless-stopped
     networks:
-      - stirling_pdf
+      - stirling-pdf
       - caddy
     expose:
       - 8080
