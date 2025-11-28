@@ -39,7 +39,7 @@ services:
       - ./database:/data/db
 
   web:
-    image: yooooomi/your_spotify_client:1.14.0
+    image: yooooomi/your_spotify_client:1.15.0
     container_name: your-spotify-client
     restart: unless-stopped
     networks:
