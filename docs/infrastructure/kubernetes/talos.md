@@ -33,7 +33,7 @@ Talos Linux's node state is defined by a [machine configuration](https://docs.si
 
 2. Configure `sops`:
 
-    !!! abstract
+    !!! info
 
         [Referenced Documentation](https://budimanjojo.github.io/talhelper/latest/guides/#configuring-sops-for-talhelper).
 
@@ -135,7 +135,7 @@ Talos will now have booted into maintenance mode and is waiting for machine conf
 
 ### Generating and applying the Machine Configuration
 
-!!! abstract
+!!! info
 
     [Referenced Documentation](https://budimanjojo.github.io/talhelper/latest/getting-started/#you-are-starting-from-scratch).
 
