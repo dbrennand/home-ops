@@ -47,4 +47,29 @@ brew install fluxcd/tap/flux
     flux check
     ```
 
-## Creating the SOPS Age Secret
+## Upgrading Flux
+
+1. Upgrade the `flux` CLI:
+
+    ```bash
+    brew install fluxcd/tap/flux
+    ```
+
+2. Update the Flux manifest:
+
+    ```bash
+    flux install --export > ./kubernetes/flux/flux-system/gotk-components.yaml
+    ```
+
+3. Commit and push the changes:
+
+    ```bash
+    git add ./kubernetes/flux/flux-system/gotk-components.yaml
+    git push
+    ```
+
+4. Force flux to upgrade immediately:
+
+    ```bash
+    flux reconcile ks flux-system --with-source
+    ```
