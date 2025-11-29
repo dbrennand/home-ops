@@ -1,7 +1,7 @@
 ---
 services:
   stirling-pdf:
-    image: ghcr.io/stirling-tools/stirling-pdf:1.5.0
+    image: ghcr.io/stirling-tools/stirling-pdf:2.0.1
     container_name: stirling-pdf
     restart: unless-stopped
     networks:
