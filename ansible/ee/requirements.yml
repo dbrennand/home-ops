@@ -11,7 +11,7 @@ collections:
   - name: awx.awx
     version: 24.6.1
   - name: community.beszel
-    version: 0.5.0
+    version: 0.6.0
 roles:
   - name: dbrennand.autorestic
     version: 1.4.0
