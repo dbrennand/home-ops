@@ -12,7 +12,8 @@ dependencies = [
     "urllib3==2.6.2",
     "certifi==2025.11.12",
     "idna==3.11",
-    "cffi==2.0.0"
+    "cffi==2.0.0",
+    "pycparser==2.23 ; implementation_name != 'PyPy'",
 ]
 
 [dependency-groups]
