@@ -3,7 +3,7 @@ clusterName: home-ops
 talosVersion: v1.11.5
 kubernetesVersion: v1.34.1
 endpoint: https://talos01.net.dbren.uk:6443
-domain: net.dbren.uk
+domain: cluster.net.dbren.uk
 allowSchedulingOnControlPlanes: true
 nodes:
   - hostname: talos01
