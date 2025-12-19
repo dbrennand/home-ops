@@ -19,4 +19,4 @@ RUN apt update && \
 COPY --from=ghcr.io/astral-sh/uv:0.9.18 /uv /uvx /bin/
 
 # OpenTofu
-COPY --from=ghcr.io/opentofu/opentofu:1.11.1 /usr/local/bin/tofu /bin/tofu
+COPY --from=ghcr.io/opentofu/opentofu:1.11.2 /usr/local/bin/tofu /bin/tofu
