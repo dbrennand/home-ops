@@ -34,6 +34,7 @@ brew install fluxcd/tap/flux
     ```bash
     flux bootstrap github \
         --token-auth \
+        --cluster-domain=cluster.net.dbren.uk \
         --owner=dbrennand \
         --repository=home-ops \
         --branch=main \
