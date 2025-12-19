@@ -22,7 +22,7 @@ autorestic_config:
       to: backblaze
       hooks:
         prevalidate:
-          - "docker exec paperless_ngx document_exporter /usr/src/paperless/export --zip"
+          - "docker exec paperless-ngx document_exporter /usr/src/paperless/export --zip"
         failure:
           - 'curl -X POST -H "Content-Type: application/json" -d "{\"content\": \":x: Backup failed for location: ${AUTORESTIC_LOCATION}\"}" "{{ discord_webhook }}"' # noqa yaml[line-length]
         after:
