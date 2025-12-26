@@ -9,7 +9,7 @@ networks:
 
 services:
   server:
-    image: yooooomi/your_spotify_server:1.15.0
+    image: yooooomi/your_spotify_server:1.17.0
     container_name: your-spotify-server
     restart: unless-stopped
     expose:
