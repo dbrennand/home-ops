@@ -14,6 +14,6 @@ jobs:
       - name: Install 1Password CLI
         uses: 1password/install-cli-action@v2
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@v25.12.1
+        uses: ansible/ansible-lint@v25.12.2
         with:
           requirements_file: ansible/ee/requirements.yml
