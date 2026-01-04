@@ -21,10 +21,6 @@ rewrites:
     content: 192.168.0.9
   - name: stirling.net.dbren.uk
     content: 192.168.0.9
-  - name: spotify-stats.net.dbren.uk
-    content: 192.168.0.9
-  - name: spotify-api.net.dbren.uk
-    content: 192.168.0.9
   - name: talos01.net.dbren.uk
     content: 192.168.0.10
   - name: awx.net.dbren.uk
