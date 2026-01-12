@@ -6,4 +6,4 @@ jmespath==1.0.1
 passlib==1.7.4
 pycparser==2.23 ; implementation_name != 'PyPy'
 requests==2.32.5
-urllib3==2.6.2
+urllib3==2.6.3
