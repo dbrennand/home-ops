@@ -44,13 +44,6 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
       - "[CERTIFICATE_EXPIRATION] > 48h"
-  - name: Paperless-ngx
-    group: Home-Ops
-    url: "https://paperless.net.dbren.uk"
-    interval: 5m
-    conditions:
-      - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 48h"
   - name: Stirling PDF
     group: Home-Ops
     url: "https://stirling.net.dbren.uk"
