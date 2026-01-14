@@ -4,8 +4,7 @@ profile_name: "Main"
 
 rewrites:
   # A Records
-  - name: subnet01.net.dbren.uk
-    content: 192.168.0.2
+  # 192.168.0.2 is free
   # 192.168.0.3 is free
   - name: proxmox01.net.dbren.uk
     content: 192.168.0.4
@@ -17,8 +16,6 @@ rewrites:
   # 192.168.0.8 is free
   - name: media01.net.dbren.uk
     content: 192.168.0.9
-  - name: paperless.net.dbren.uk
-    content: 192.168.0.9
   - name: stirling.net.dbren.uk
     content: 192.168.0.9
   - name: talos01.net.dbren.uk
@@ -29,5 +26,4 @@ rewrites:
     content: 192.168.0.11
   - name: idp.net.dbren.uk
     content: 192.168.0.11
-  - name: apps01.net.dbren.uk
-    content: 192.168.0.12
+  # 192.168.0.12 is free
