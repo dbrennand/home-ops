@@ -1,9 +1,3 @@
-variable "op_sa_token" {
-  description = "1Password Service Account token."
-  type        = string
-  sensitive   = true
-}
-
 variable "op_proxmox_virtual_environment_vault_name" {
   description = "1Password vault name containing the Proxmox virtual environment item."
   type        = string

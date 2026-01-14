@@ -1,6 +1,5 @@
 # https://registry.terraform.io/providers/1Password/onepassword/latest/docs
 provider "onepassword" {
-  service_account_token = var.op_sa_token
 }
 
 # https://registry.terraform.io/providers/1Password/onepassword/latest/docs/data-sources/item
