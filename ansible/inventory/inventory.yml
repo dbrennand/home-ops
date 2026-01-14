@@ -1,7 +1,6 @@
 ---
 all:
   hosts:
-    subnet01.net.dbren.uk:
     proxmox01.net.dbren.uk:
     exit01.net.dbren.uk:
     backup01.net.dbren.uk:
@@ -22,7 +21,6 @@ all:
     # Tailscale subnet routers
     subnet_router:
       hosts:
-        subnet01.net.dbren.uk:
         exit01.net.dbren.uk:
     # Tailscale hosts
     tailscale:
