@@ -2,7 +2,7 @@ certifi==2026.1.4
 cffi==2.0.0
 charset-normalizer==3.4.4
 idna==3.11
-jmespath==1.0.1
+jmespath==1.1.0
 passlib==1.7.4
 pycparser==2.23 ; implementation_name != 'PyPy'
 requests==2.32.5
