@@ -1,5 +1,9 @@
 # :simple-talos: Talos Linux
 
+!!! note "Archived"
+
+    This page has been archived and kept for reference. Some of the links on this page may no longer work.
+
 In my Homelab I have a single [Talos Linux](https://www.talos.dev/) node which runs various Kubernetes workloads.
 
 !!! quote "What is Talos Linux?"

@@ -1,5 +1,9 @@
 # :simple-flux: Flux
 
+!!! note "Archived"
+
+    This page has been archived and kept for reference. Some of the links on this page may no longer work.
+
 [FluxCD](https://fluxcd.io/) is deployed on my [Talos](./talos.md) Kubernetes node to adopt a [GitOps](https://fluxcd.io/flux/concepts/#gitops) approach to deploying applications on Kubernetes. My [GitHub repository](https://github.com/dbrennand/home-ops/tree/main/kubernetes) is the source of truth for Kubernetes applications I have deployed.
 
 !!! quote "What is GitOps?"
