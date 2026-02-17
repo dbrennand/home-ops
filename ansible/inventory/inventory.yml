@@ -6,7 +6,6 @@ all:
     backup01.net.dbren.uk:
     media01.net.dbren.uk:
     homeops.hetzner.dbren.uk:
-    idp01.net.dbren.uk:
   children:
     # Proxmox
     proxmox:
@@ -17,7 +16,6 @@ all:
       hosts:
         media01.net.dbren.uk:
         homeops.hetzner.dbren.uk:
-        idp01.net.dbren.uk:
     # Tailscale subnet routers
     subnet_router:
       hosts:
@@ -34,4 +32,3 @@ all:
         media01.net.dbren.uk:
         backup01.net.dbren.uk:
         homeops.hetzner.dbren.uk:
-        idp01.net.dbren.uk:

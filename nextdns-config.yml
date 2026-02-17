@@ -22,8 +22,5 @@ rewrites:
     content: 192.168.0.10
   - name: awx.net.dbren.uk
     content: 192.168.0.10
-  - name: idp01.net.dbren.uk
-    content: 192.168.0.11
-  - name: idp.net.dbren.uk
-    content: 192.168.0.11
+  # 192.168.0.11 is free
   # 192.168.0.12 is free
