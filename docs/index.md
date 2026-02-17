@@ -26,10 +26,6 @@ The goals of this repository are:
 
 Ansible content used to configure my Homelab infrastructure and deploy applications are located in the [ansible](https://github.com/dbrennand/home-ops/tree/main/ansible) directory.
 
-## 📋 Taskfile
-
-This repository uses [Taskfile](https://taskfile.dev) to quickly perform repetitive [tasks](https://github.com/dbrennand/home-ops/blob/main/Taskfile.yml).
-
 ## :material-license: License
 
 [MIT](https://github.com/dbrennand/home-ops/blob/main/LICENSE)
