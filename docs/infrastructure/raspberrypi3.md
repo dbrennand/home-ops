@@ -1,5 +1,9 @@
 # :simple-raspberrypi: Raspberry Pi 3
 
+!!! note "Archived"
+
+    This page has been archived and kept for reference. Some of the links on this page may no longer work.
+
 A Raspberry Pi 3 is used in my Homelab as a Tailscale [subnet router](https://tailscale.com/kb/1019/subnets) and [exit node](https://tailscale.com/kb/1103/exit-nodes).
 
 ## Raspberry Pi 3 OS Setup

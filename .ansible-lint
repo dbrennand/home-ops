@@ -10,6 +10,5 @@ exclude_paths:
   - .git/
   - mkdocs.yml
   - docker/
-  - kubernetes/
 skip_list:
   - no-relative-paths

@@ -1,6 +1,6 @@
 # :material-minecraft: Minecraft
 
-!!! note
+!!! note "Archived"
 
     This page has been archived and kept for reference. Some of the links on this page may no longer work.
 
