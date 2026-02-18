@@ -37,13 +37,6 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
       - "[CERTIFICATE_EXPIRATION] > 48h"
-  - name: Pocket ID
-    group: Home-Ops
-    url: "https://idp.net.dbren.uk"
-    interval: 5m
-    conditions:
-      - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 48h"
   - name: Stirling PDF
     group: Home-Ops
     url: "https://stirling.net.dbren.uk"
