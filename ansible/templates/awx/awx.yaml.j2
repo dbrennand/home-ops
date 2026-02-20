@@ -1,0 +1,41 @@
+---
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx
+spec:
+  # These parameters are designed for use with:
+  # - AWX Operator: 2.19.1
+  #   https://github.com/ansible/awx-operator/blob/2.19.1/README.md
+
+  admin_user: admin
+  admin_password_secret: awx-admin-password
+
+  ingress_type: ingress
+  ingress_hosts:
+    - hostname: awx.{{ domain }}
+      tls_secret: awx-secret-tls
+  ingress_annotations: |
+    cert-manager.io/cluster-issuer: letsencrypt-production
+
+  postgres_configuration_secret: awx-postgres-configuration
+
+  postgres_data_volume_init: true
+  postgres_storage_class: awx-postgres-volume
+  postgres_storage_requirements:
+    requests:
+      storage: 8Gi
+
+  projects_persistence: true
+  projects_existing_claim: awx-projects-claim
+
+  web_replicas: 1
+  task_replicas: 1
+
+  web_resource_requirements: {}
+  task_resource_requirements: {}
+  ee_resource_requirements: {}
+  init_container_resource_requirements: {}
+  postgres_resource_requirements: {}
+  redis_resource_requirements: {}
+  rsyslog_resource_requirements: {}

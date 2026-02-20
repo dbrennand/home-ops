@@ -1,0 +1,50 @@
+---
+- name: Deploy AWX on K3s
+  hosts: k3s01.net.dbren.uk
+  vars:
+    awx_postgres_password: "{{ lookup('community.general.onepassword', 'awx.net.dbren.uk', field='PostgreSQL Password', vault='Home-Ops') }}"
+    awx_admin_password: "{{ lookup('community.general.onepassword', 'awx.net.dbren.uk', vault='Home-Ops') }}"
+  tasks:
+    - name: Ensure git is installed
+      become: true
+      ansible.builtin.package:
+        name: git
+        state: present
+
+    - name: Clone github.com/kurokobo/awx-on-k3s
+      ansible.builtin.git:
+        repo: https://github.com/kurokobo/awx-on-k3s.git
+        dest: "/home/{{ ansible_user }}/awx-on-k3s"
+        version: 2.19.1
+        force: true
+
+    - name: Deploy AWX Operator
+      changed_when: false
+      ansible.builtin.command:
+        cmd: "kubectl apply -k /home/{{ ansible_user }}/awx-on-k3s/operator"
+
+    - name: Create PostgreSQL directory # noqa: risky-file-permissions
+      become: true
+      ansible.builtin.file:
+        path: /data/postgres-15
+        state: directory
+
+    - name: Create AWX projects directory # noqa: risky-file-permissions
+      become: true
+      ansible.builtin.file:
+        path: /data/projects
+        state: directory
+        owner: 1000
+        group: 0
+
+    - name: Template awx-on-k3s/base/awx.yaml
+      ansible.builtin.template:
+        src: ../templates/awx/awx.yaml.j2
+        dest: "/home/{{ ansible_user }}/awx-on-k3s/base/awx.yaml"
+        mode: u=rw,g=r,o=r
+
+    - name: Template awx-on-k3s/base/kustomization.yaml
+      ansible.builtin.template:
+        src: ../templates/awx/kustomization.yaml.j2
+        dest: "/home/{{ ansible_user }}/awx-on-k3s/base/kustomization.yaml"
+        mode: u=rw,g=r,o=r

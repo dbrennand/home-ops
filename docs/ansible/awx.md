@@ -6,7 +6,7 @@
 
 AWX is deployed via the [AWX Operator](https://github.com/ansible/awx-operator) on Kubernetes. I'm running version `2.19.1` of the operator.
 
-I have a single node [K3s](https://k3s.io/) VM on my Proxmox VE node which I deployed using [OpenTofu](../infrastructure/opentofu.md). The K3s deployment is done via an [Ansible Playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-k3s-deploy.yml).
+I have a single node [K3s](https://k3s.io/) VM on my Proxmox VE node which I deployed using [OpenTofu](../infrastructure/opentofu.md). The K3s deployment is done via an [Ansible Playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-k3s.yml).
 
 The [awx-on-k3s](https://github.com/kurokobo/awx-on-k3s) project is used to deploy the AWX Operator and AWX Custom Resource Definition (CRD) on the K3s cluster. I use an [Ansible playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-awx-deploy.yml) to prepare the K3s node for the AWX deployment.
 
@@ -18,13 +18,7 @@ Next, I perform the following steps to deploy AWX:
     ssh daniel@k3s01.net.dbren.uk
     ```
 
-2. Deploy the AWX Operator:
-
-    ```bash
-    cd awx-on-k3s && kubectl apply -k operator
-    ```
-
-3. Configure the ingress in `base/awx.yml` to use the `ClusterIssuer` for Cloudflare:
+2. Configure the ingress in `awx-on-k3s/base/awx.yaml` to use the `ClusterIssuer` for Cloudflare:
 
     ```yaml
     ---
