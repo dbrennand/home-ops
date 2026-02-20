@@ -13,14 +13,14 @@ rewrites:
     content: 192.168.0.6
   - name: exit01.net.dbren.uk
     content: 192.168.0.7
-  # 192.168.0.8 is free
+  - name: k3s01.net.dbren.uk
+    content: 192.168.0.8
+  - name: awx.net.dbren.uk
+    content: 192.168.0.8
   - name: media01.net.dbren.uk
     content: 192.168.0.9
   - name: stirling.net.dbren.uk
     content: 192.168.0.9
-  - name: talos01.net.dbren.uk
-    content: 192.168.0.10
-  - name: awx.net.dbren.uk
-    content: 192.168.0.10
+  # 192.168.0.10 is free
   # 192.168.0.11 is free
   # 192.168.0.12 is free
