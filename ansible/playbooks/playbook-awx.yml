@@ -24,7 +24,7 @@
         organization: Default
         credential_type: Source Control
         inputs:
-          ssh_key_data: "{{ lookup('community.general.onepassword_ssh_key', 'q25yyvantxbo33vyqsnjyabcxi', vault='Home-Ops', ssh_format=true) }}"
+          ssh_key_data: "{{ lookup('community.general.onepassword_ssh_key', '4gzmqcbrpqzlupq6weugm7waom', vault='Home-Ops', ssh_format=true) }}"
         controller_host: "{{ controller_host }}"
         controller_username: "{{ controller_username }}"
         controller_password: "{{ controller_password }}"
@@ -37,7 +37,7 @@
         organization: Default
         credential_type: Machine
         inputs:
-          ssh_key_data: "{{ lookup('community.general.onepassword_ssh_key', 'jugz6ucagnwgjepx6d6r2j5xem', vault='Home-Ops', ssh_format=true) }}"
+          ssh_key_data: "{{ lookup('community.general.onepassword_ssh_key', 'kk2ey5w3ojqounjywduhyx4d6y', vault='Home-Ops', ssh_format=true) }}"
         controller_host: "{{ controller_host }}"
         controller_username: "{{ controller_username }}"
         controller_password: "{{ controller_password }}"
@@ -48,6 +48,7 @@
       awx.awx.credential_type:
         name: 1Password Service Account Token
         description: 1Password Service Account Token
+        kind: cloud
         inputs: |
           {
             "fields": [
