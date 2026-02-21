@@ -2,72 +2,24 @@
 
 [AWX](https://github.com/ansible/awx) is used in my Homelab to run Ansible content against devices.
 
-## Deployment
-
 AWX is deployed via the [AWX Operator](https://github.com/ansible/awx-operator) on Kubernetes. I'm running version `2.19.1` of the operator.
 
 I have a single node [K3s](https://k3s.io/) VM on my Proxmox VE node which I deployed using [OpenTofu](../infrastructure/opentofu.md). The K3s deployment is done via an [Ansible Playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-k3s.yml).
 
-The [awx-on-k3s](https://github.com/kurokobo/awx-on-k3s) project is used to deploy the AWX Operator and AWX Custom Resource Definition (CRD) on the K3s cluster. I use an [Ansible playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-awx-deploy.yml) to prepare the K3s node for the AWX deployment.
+The [awx-on-k3s](https://github.com/kurokobo/awx-on-k3s) project is used to deploy the AWX Operator and AWX Custom Resource Definition (CRD) on K3s . I use an [Ansible playbook](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-awx-deploy.yml) to prepare the K3s node for AWX deployment.
 
-Next, I perform the following steps to deploy AWX:
+## Deployment
 
-1. SSH to the K3s node:
-
-    ```bash
-    ssh daniel@k3s01.net.dbren.uk
-    ```
-
-2. Configure the ingress in `awx-on-k3s/base/awx.yaml` to use the `ClusterIssuer` for Cloudflare:
-
-    ```yaml
-    ---
-    apiVersion: awx.ansible.com/v1beta1
-    kind: AWX
-    metadata:
-      name: awx
-    spec:
-      # ...
-      ingress_type: ingress
-      ingress_hosts:
-        - hostname: awx.net.dbren.uk
-          tls_secret: awx-secret-tls
-      ingress_annotations: |
-        cert-manager.io/cluster-issuer: letsencrypt-production
-    ```
-
-3. Configure the PostgreSQL and AWX admin credentials in `base/kustomization.yaml`:
-
-    ```yaml
-    ---
-    apiVersion: kustomize.config.k8s.io/v1beta1
-    kind: Kustomization
-    namespace: awx
-
-    generatorOptions:
-      disableNameSuffixHash: true
-
-    secretGenerator:
-      - name: awx-postgres-configuration
-        type: Opaque
-        literals:
-          - host=awx-postgres-15
-          - port=5432
-          - database=awx
-          - username=awx
-          - password=<Password>
-          - type=managed
-
-      - name: awx-admin-password
-        type: Opaque
-        literals:
-          - password=<Password>
-    ```
-
-4. Deploy the AWX CRD:
+1. Run the [`playbook-awx-deploy.yml`](https://github.com/dbrennand/home-ops/blob/main/ansible/playbooks/playbook-awx-deploy.yml) Ansible playbook:
 
     ```bash
-    kubectl apply -k base
+    ansible-playbook playbooks/playbook-awx-deploy.yml
+    ```
+
+2. Deploy AWX:
+
+    ```
+    ansible -b k3s01.net.dbren.uk -m command -a 'kubectl apply -k awx-on-k3s/base/'
     ```
 
 ## Configuration
