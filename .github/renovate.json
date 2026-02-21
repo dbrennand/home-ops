@@ -3,28 +3,26 @@
         "config:recommended",
         ":dependencyDashboard"
     ],
-    "regexManagers": [
+    "customManagers": [
         {
-            "fileMatch": [
-                "(^|/)execution-environment\\.ya?ml$"
+            "customType": "regex",
+            "managerFilePatterns": [
+                "(^|/)execution-environment\\.yml$"
             ],
             "matchStrings": [
-                "# renovate: depName=(?<depName>[^\\s]+) datasource=(?<datasource>docker)\\s*\\n\\s*name:\\s*(?<depName2>[^:]+):(?<currentValue>[^\\s]+)"
+                "name:\\s+(?<depName>[a-zA-Z0-9.-]+(?:/[a-zA-Z0-9.-]+)+):(?<currentValue>[\\w.-]+)"
             ],
-            "datasourceTemplate": "{{datasource}}",
-            "depNameTemplate": "{{depName}}",
-            "versioningTemplate": "docker"
+            "datasourceTemplate": "docker"
         },
         {
-            "fileMatch": [
-                "(^|/)execution-environment\\.ya?ml$"
+            "customType": "regex",
+            "managerFilePatterns": [
+                "(^|/)execution-environment\\.yml$"
             ],
             "matchStrings": [
-                "# renovate: depName=(?<depName>[^\\s]+) datasource=(?<datasource>pypi)\\s*\\n\\s*package_pip:\\s*(?<depName2>[^=]+)==(?<currentValue>[^\\s]+)"
+                "package_pip:\\s+(?<depName>[a-zA-Z0-9_-]+)==(?<currentValue>[a-zA-Z0-9.-]+)"
             ],
-            "datasourceTemplate": "{{datasource}}",
-            "depNameTemplate": "{{depName}}",
-            "versioningTemplate": "pep440"
+            "datasourceTemplate": "pypi"
         }
     ]
 }

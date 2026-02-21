@@ -2,14 +2,11 @@
 version: 3
 images:
   base_image:
-    # renovate: depName=ghcr.io/almalinux/10-minimal datasource=docker
-    name: ghcr.io/almalinux/10-minimal:10
+    name: ghcr.io/almalinux/10-minimal:10.1-20260129
 dependencies:
   ansible_core:
-    # renovate: depName=ansible-core datasource=pypi
     package_pip: ansible-core==2.20.2
   ansible_runner:
-    # renovate: depName=ansible-runner datasource=pypi
     package_pip: ansible-runner==2.4.2
   python: requirements.txt
   galaxy: requirements.yml
@@ -25,7 +22,6 @@ additional_build_steps:
     - RUN chmod +x /bin/custom_entrypoint.sh
   append_final:
     - RUN cat /opt/builder/bin/entrypoint >> /bin/custom_entrypoint.sh
-    # renovate: depName=dumb-init datasource=pypi
     - RUN $PYCMD -m pip install --no-cache-dir dumb-init==1.2.5
 options:
   package_manager_path: /usr/bin/microdnf
