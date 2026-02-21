@@ -1,7 +1,21 @@
 ---
 - name: Deploy Beszel Binary Agent
   hosts: all
+  vars:
+    beszel_hub_username: "{{ lookup('community.general.onepassword', 'Beszel', field='username', vault='Home-Ops') }}"
+    beszel_hub_password: "{{ lookup('community.general.onepassword', 'Beszel', vault='Home-Ops') }}"
   roles:
     - role: community.beszel.agent
       vars:
         agent_public_key: "{{ lookup('community.general.onepassword', 'Beszel', field='PUBLIC_KEY', vault='Home-Ops') }}"
+  tasks:
+    - name: Register systems with Beszel
+      tags: register
+      delegate_to: localhost
+      community.beszel.system:
+        url: https://beszel.macaroni-beardie.ts.net
+        username: "{{ beszel_hub_username }}"
+        password: "{{ beszel_hub_password }}"
+        name: "{{ inventory_hostname }}"
+        host: "{{ inventory_hostname }}"
+        state: present
