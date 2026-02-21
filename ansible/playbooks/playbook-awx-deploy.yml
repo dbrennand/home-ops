@@ -5,10 +5,13 @@
     awx_postgres_password: "{{ lookup('community.general.onepassword', 'awx.net.dbren.uk', field='PostgreSQL Password', vault='Home-Ops') }}"
     awx_admin_password: "{{ lookup('community.general.onepassword', 'awx.net.dbren.uk', vault='Home-Ops') }}"
   tasks:
-    - name: Ensure git is installed
+    - name: Ensure packages are installed
       become: true
       ansible.builtin.package:
-        name: git
+        name:
+          - git
+          # semanage
+          - policycoreutils-python-utils
         state: present
 
     - name: Clone github.com/kurokobo/awx-on-k3s
@@ -23,19 +26,34 @@
       ansible.builtin.command:
         cmd: "kubectl apply -k /home/{{ ansible_user }}/awx-on-k3s/operator"
 
-    - name: Create PostgreSQL directory # noqa: risky-file-permissions
+    - name: Create PostgreSQL directory
       become: true
       ansible.builtin.file:
         path: /data/postgres-15
         state: directory
+        mode: u=rwx,g=rx,o=rx
 
-    - name: Create AWX projects directory # noqa: risky-file-permissions
+    - name: Create AWX projects directory
       become: true
       ansible.builtin.file:
         path: /data/projects
         state: directory
         owner: 1000
         group: 0
+        mode: u=rwx,g=rx,o=rx
+
+    - name: Correct SELinux context for /data
+      become: true
+      community.general.sefcontext:
+        target: "/data(/.*)?"
+        setype: container_file_t
+        state: present
+
+    - name: Apply new SELinux context to filesystem
+      become: true
+      changed_when: false
+      ansible.builtin.command:
+        cmd: restorecon -Rv /data
 
     - name: Template awx-on-k3s/base/awx.yaml
       ansible.builtin.template:
@@ -47,4 +65,4 @@
       ansible.builtin.template:
         src: ../templates/awx/kustomization.yaml.j2
         dest: "/home/{{ ansible_user }}/awx-on-k3s/base/kustomization.yaml"
-        mode: u=rw,g=r,o=r
+        mode: u=rw,g=,o=
