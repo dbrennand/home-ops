@@ -57,7 +57,7 @@ resource "proxmox_virtual_environment_vm" "k3s01" {
   }
 
   memory {
-    dedicated = 2048
+    dedicated = 4096
   }
 
   initialization {
