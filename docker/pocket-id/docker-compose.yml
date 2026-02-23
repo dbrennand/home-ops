@@ -2,7 +2,7 @@
 # https://raw.githubusercontent.com/pocket-id/pocket-id/main/docker-compose.yml
 services:
   pocket-id:
-    image: ghcr.io/pocket-id/pocket-id:v2.2.0
+    image: ghcr.io/pocket-id/pocket-id:v2.3.0
     container_name: pocket-id
     restart: unless-stopped
     env_file: .env
