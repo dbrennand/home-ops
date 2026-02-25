@@ -10,7 +10,7 @@ dependencies = [
     "charset-normalizer==3.4.4",
     "requests==2.32.5",
     "urllib3==2.6.3",
-    "certifi==2026.1.4",
+    "certifi==2026.2.25",
     "idna==3.11",
     "cffi==2.0.0",
     "pycparser==3.0 ; implementation_name != 'PyPy'",
