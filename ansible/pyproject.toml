@@ -21,7 +21,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ansible-core==2.20.2",
-    "ansible-lint==26.1.1"
+    "ansible-lint==26.2.0"
 ]
 docs = [
     "mkdocs-material>=9.6.21",
