@@ -20,7 +20,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ansible-core==2.20.2",
+    "ansible-core==2.20.3",
     "ansible-lint==26.1.1"
 ]
 docs = [
