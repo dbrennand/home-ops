@@ -11,12 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Install 1Password CLI
-        uses: 1password/install-cli-action@v2
+        uses: 1password/install-cli-action@8d006a0d0a4fd505af7f7ce589e7f768385ff5e4 # v3.0.0
 
-      - name: Run ansible-lint
-        uses: ansible/ansible-lint@v26.1.1
+      - name: Install uv
+        uses: astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57 # v8.0.0
         with:
-          requirements_file: ansible/ee/requirements.yml
+          version: "0.10.7"
+
+      - name: Install dependencies
+        run: |
+          uv sync --group dev
+          ansible-galaxy install -r ansible/ee/requirements.yml
+
+      - name: Run Ansible Lint
+        run: ansible-lint -v
