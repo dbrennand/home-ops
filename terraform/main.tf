@@ -11,7 +11,7 @@ terraform {
     }
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "~> 1.45"
+      version = "1.60.1"
     }
     http = {
       source  = "hashicorp/http"
