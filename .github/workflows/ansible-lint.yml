@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv sync --group dev
+          uv sync --group lint
           ansible-galaxy install -r ansible/ee/requirements.yml
 
       - name: Run Ansible Lint
