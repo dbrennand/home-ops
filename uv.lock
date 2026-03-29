@@ -3,6 +3,21 @@ revision = 3
 requires-python = ">=3.14"
 
 [[package]]
+name = "ansible-builder"
+version = "3.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "bindep" },
+    { name = "jsonschema" },
+    { name = "packaging" },
+    { name = "pyyaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/fe/6b/0525894e5dd510c3a67da0b8819209333ca939cfa94b7f0d3ef041a628ec/ansible_builder-3.1.1.tar.gz", hash = "sha256:9d88bc15acc7d31056d0c51914a6102dac8e5ad73f9f2d35ba98378c89714ed2", size = 109392, upload-time = "2025-10-27T18:51:54.755Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a5/d0/e4a46f92084fcd6a94ca038645b1580316d3a6e0a8be28709bc4e00367cd/ansible_builder-3.1.1-py3-none-any.whl", hash = "sha256:a8246022edb92ca27ea95e87c7af30bcb2752f108dcc75fbf96e77196dff1072", size = 46517, upload-time = "2025-10-27T18:51:53.702Z" },
+]
+
+[[package]]
 name = "ansible-compat"
 version = "25.12.1"
 source = { registry = "https://pypi.org/simple" }
@@ -91,6 +106,21 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/c5/71/c754b1737ad99102e03fa3235acb6cb6d3ac9d6f596cbc3e5f236705abd8/backrefs-6.2-py313-none-any.whl", hash = "sha256:12df81596ab511f783b7d87c043ce26bc5b0288cf3bb03610fe76b8189282b2b", size = 400747, upload-time = "2026-02-16T19:10:09.791Z" },
     { url = "https://files.pythonhosted.org/packages/af/75/be12ba31a6eb20dccef2320cd8ccb3f7d9013b68ba4c70156259fee9e409/backrefs-6.2-py314-none-any.whl", hash = "sha256:e5f805ae09819caa1aa0623b4a83790e7028604aa2b8c73ba602c4454e665de7", size = 412602, upload-time = "2026-02-16T19:10:12.317Z" },
     { url = "https://files.pythonhosted.org/packages/21/f8/d02f650c47d05034dcd6f9c8cf94f39598b7a89c00ecda0ecb2911bc27e9/backrefs-6.2-py39-none-any.whl", hash = "sha256:664e33cd88c6840b7625b826ecf2555f32d491800900f5a541f772c485f7cda7", size = 381077, upload-time = "2026-02-16T19:10:13.74Z" },
+]
+
+[[package]]
+name = "bindep"
+version = "2.14.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "distro" },
+    { name = "packaging" },
+    { name = "parsley" },
+    { name = "pbr" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/be/c2/a549e0286fd2711e401dc240184fb89c06e2ff1642fb7c6cac7a95fe0c8c/bindep-2.14.0.tar.gz", hash = "sha256:0c804c7e48dd17db24cb39121ade7171f684fb463c8aa01d0338cd11d254364a", size = 44234, upload-time = "2026-03-19T14:58:49.961Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6e/50/b102034fbff7f86dc1120ba72309c12a9a4937e02b941e7c7a301879dc0f/bindep-2.14.0-py3-none-any.whl", hash = "sha256:235181c6f79f3a3edb831a6ae55f61185bc1de0f7761904d906507e9a5d801c9", size = 35171, upload-time = "2026-03-19T14:58:48.621Z" },
 ]
 
 [[package]]
@@ -317,30 +347,34 @@ version = "0.1.0"
 source = { virtual = "." }
 
 [package.dev-dependencies]
-ansible = [
+build = [
+    { name = "ansible-builder" },
     { name = "ansible-core" },
-    { name = "ansible-lint" },
 ]
 dev = [
     { name = "ansible-core" },
-    { name = "ansible-lint" },
 ]
 docs = [
     { name = "mkdocs-material" },
+]
+lint = [
+    { name = "ansible-core" },
+    { name = "ansible-lint" },
 ]
 
 [package.metadata]
 
 [package.metadata.requires-dev]
-ansible = [
+build = [
+    { name = "ansible-builder", specifier = "==3.1.1" },
     { name = "ansible-core", specifier = "==2.20.4" },
-    { name = "ansible-lint", specifier = "==26.3.0" },
 ]
-dev = [
-    { name = "ansible-core", specifier = "==2.20.4" },
-    { name = "ansible-lint", specifier = "==26.3.0" },
-]
+dev = [{ name = "ansible-core", specifier = "==2.20.4" }]
 docs = [{ name = "mkdocs-material", specifier = "==9.7.6" }]
+lint = [
+    { name = "ansible-core", specifier = "==2.20.4" },
+    { name = "ansible-lint", specifier = "==26.3.0" },
+]
 
 [[package]]
 name = "idna"
@@ -535,12 +569,33 @@ wheels = [
 ]
 
 [[package]]
+name = "parsley"
+version = "1.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/06/52/cac2f9e78c26cff8bb518bdb4f2b5a0c7058dec7a62087ed48fe87478ef0/Parsley-1.3.tar.gz", hash = "sha256:9444278d47161d5f2be76a767809a3cbe6db4db822f46a4fd7481d4057208d41", size = 99616, upload-time = "2015-09-09T02:53:04.899Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2b/d6/4fed8d65e28a970e1c5cb33ce9c7e22e3de745e1b2ae37af051ef16aea3b/Parsley-1.3-py2.py3-none-any.whl", hash = "sha256:c3bc417b8c7e3a96c87c0f2f751bfd784ed5156ffccebe2f84330df5685f8dc3", size = 88932, upload-time = "2015-09-09T02:53:09.977Z" },
+]
+
+[[package]]
 name = "pathspec"
 version = "1.0.4"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/fa/36/e27608899f9b8d4dff0617b2d9ab17ca5608956ca44461ac14ac48b44015/pathspec-1.0.4.tar.gz", hash = "sha256:0210e2ae8a21a9137c0d470578cb0e595af87edaa6ebf12ff176f14a02e0e645", size = 131200, upload-time = "2026-01-27T03:59:46.938Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ef/3c/2c197d226f9ea224a9ab8d197933f9da0ae0aac5b6e0f884e2b8d9c8e9f7/pathspec-1.0.4-py3-none-any.whl", hash = "sha256:fb6ae2fd4e7c921a165808a552060e722767cfa526f99ca5156ed2ce45a5c723", size = 55206, upload-time = "2026-01-27T03:59:45.137Z" },
+]
+
+[[package]]
+name = "pbr"
+version = "7.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "setuptools" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5e/ab/1de9a4f730edde1bdbbc2b8d19f8fa326f036b4f18b2f72cfbea7dc53c26/pbr-7.0.3.tar.gz", hash = "sha256:b46004ec30a5324672683ec848aed9e8fc500b0d261d40a3229c2d2bbfcedc29", size = 135625, upload-time = "2025-11-03T17:04:56.274Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c0/db/61efa0d08a99f897ef98256b03e563092d36cc38dc4ebe4a85020fe40b31/pbr-7.0.3-py2.py3-none-any.whl", hash = "sha256:ff223894eb1cd271a98076b13d3badff3bb36c424074d26334cd25aebeecea6b", size = 131898, upload-time = "2025-11-03T17:04:54.875Z" },
 ]
 
 [[package]]
@@ -733,6 +788,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/c7/3b/ebda527b56beb90cb7652cb1c7e4f91f48649fbcd8d2eb2fb6e77cd3329b/ruamel_yaml-0.19.1.tar.gz", hash = "sha256:53eb66cd27849eff968ebf8f0bf61f46cdac2da1d1f3576dd4ccee9b25c31993", size = 142709, upload-time = "2026-01-02T16:50:31.84Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b8/0c/51f6841f1d84f404f92463fc2b1ba0da357ca1e3db6b7fbda26956c3b82a/ruamel_yaml-0.19.1-py3-none-any.whl", hash = "sha256:27592957fedf6e0b62f281e96effd28043345e0e66001f97683aa9a40c667c93", size = 118102, upload-time = "2026-01-02T16:50:29.201Z" },
+]
+
+[[package]]
+name = "setuptools"
+version = "82.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/4f/db/cfac1baf10650ab4d1c111714410d2fbb77ac5a616db26775db562c8fab2/setuptools-82.0.1.tar.gz", hash = "sha256:7d872682c5d01cfde07da7bccc7b65469d3dca203318515ada1de5eda35efbf9", size = 1152316, upload-time = "2026-03-09T12:47:17.221Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9d/76/f789f7a86709c6b087c5a2f52f911838cad707cc613162401badc665acfe/setuptools-82.0.1-py3-none-any.whl", hash = "sha256:a59e362652f08dcd477c78bb6e7bd9d80a7995bc73ce773050228a348ce2e5bb", size = 1006223, upload-time = "2026-03-09T12:47:15.026Z" },
 ]
 
 [[package]]
