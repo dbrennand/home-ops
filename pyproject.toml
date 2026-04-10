@@ -12,7 +12,7 @@ dev = [
 ]
 lint = [
     { include-group = "dev" },
-    "ansible-lint==26.3.0"
+    "ansible-lint==26.4.0"
 ]
 build = [
     { include-group = "dev" },
