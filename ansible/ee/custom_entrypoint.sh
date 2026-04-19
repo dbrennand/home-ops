@@ -1,5 +1,4 @@
 #!/bin/bash
-# License: MIT
 # This script is used as an entrypoint for the Execution Environment container image.
 # It authenticates the op CLI using a service account.
 # See: https://developer.1password.com/docs/service-accounts/use-with-1password-cli/
