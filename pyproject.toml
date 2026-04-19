@@ -4,18 +4,15 @@ version = "0.1.0"
 description = "Mono repository for managing my Homelab infrastructure 🏠 🛠"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
-
-[dependency-groups]
-dev = [
+dependencies = [
     "ansible-core==2.20.4"
 ]
+
+[dependency-groups]
 lint = [
-    { include-group = "dev" },
     "ansible-lint==26.4.0"
 ]
 build = [
-    { include-group = "dev" },
     "ansible-builder==3.1.1"
 ]
 docs = [
