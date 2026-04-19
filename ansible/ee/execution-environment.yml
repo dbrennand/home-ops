@@ -4,12 +4,11 @@ images:
   base_image:
     name: ghcr.io/almalinux/10-minimal:10.1-20260407
 dependencies:
-  ansible_core:
-    package_pip: ansible-core==2.20.4
   ansible_runner:
     package_pip: ansible-runner==2.4.3
   python: requirements.txt
   galaxy: requirements.yml
+  system: bindep.txt
 additional_build_files:
   - src: custom_entrypoint.sh
     dest: scripts
