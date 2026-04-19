@@ -31,4 +31,4 @@ jobs:
           ansible-galaxy install -r ansible/ee/requirements.yml
 
       - name: Run Ansible Lint
-        run: ansible-lint -v
+        run: uv run ansible-lint -v
