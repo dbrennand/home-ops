@@ -8,3 +8,4 @@ terraform.tfvars
 .ansible/
 ansible/ee/context
 ansible-navigator.log
+ansible/ee/ansible_collections
