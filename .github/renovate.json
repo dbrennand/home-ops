@@ -1,7 +1,6 @@
 {
     "extends": [
-        "config:recommended",
-        ":dependencyDashboard"
+        "config:recommended"
     ],
     "customManagers": [
         {
