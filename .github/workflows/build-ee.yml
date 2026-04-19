@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Get short SHA commit hash
         id: short_sha
@@ -59,22 +61,28 @@ jobs:
 
       - name: Build Execution Environment image
         working-directory: ansible/ee
-        run: uv run ansible-builder build -vvv --container-runtime docker --tag
-          "ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}"
-          --extra-build-cli-args "--load --builder ${{
-          steps.docker_buildx.outputs.name }} --platform
-          linux/amd64,linux/arm64"
+        env:
+          SHORT_SHA: ${{ steps.short_sha.outputs.SHORT_SHA }}
+          BUILDX_NAME: ${{ steps.docker_buildx.outputs.name }}
+        run: |
+          uv run ansible-builder build -vvv --container-runtime docker \
+            --tag "ghcr.io/dbrennand/home-ops:${SHORT_SHA}" \
+            --extra-build-cli-args "--load --builder ${BUILDX_NAME} --platform linux/amd64,linux/arm64"
 
       - name: Determine the ID of the Execution Environment image
         id: ee_id
-        run: echo "IMAGE_ID=$(docker images -q "ghcr.io/dbrennand/home-ops:${{
-          steps.short_sha.outputs.SHORT_SHA }}")" >> $GITHUB_OUTPUT
+        env:
+          SHORT_SHA: ${{ steps.short_sha.outputs.SHORT_SHA }}
+        run: echo "IMAGE_ID=$(docker images -q "ghcr.io/dbrennand/home-ops:${SHORT_SHA}")" >> $GITHUB_OUTPUT
 
       - name: Create the latest tag
-        run: docker tag "${{ steps.ee_id.outputs.IMAGE_ID }}"
-          "ghcr.io/dbrennand/home-ops:latest"
+        env:
+          IMAGE_ID: ${{ steps.ee_id.outputs.IMAGE_ID }}
+        run: docker tag "${IMAGE_ID}" "ghcr.io/dbrennand/home-ops:latest"
 
       - name: Push Execution Environment image to GitHub Container Registry
+        env:
+          SHORT_SHA: ${{ steps.short_sha.outputs.SHORT_SHA }}
         run: |
           docker push ghcr.io/dbrennand/home-ops:latest
-          docker push ghcr.io/dbrennand/home-ops:${{ steps.short_sha.outputs.SHORT_SHA }}
+          docker push "ghcr.io/dbrennand/home-ops:${SHORT_SHA}"
