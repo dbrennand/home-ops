@@ -1,7 +1,7 @@
 [project]
 name = "Home-Ops"
 version = "0.1.0"
-description = "Home-Ops"
+description = "Mono repository for managing my Homelab infrastructure 🏠 🛠"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = []
