@@ -31,3 +31,7 @@ Ansible content used to configure my Homelab infrastructure and deploy applicati
 ## License
 
 [MIT](LICENSE)
+
+## AIA (AI Attribution)
+
+[AIA](https://aiattribution.github.io/) Ph SeCeNc Hin R Claude Code (Opus 4.6, Sonnet 4.6 , Haiku 4.5) v1.0
