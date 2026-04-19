@@ -1,0 +1,4 @@
+rsync [platform:redhat]  # from collection ansible.posix
+python38-pytz [platform:centos-8 platform:rhel-8]  # from collection awx.awx
+python38-requests [platform:centos-8 platform:rhel-8]  # from collection awx.awx
+python38-pyyaml [platform:centos-8 platform:rhel-8]  # from collection awx.awx
