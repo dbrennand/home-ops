@@ -44,7 +44,7 @@ httpcore==1.0.9
 httpx==0.28.1
     # via pocketbase
 
-idna==3.11
+idna==3.13
     # via
     #   anyio
     #   httpx
