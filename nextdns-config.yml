@@ -8,7 +8,8 @@ rewrites:
   # 192.168.0.3 is free
   - name: proxmox01.net.dbren.uk
     content: 192.168.0.4
-  # 192.168.0.5 is free
+  - name: hermes01.net.dbren.uk
+    content: 192.168.0.5
   - name: backup01.net.dbren.uk
     content: 192.168.0.6
   - name: exit01.net.dbren.uk
