@@ -65,7 +65,7 @@ packaging==26.1
 paramiko==4.0.0
     # via community.docker (collection)
 
-pocketbase==0.15.0
+pocketbase==0.16.0
     # via community.beszel (collection)
 
 pycparser==3.0
