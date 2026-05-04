@@ -77,7 +77,7 @@ pynacl==1.6.2
 python-dateutil==2.9.0.post0
     # via awx.awx (collection)
 
-pytz==2026.1.post1
+pytz==2026.2
     # via awx.awx (collection)
 
 pyyaml==6.0.3
