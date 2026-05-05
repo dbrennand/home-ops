@@ -27,7 +27,7 @@ cffi==2.0.0
 charset-normalizer==3.4.7
     # via requests
 
-cryptography==46.0.7
+cryptography==48.0.0
     # via
     #   ansible-core
     #   paramiko
