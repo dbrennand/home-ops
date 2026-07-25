@@ -94,7 +94,7 @@ requests==2.33.1
 resolvelib==1.2.1
     # via ansible-core
 
-setuptools==82.0.1
+setuptools==83.0.0
     # via awxkit
 
 six==1.17.0
