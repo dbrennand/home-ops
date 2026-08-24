@@ -1,2 +1,10 @@
 ---
 ansible_user: daniel
+
+# artis3n.tailscale.machine
+# https://github.com/artis3n/ansible-collection-tailscale/tree/main/roles/machine#variables
+tailscale_authkey: "{{ lookup('community.general.onepassword', 'Tailscale Home-Ops', vault='Home-Ops') }}"
+tailscale_oauth_ephemeral: false
+tailscale_tags:
+  - home-ops
+tailscale_args: --ssh

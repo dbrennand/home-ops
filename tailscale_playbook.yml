@@ -1,0 +1,5 @@
+---
+- name: Playbook | Install and Configure Tailscale
+  hosts: all
+  roles:
+    - artis3n.tailscale.machine
