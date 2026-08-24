@@ -1,0 +1,14 @@
+---
+# Minimal galaxy.yml for a playbook project for tools to recognize this as a collection
+
+namespace: "dbrennand"
+name: "home_ops"
+readme: README.md
+version: 0.0.1
+authors:
+  - Daniel Brennand
+
+description: Collection for dbrennand.home_ops playbook project
+license: ["MIT"]
+tags: ["homeops", "homelab", "infrastructure"]
+repository: https://github.com/dbrennand/home-ops
