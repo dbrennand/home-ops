@@ -1,5 +1,24 @@
 ---
 - name: Playbook | Install and Configure Tailscale
   hosts: all
+  pre_tasks:
+    - name: Tailscale | Enable IP forwarding
+      become: true
+      block:
+        - name: Tailscale | Enable IPv4 forwarding
+          ansible.posix.sysctl:
+            name: net.ipv4.ip_forward
+            value: "1"
+            sysctl_file: /etc/sysctl.d/99-tailscale.conf
+            state: present
+            reload: true
+
+        - name: Tailscale | Enable IPv6 forwarding
+          ansible.posix.sysctl:
+            name: net.ipv6.conf.all.forwarding
+            value: "1"
+            sysctl_file: /etc/sysctl.d/99-tailscale.conf
+            state: present
+            reload: true
   roles:
     - artis3n.tailscale.machine
