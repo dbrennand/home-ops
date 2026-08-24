@@ -1,0 +1,6 @@
+---
+skip_list:
+  # No changelog
+  - galaxy[no-changelog]
+  # Ansible Core 2.21 is not recognized by ansible-lint yet
+  - meta-runtime[unsupported-version]
