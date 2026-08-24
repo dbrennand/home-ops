@@ -8,6 +8,8 @@ collections/ansible_collections/*
 !collections/ansible_collections/dbrennand
 collections/ansible_collections/dbrennand/*
 !collections/ansible_collections/dbrennand/home_ops
+execution-environment/context
+.logs
 # https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore
 # Byte-compiled / optimized / DLL files
 __pycache__/
