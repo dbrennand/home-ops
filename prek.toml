@@ -1,0 +1,14 @@
+[[repos]]
+repo = "https://github.com/pre-commit/pre-commit-hooks"
+rev = "v6.0.0"
+hooks = [
+  { id = "end-of-file-fixer" },
+  { id = "mixed-line-ending", args = ["--fix=lf"] },
+]
+
+[[repos]]
+repo = "https://github.com/ansible/ansible-lint"
+rev = "v26.8.0"
+hooks = [
+  { id = "ansible-lint" },
+]

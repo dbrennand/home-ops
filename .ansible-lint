@@ -1,4 +1,9 @@
 ---
+exclude_paths:
+  # Installed collections (vendored dependencies), not project code
+  - .ansible/
+  - .venv/
+  - .logs/
 skip_list:
   # No changelog
   - galaxy[no-changelog]
