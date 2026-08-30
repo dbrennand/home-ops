@@ -1,0 +1,10 @@
+---
+# Config for https://github.com/dbrennand/NextDNS-Rewrites
+profile_name: "Main"
+
+rewrites:
+  # A Records
+  - name: pi01.net.dbren.uk
+    content: 192.168.0.2
+  - name: pi02.net.dbren.uk
+    content: 192.168.0.3

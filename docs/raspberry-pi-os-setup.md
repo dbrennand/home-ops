@@ -1,4 +1,4 @@
-# Raspberry Pi OS Setup
+# :fontawesome-brands-raspberry-pi: Raspberry Pi OS Setup
 
 These steps provide the initial configuration for a Raspberry Pi that will be
 managed by Ansible.
