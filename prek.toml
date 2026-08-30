@@ -12,3 +12,10 @@ rev = "v26.8.0"
 hooks = [
   { id = "ansible-lint" },
 ]
+
+[[repos]]
+repo = "https://github.com/DavidAnson/markdownlint-cli2"
+rev = "v0.23.2"
+hooks = [
+  { id = "markdownlint-cli2" },
+]
