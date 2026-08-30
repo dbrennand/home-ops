@@ -4,6 +4,7 @@ exclude_paths:
   - .ansible/
   - .venv/
   - .logs/
+
 skip_list:
   # No changelog
   - galaxy[no-changelog]
