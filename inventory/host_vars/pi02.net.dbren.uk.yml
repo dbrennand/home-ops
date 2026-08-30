@@ -1,0 +1,3 @@
+---
+# artis3n.tailscale.machine
+tailscale_args: --ssh --advertise-exit-node
