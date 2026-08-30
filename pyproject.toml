@@ -1,7 +1,7 @@
 [project]
 name = "home-ops"
 version = "0.0.0"
-description = "Home Operations Ansible project for managing my Homelab infrastructure."
+description = "Ansible project for managing my Homelab infrastructure."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

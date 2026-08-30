@@ -1,6 +1,6 @@
-# 🏠 🛠 dbrennand.home_ops Ansible Project
+# 🏠 🛠 Home Operations
 
-Home Operations Ansible project for managing my Homelab infrastructure.
+Ansible project for managing my Homelab infrastructure.
 
 ## 📝 Overview
 
