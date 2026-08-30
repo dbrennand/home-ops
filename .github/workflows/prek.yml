@@ -3,7 +3,7 @@ name: prek
 
 on:
   push:
-    branches: [devel, main]
+    branches: [devel]
   pull_request:
 
 permissions:
