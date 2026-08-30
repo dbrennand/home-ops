@@ -1,7 +1,7 @@
 [project]
 name = "home-ops"
 version = "0.0.0"
-description = "dbrennand.home_ops Ansible Project"
+description = "Home Operations Ansible project for managing my Homelab infrastructure."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -13,4 +13,7 @@ dev = [
     "ansible-builder>=3.1.1",
     "ansible-lint>=26.8.0",
     "prek>=0.5.0",
+]
+docs = [
+    "zensical>=0.0.57",
 ]
