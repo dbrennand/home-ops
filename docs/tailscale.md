@@ -24,6 +24,16 @@ vars](https://github.com/dbrennand/home-ops/tree/devel/inventory/host_vars).
 For devices to authenticate to the Tailnet an [OAuth
 client](https://login.tailscale.com/admin/settings/oauth) is required.
 
+## Exit Nodes
+
+Both Raspberry Pi devices are configured as [Tailscale exit
+nodes](https://tailscale.com/docs/features/exit-nodes). Their host variables
+include `--advertise-exit-node` in `tailscale_args`, which makes them
+available as exit nodes in the Tailnet.
+
+The Ansible playbook also enables IPv4 and IPv6 forwarding on each device so
+that they can route traffic for connected Tailnet clients.
+
 ## DNS
 
 My Tailnet is configured to use [NextDNS](dns.md) as the upstream DNS

@@ -10,6 +10,7 @@ repo_name = "dbrennand/home-ops"
 
 nav = [
   { "Home" = "index.md" },
+  { "Architecture" = "architecture.md" },
   { "Raspberry Pi OS Setup" = "raspberry-pi-os-setup.md" },
   { "DNS" = "dns.md" },
   { "Secrets Management" = "secrets-management.md" },
