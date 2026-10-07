@@ -8,3 +8,5 @@ rewrites:
     content: 192.168.0.2
   - name: pi02.net.dbren.uk
     content: 192.168.0.3
+  - name: stirling.net.dbren.uk
+    content: 192.168.0.2

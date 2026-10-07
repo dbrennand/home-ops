@@ -1,0 +1,25 @@
+---
+services:
+  stirling-pdf:
+    container_name: stirling-pdf
+    image: ghcr.io/stirling-tools/stirling-pdf:3.1.0
+    restart: unless-stopped
+    expose:
+      - "8080"
+    environment:
+      SECURITY_ENABLELOGIN: "false"
+      PUID: "1000"
+      PGID: "1000"
+    volumes:
+      - ./configs:/configs
+    networks:
+      - caddy
+    labels:
+      caddy: stirling.net.dbren.uk
+      caddy.import: cloudflare
+      caddy.reverse_proxy: "{{upstreams 8080}}"
+
+networks:
+  caddy:
+    external: true
+    name: caddy

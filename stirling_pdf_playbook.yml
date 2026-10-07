@@ -1,0 +1,10 @@
+---
+- name: Deploy Stirling PDF and Caddy
+  hosts: pi01.net.dbren.uk
+  become: true
+  roles:
+    - role: geerlingguy.docker
+      vars:
+        docker_install_compose_plugin: true
+    - role: dbrennand.home_ops.caddy
+    - role: dbrennand.home_ops.stirling_pdf

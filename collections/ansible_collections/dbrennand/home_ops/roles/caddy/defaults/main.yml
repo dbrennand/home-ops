@@ -1,0 +1,4 @@
+---
+caddy_compose_directory: /opt/compose/caddy
+caddy_acme_email: "{{ lookup('community.general.onepassword', 'Caddy', field='ACME_EMAIL', vault='Home-Ops') }}"
+caddy_cf_api_token: "{{ lookup('community.general.onepassword', 'Caddy', field='CF_API_TOKEN', vault='Home-Ops') }}"

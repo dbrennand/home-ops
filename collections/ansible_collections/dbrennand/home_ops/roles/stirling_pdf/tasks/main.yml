@@ -1,0 +1,29 @@
+---
+- name: Stirling PDF | Create Compose project directory
+  ansible.builtin.file:
+    path: "{{ stirling_pdf_compose_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Stirling PDF | Create writable configuration directory
+  ansible.builtin.file:
+    path: "{{ stirling_pdf_compose_directory }}/configs"
+    state: directory
+    owner: "1000"
+    group: "1000"
+    mode: "0750"
+
+- name: Stirling PDF | Copy Compose project file
+  ansible.builtin.copy:
+    src: docker-compose.yml
+    dest: "{{ stirling_pdf_compose_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Stirling PDF | Deploy Compose project
+  community.docker.docker_compose_v2:
+    project_src: "{{ stirling_pdf_compose_directory }}"
+    state: present

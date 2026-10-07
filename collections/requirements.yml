@@ -1,6 +1,14 @@
 ---
+roles:
+  - name: geerlingguy.docker
+    version: 8.0.0
+
 collections:
   - name: artis3n.tailscale
     version: 1.2.1
   - name: ansible.posix
     version: 2.2.2
+  - name: community.docker
+    version: 5.0.6
+  - name: community.general
+    version: 13.4.0

@@ -1,0 +1,37 @@
+---
+- name: Caddy | Create Compose and persistent data directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - "{{ caddy_compose_directory }}/conf"
+    - "{{ caddy_compose_directory }}/data"
+    - "{{ caddy_compose_directory }}/config"
+
+- name: Caddy | Copy Compose project file
+  ansible.builtin.copy:
+    src: docker-compose.yml
+    dest: "{{ caddy_compose_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Caddy | Copy Caddyfile
+  ansible.builtin.copy:
+    src: conf/Caddyfile
+    dest: "{{ caddy_compose_directory }}/conf/Caddyfile"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Caddy | Deploy Compose project
+  community.docker.docker_compose_v2:
+    project_src: "{{ caddy_compose_directory }}"
+    state: present
+  environment:
+    ACME_EMAIL: "{{ caddy_acme_email }}"
+    CF_API_TOKEN: "{{ caddy_cf_api_token }}"
+  no_log: true

@@ -1,0 +1,27 @@
+---
+services:
+  caddy:
+    container_name: caddy
+    image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2026.10.06
+    restart: unless-stopped
+    command: caddy docker-proxy
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+    environment:
+      ACME_EMAIL: "${ACME_EMAIL:?ACME_EMAIL is required}"
+      CF_API_TOKEN: "${CF_API_TOKEN:?CF_API_TOKEN is required}"
+      CADDY_INGRESS_NETWORKS: caddy
+      CADDY_DOCKER_CADDYFILE_PATH: /etc/caddy/Caddyfile
+    volumes:
+      - ./conf/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./data:/data
+      - ./config:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - caddy
+
+networks:
+  caddy:
+    name: caddy
