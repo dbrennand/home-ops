@@ -1,8 +1,9 @@
 # Stirling PDF
 
-Stirling PDF is hosted at [`stirling.net.dbren.uk`](https://stirling.net.dbren.uk). Home clients
-resolve this URL to `pi01.net.dbren.uk` (`192.168.0.2`). Caddy provides HTTPS and proxies
-requests to Stirling over the shared Docker network. See the [Caddy
+Stirling PDF is hosted at
+[`stirling.net.dbren.uk`](https://stirling.net.dbren.uk). Home clients resolve
+this URL to `pi01.net.dbren.uk` (`192.168.0.2`). Caddy provides HTTPS and
+proxies requests to Stirling over the shared Docker network. See the [Caddy
 documentation](caddy.md) for proxy and TLS details.
 
 The service is internal-only and login is disabled. Anyone on the home network
