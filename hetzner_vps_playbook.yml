@@ -1,0 +1,107 @@
+---
+- name: Provision Ubuntu VPS on Hetzner Cloud
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    hcloud_api_token: "{{ lookup('ansible.builtin.env', 'HCLOUD_TOKEN') }}"
+    hcloud_server_name: "ubuntu01"
+    hcloud_server_type: "cax11"
+    hcloud_server_location: "fsn1"
+    github_username: "dbrennand"
+    server_username: "daniel"
+    cloud_config: |
+      #cloud-config
+      package_update: true
+      package_upgrade: true
+      ssh_pwauth: false
+      disable_root: true
+      users:
+        - name: "{{ server_username }}"
+          groups:
+            - sudo
+          shell: /bin/bash
+          sudo: ALL=(ALL) NOPASSWD:ALL
+          lock_passwd: true
+          ssh_authorized_keys: {{ github_ssh_keys.content.splitlines() | to_json }}
+      runcmd:
+        - timedatectl set-timezone Europe/London
+  tasks:
+    - name: Validate required configuration
+      ansible.builtin.assert:
+        that:
+          - hcloud_api_token | length > 0
+          - hcloud_server_name | length > 0
+          - hcloud_server_type | length > 0
+          - hcloud_server_location | length > 0
+          - github_username | length > 0
+          - server_username | length > 0
+        fail_msg: >-
+          Set HCLOUD_TOKEN and provide valid Hetzner Cloud server settings.
+
+    - name: Fetch GitHub SSH public keys
+      ansible.builtin.uri:
+        url: "https://github.com/{{ github_username }}.keys"
+        method: GET
+        return_content: true
+        status_code: 200
+      register: github_ssh_keys
+      changed_when: false
+
+    - name: Validate GitHub SSH public keys
+      ansible.builtin.assert:
+        that:
+          - github_ssh_keys.content | trim | length > 0
+        fail_msg: >-
+          GitHub returned no SSH public keys for {{ github_username }}.
+
+    - name: Resolve control host public IP
+      ansible.builtin.uri:
+        url: https://api.ipify.org?format=json
+        method: GET
+        return_content: true
+        status_code: 200
+      register: ipify_response
+
+    - name: Set SSH allowlist CIDR
+      ansible.builtin.set_fact:
+        controller_ssh_cidr: "{{ ipify_response.json.ip }}/32"
+
+    - name: Create firewall restricted to the control host
+      hetzner.hcloud.firewall:
+        api_token: "{{ hcloud_api_token }}"
+        name: "{{ hcloud_server_name }}-firewall"
+        rules:
+          - description: Allow SSH from the Ansible control host
+            direction: in
+            protocol: tcp
+            port: "22"
+            source_ips:
+              - "{{ controller_ssh_cidr }}"
+        state: present
+      register: hcloud_firewall
+
+    - name: Create Ubuntu 26.04 server
+      hetzner.hcloud.server:
+        api_token: "{{ hcloud_api_token }}"
+        name: "{{ hcloud_server_name }}"
+        server_type: "{{ hcloud_server_type }}"
+        image: ubuntu-26.04
+        location: "{{ hcloud_server_location }}"
+        firewalls:
+          - "{{ hcloud_server_name }}-firewall"
+        user_data: "{{ cloud_config }}"
+        state: present
+      register: hcloud_server
+
+    - name: Show provisioning details
+      ansible.builtin.debug:
+        msg:
+          - "🚀 Hetzner provisioning complete"
+          - "🖥️ Server: {{ hcloud_server.hcloud_server.name }}"
+          - "🌍 IPv4: {{ hcloud_server.hcloud_server.ipv4_address }}"
+          - "👤 SSH user: {{ server_username }}"
+          - >-
+            🔑 Embedded {{ github_ssh_keys.content.splitlines() | length }} SSH keys from
+            https://github.com/{{ github_username }}.keys
+          - "🔥 SSH allowed from: {{ controller_ssh_cidr }}"

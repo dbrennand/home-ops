@@ -4,6 +4,8 @@ roles:
     version: 8.0.0
 
 collections:
+  - name: hetzner.hcloud
+    version: 7.2.0
   - name: artis3n.tailscale
     version: 1.2.1
   - name: ansible.posix
