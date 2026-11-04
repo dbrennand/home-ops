@@ -25,5 +25,5 @@ flowchart LR
 ```
 
 See the [DNS documentation](dns.md) for details about NextDNS and its rewrite
-records. Tailscale provides encrypted remote access to the Raspberry Pi
-devices from outside the home network.
+records. [Tailscale](tailscale.md) provides encrypted remote access to the
+Raspberry Pi devices from outside the home network.

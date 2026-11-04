@@ -31,8 +31,8 @@ nodes](https://tailscale.com/docs/features/exit-nodes). Their host variables
 include `--advertise-exit-node` in `tailscale_args`, which makes them
 available as exit nodes in the Tailnet.
 
-The Ansible playbook also enables IPv4 and IPv6 forwarding on each device so
-that they can route traffic for connected Tailnet clients.
+The `exit_code` inventory group has IPv4 and IPv6 forwarding enabled, allowing
+its devices to route traffic for connected Tailnet clients.
 
 ## DNS
 

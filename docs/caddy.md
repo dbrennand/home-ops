@@ -22,7 +22,7 @@ Caddy's files are stored under `/opt/compose/caddy` on `pi01`:
 | `data`           | Certificates and runtime data                       |
 | `config`         | Caddy configuration state                           |
 
-The Caddyfile is maintained in this repository.
+The [Caddyfile](https://github.com/dbrennand/home-ops/blob/devel/collections/ansible_collections/dbrennand/home_ops/roles/caddy/files/conf/Caddyfile) is maintained in this repository.
 
 ## Secrets
 
@@ -34,4 +34,4 @@ Caddy's Cloudflare DNS challenge uses credentials managed as described on the
 The Ansible deployment is defined in
 [`stirling_pdf_playbook.yml`](https://github.com/dbrennand/home-ops/blob/devel/stirling_pdf_playbook.yml)
 and the `dbrennand.home_ops.caddy` and `dbrennand.home_ops.stirling_pdf` roles.
-The services have not yet been deployed to `pi01`.
+The services are deployed on `pi01`.
