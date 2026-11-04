@@ -1,0 +1,5 @@
+---
+- name: Install common packages on all hosts
+  hosts: all
+  roles:
+    - role: dbrennand.home_ops.common
