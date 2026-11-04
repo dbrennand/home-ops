@@ -4,6 +4,7 @@
   pre_tasks:
     - name: Tailscale | Enable IP forwarding
       become: true
+      when: inventory_hostname in groups["tailscale_exit_nodes"]
       block:
         - name: Tailscale | Enable IPv4 forwarding
           ansible.posix.sysctl:
