@@ -2,7 +2,7 @@
 services:
   stirling-pdf:
     container_name: stirling-pdf
-    image: ghcr.io/stirling-tools/stirling-pdf:3.1.0
+    image: ghcr.io/stirling-tools/stirling-pdf:3.2.2
     restart: unless-stopped
     expose:
       - "8080"
