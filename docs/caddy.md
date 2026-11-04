@@ -22,7 +22,9 @@ Caddy's files are stored under `/opt/compose/caddy` on `pi01`:
 | `data`           | Certificates and runtime data                       |
 | `config`         | Caddy configuration state                           |
 
-The [Caddyfile](https://github.com/dbrennand/home-ops/blob/devel/collections/ansible_collections/dbrennand/home_ops/roles/caddy/files/conf/Caddyfile) is maintained in this repository.
+The [Caddyfile](
+https://github.com/dbrennand/home-ops/blob/devel/collections/ansible_collections/dbrennand/home_ops/roles/caddy/files/conf/Caddyfile
+) is maintained in this repository.
 
 ## Secrets
 
