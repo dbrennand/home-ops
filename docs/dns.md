@@ -10,8 +10,18 @@ Homelab.
 
 ## Rewrites (A Records)
 
-NextDNS has a rewrites feature which allows me to create DNS A records for my
-Homelab. I manage these rewrite records via the NextDNS REST API using a
-script I created called
-[NextDNS-Rewrites](https://github.com/dbrennand/NextDNS-Rewrites). My
-configuration file is [available in the repository](https://github.com/dbrennand/home-ops/blob/devel/nextdns-config.yml).
+NextDNS rewrites provide DNS records for services in my Homelab. I manage them
+with [`ndrw`](https://github.com/dbrennand/NextDNS-Rewrites), a CLI that
+synchronises a YAML configuration file with a selected NextDNS profile through
+the NextDNS API. The desired records are defined in
+[`nextdns-config.yml`](https://github.com/dbrennand/home-ops/blob/devel/nextdns-config.yml).
+
+See the [`ndrw` README](https://github.com/dbrennand/NextDNS-Rewrites#readme)
+for installation instructions and quick-start usage. I run it from the repository
+root with `nextdns-config.yml`.
+
+The CLI creates missing configured rewrites and replaces existing rewrites
+with the configured values. Rewrites in NextDNS that are absent from the file
+are preserved unless `--prune` is supplied. Use `--dry-run` to preview changes;
+review prune deletions with `ndrw --config nextdns-config.yml --prune --dry-run`
+before applying them.
