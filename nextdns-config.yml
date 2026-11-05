@@ -1,6 +1,6 @@
 ---
 # Config for https://github.com/dbrennand/NextDNS-Rewrites
-profile_name: "Main"
+profile: "Main"
 
 rewrites:
   # A Records
