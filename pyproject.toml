@@ -17,3 +17,6 @@ dev = [
 docs = [
     "zensical>=0.0.57",
 ]
+
+[tool.uv]
+exclude-newer = "1 week"
