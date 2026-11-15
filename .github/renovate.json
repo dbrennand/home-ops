@@ -2,5 +2,19 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update the Ansible execution environment base image",
+      "managerFilePatterns": [
+        "/^execution-environment/execution-environment\\.yml$/"
+      ],
+      "matchStrings": [
+        " \\s+[\"']?(?<depName>[^\\s\"']+):(?<currentValue>[^\\s\"']+)[\"']?"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "loose"
+    }
   ]
 }
