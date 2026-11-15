@@ -67,7 +67,7 @@
       ansible.builtin.set_fact:
         controller_ssh_cidr: "{{ ipify_response.json.ip }}/32"
 
-    - name: Create firewall restricted to the control host
+    - name: Create firewall for SSH and Pangolin
       hetzner.hcloud.firewall:
         api_token: "{{ hcloud_api_token }}"
         name: "{{ hcloud_server_name }}-firewall"
@@ -78,6 +78,34 @@
             port: "22"
             source_ips:
               - "{{ controller_ssh_cidr }}"
+          - description: "Allow Pangolin HTTP and certificate validation"
+            direction: in
+            protocol: tcp
+            port: "80"
+            source_ips:
+              - "0.0.0.0/0"
+              - "::/0"
+          - description: "Allow Pangolin HTTPS"
+            direction: in
+            protocol: tcp
+            port: "443"
+            source_ips:
+              - "0.0.0.0/0"
+              - "::/0"
+          - description: "Allow Pangolin site tunnels"
+            direction: in
+            protocol: udp
+            port: "51820"
+            source_ips:
+              - "0.0.0.0/0"
+              - "::/0"
+          - description: "Allow Pangolin client tunnels"
+            direction: in
+            protocol: udp
+            port: "21820"
+            source_ips:
+              - "0.0.0.0/0"
+              - "::/0"
         state: present
       register: hcloud_firewall
 
