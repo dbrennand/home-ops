@@ -2,7 +2,7 @@
 services:
   caddy:
     container_name: caddy
-    image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2026.10.06
+    image: ghcr.io/dbrennand/caddy-docker-proxy-cloudflare:2026.11.15
     restart: unless-stopped
     command: caddy docker-proxy
     ports:
