@@ -6,7 +6,7 @@ and the Hetzner Cloud VPS intended to host Pangolin.
 ```mermaid
 flowchart LR
     remote["Remote device"] -->|Encrypted tunnel| tailscale["Tailscale tailnet"]
-    remote -->|Remote access| pangolin
+    remote -->|HTTPS resource| pangolin
 
     subgraph cloud["Hetzner Cloud"]
         vps["ubuntu01.hetzner.dbren.uk<br/>Ubuntu 26.04"]
@@ -18,11 +18,13 @@ flowchart LR
         router["Home router<br/>192.168.0.1"]
         pi01["pi01.net.dbren.uk<br/>192.168.0.2"]
         pi02["pi02.net.dbren.uk<br/>192.168.0.3"]
-        site["Pangolin site connector<br/>(managed outside this repo)"]
+        site["Pangolin site connector<br/>managed on pi01"]
+        stirling["Stirling PDF<br/>127.0.0.1:8080"]
 
         router --- pi01
         router --- pi02
-        router --- site
+        pi01 --> site
+        site --> stirling
     end
 
     pi01 -->|DNS queries| nextdns["NextDNS<br/>45.90.28.138<br/>45.90.30.138"]
@@ -40,5 +42,6 @@ Raspberry Pi devices from outside the home network.
 
 The [Hetzner VPS](hetzner-vps.md) is the intended public host for
 [Pangolin](pangolin.md), which provides access to selected services on remote
-networks. The dotted connection shows the intended site tunnel; the site
-connector and resource configuration are managed outside this repository.
+networks. The dotted connection shows the site tunnel managed by this
+repository. The `stirling.apps.dbren.uk` public resource routes to Stirling PDF
+on `pi01`.

@@ -18,3 +18,13 @@ too. These include:
 
 The 1Password Service Accounts are used to authenticate these integrations and
 are restricted to only read from a specific vault.
+
+## Pangolin Site
+
+The `pi01` item in the `Home-Ops` vault stores the site connector
+credentials consumed by [`pangolin_site_playbook.yml`](../pangolin_site_playbook.yml):
+
+| Field | Value |
+| --- | --- |
+| `PANGOLIN_SITE_ID` | Site ID from Pangolin |
+| `PANGOLIN_SITE_SECRET` | Site secret from Pangolin |

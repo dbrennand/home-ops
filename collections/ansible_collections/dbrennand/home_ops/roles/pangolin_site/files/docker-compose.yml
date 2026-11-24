@@ -1,0 +1,17 @@
+---
+services:
+  pangolin-site:
+    container_name: pangolin-site
+    image: docker.io/fosrl/pangolin-cli:0.23.0
+    restart: unless-stopped
+    command:
+      - up
+      - site
+    network_mode: host
+    environment:
+      PANGOLIN_ENDPOINT: "${PANGOLIN_ENDPOINT:?PANGOLIN_ENDPOINT is required}"
+      SITE_ID: "${SITE_ID:?SITE_ID is required}"
+      SITE_SECRET: "${SITE_SECRET:?SITE_SECRET is required}"
+      BLUEPRINT_FILE: /etc/pangolin/blueprint.yml
+    volumes:
+      - ./blueprint.yml:/etc/pangolin/blueprint.yml:ro

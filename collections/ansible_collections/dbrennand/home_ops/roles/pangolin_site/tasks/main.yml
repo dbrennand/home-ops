@@ -1,0 +1,44 @@
+---
+- name: Pangolin Site | Ensure required site settings are configured
+  ansible.builtin.assert:
+    that:
+      - pangolin_site_endpoint | length > 0
+      - pangolin_site_id | length > 0
+      - pangolin_site_secret | length > 0
+    fail_msg: "Set the Pangolin site endpoint, ID, and secret before applying this role."
+
+- name: Pangolin Site | Create Compose project directory
+  ansible.builtin.file:
+    path: "{{ pangolin_site_compose_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Pangolin Site | Template site blueprint
+  ansible.builtin.template:
+    src: blueprint.yml.j2
+    dest: "{{ pangolin_site_compose_directory }}/blueprint.yml"
+    owner: root
+    group: root
+    mode: "0600"
+  register: pangolin_site_blueprint_result
+
+- name: Pangolin Site | Copy Compose project file
+  ansible.builtin.copy:
+    src: docker-compose.yml
+    dest: "{{ pangolin_site_compose_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Pangolin Site | Deploy Compose project
+  community.docker.docker_compose_v2:
+    project_src: "{{ pangolin_site_compose_directory }}"
+    state: present
+    recreate: "{{ 'always' if pangolin_site_blueprint_result.changed else 'auto' }}"
+  environment:
+    PANGOLIN_ENDPOINT: "{{ pangolin_site_endpoint }}"
+    SITE_ID: "{{ pangolin_site_id }}"
+    SITE_SECRET: "{{ pangolin_site_secret }}"
+  no_log: true
