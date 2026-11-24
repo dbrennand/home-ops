@@ -22,6 +22,7 @@
     owner: root
     group: root
     mode: "0600"
+  register: pangolin_site_blueprint_result
 
 - name: Pangolin Site | Copy Compose project file
   ansible.builtin.copy:
@@ -35,6 +36,7 @@
   community.docker.docker_compose_v2:
     project_src: "{{ pangolin_site_compose_directory }}"
     state: present
+    recreate: "{{ 'always' if pangolin_site_blueprint_result.changed else 'auto' }}"
   environment:
     PANGOLIN_ENDPOINT: "{{ pangolin_site_endpoint }}"
     SITE_ID: "{{ pangolin_site_id }}"
