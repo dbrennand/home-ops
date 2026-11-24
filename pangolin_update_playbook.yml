@@ -1,0 +1,197 @@
+---
+- name: Update Pangolin on the Hetzner VPS
+  hosts: ubuntu01.hetzner.dbren.uk
+  become: true
+  gather_facts: true
+  vars:
+    pangolin_install_directory: /opt/pangolin
+    pangolin_compose_file: "{{ pangolin_install_directory }}/docker-compose.yml"
+    pangolin_traefik_config_file: "{{ pangolin_install_directory }}/config/traefik/traefik_config.yml"
+    pangolin_backup_directory: "{{ pangolin_install_directory }}/backups"
+    pangolin_backup_path: >-
+      {{ pangolin_backup_directory }}/pangolin-{{ ansible_date_time.iso8601_basic_short }}.tar.gz
+  tasks:
+    - name: Validate Pangolin deployment files
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      loop:
+        - "{{ pangolin_compose_file }}"
+        - "{{ pangolin_traefik_config_file }}"
+      register: pangolin_deployment_files
+
+    - name: Require Pangolin deployment files
+      ansible.builtin.assert:
+        that:
+          - pangolin_deployment_files.results | map(attribute='stat.exists') | min
+        fail_msg: >-
+          Expected docker-compose.yml and config/traefik/traefik_config.yml in
+          {{ pangolin_install_directory }}. Override pangolin_install_directory if needed.
+
+    - name: Read the Pangolin Compose file
+      ansible.builtin.slurp:
+        src: "{{ pangolin_compose_file }}"
+      register: pangolin_compose_content
+
+    - name: Read the Traefik static configuration
+      ansible.builtin.slurp:
+        src: "{{ pangolin_traefik_config_file }}"
+      register: pangolin_traefik_config_content
+
+    - name: Parse Pangolin Compose and Traefik configuration
+      ansible.builtin.set_fact:
+        pangolin_compose_config: "{{ pangolin_compose_content.content | b64decode | from_yaml }}"
+        pangolin_traefik_config: "{{ pangolin_traefik_config_content.content | b64decode | from_yaml }}"
+
+    - name: Validate Pangolin Enterprise SQLite services and the Badger plugin
+      ansible.builtin.assert:
+        that:
+          - pangolin_compose_config['services']['pangolin']['image'] is search('(?:^|/)fosrl/pangolin:ee-')
+          - pangolin_compose_config['services']['pangolin']['image'] is not search('fosrl/pangolin:ee-postgresql-')
+          - pangolin_compose_config['services']['gerbil']['image'] is search('(?:^|/)fosrl/gerbil:')
+          - pangolin_compose_config['services']['traefik']['image'] is search('(?:^|/)traefik:')
+          - pangolin_traefik_config['experimental']['plugins']['badger']['version'] is defined
+        fail_msg: >-
+          This playbook expects the Pangolin Enterprise Edition Docker Compose layout
+          with Pangolin, Gerbil, Traefik, and the Badger plugin.
+
+    - name: Set the SQLite Enterprise image tag prefix
+      ansible.builtin.set_fact:
+        pangolin_image_tag_prefix: ee-
+
+    - name: Read the installed component versions
+      ansible.builtin.set_fact:
+        pangolin_current_image_tag: "{{ pangolin_compose_config['services']['pangolin']['image'].split(':') | last }}"
+        gerbil_current_version: "{{ pangolin_compose_config['services']['gerbil']['image'].split(':') | last }}"
+        traefik_current_version: "{{ pangolin_compose_config['services']['traefik']['image'].split(':') | last }}"
+        badger_current_version: "{{ pangolin_traefik_config['experimental']['plugins']['badger']['version'] }}"
+
+    - name: Get the latest stable Pangolin release
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/fosrl/pangolin/releases/latest
+        method: GET
+        return_content: true
+        status_code: 200
+      register: pangolin_latest_release
+
+    - name: Get the latest stable Gerbil release
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/fosrl/gerbil/releases/latest
+        method: GET
+        return_content: true
+        status_code: 200
+      register: gerbil_latest_release
+
+    - name: Get the latest stable Traefik release
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/traefik/traefik/releases/latest
+        method: GET
+        return_content: true
+        status_code: 200
+      register: traefik_latest_release
+
+    - name: Get the latest stable Badger release
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/fosrl/badger/releases/latest
+        method: GET
+        return_content: true
+        status_code: 200
+      register: badger_latest_release
+
+    - name: Set target component versions
+      ansible.builtin.set_fact:
+        pangolin_target_image_tag: "{{ pangolin_image_tag_prefix }}{{ pangolin_latest_release.json.tag_name | regex_replace('^v', '') }}"
+        gerbil_target_version: "{{ gerbil_latest_release.json.tag_name | regex_replace('^v', '') }}"
+        traefik_target_version: "{{ traefik_latest_release.json.tag_name }}"
+        badger_target_version: "{{ badger_latest_release.json.tag_name }}"
+
+    - name: Identify Pangolin components that need updating
+      ansible.builtin.set_fact:
+        pangolin_updates_available: >-
+          {{ (['Pangolin ' ~ pangolin_target_image_tag]
+              if pangolin_current_image_tag != pangolin_target_image_tag else [])
+             + (['Gerbil ' ~ gerbil_target_version]
+              if gerbil_current_version != gerbil_target_version else [])
+             + (['Traefik ' ~ traefik_target_version]
+              if traefik_current_version != traefik_target_version else [])
+             + (['Badger ' ~ badger_target_version]
+              if badger_current_version != badger_target_version else []) }}
+
+    - name: Check whether any component version needs updating
+      ansible.builtin.set_fact:
+        pangolin_update_required: "{{ pangolin_updates_available | length > 0 }}"
+
+    - name: Report components that need updating
+      ansible.builtin.debug:
+        msg: "Updates detected for: {{ pangolin_updates_available | join(', ') }}."
+      when: pangolin_update_required | bool
+
+    - name: Apply the Pangolin update
+      when: pangolin_update_required | bool
+      block:
+        - name: Create Pangolin backup directory
+          ansible.builtin.file:
+            path: "{{ pangolin_backup_directory }}"
+            state: directory
+            owner: root
+            group: root
+            mode: "0700"
+
+        - name: Stop the Pangolin stack before backing up its data
+          community.docker.docker_compose_v2:
+            project_src: "{{ pangolin_install_directory }}"
+            state: absent
+
+        - name: Back up Pangolin configuration and Compose file
+          community.general.archive:
+            path:
+              - "{{ pangolin_install_directory }}/config"
+              - "{{ pangolin_compose_file }}"
+            dest: "{{ pangolin_backup_path }}"
+            format: gz
+            mode: "0600"
+
+        - name: Update the Pangolin image version
+          ansible.builtin.replace:
+            path: "{{ pangolin_compose_file }}"
+            regexp: "(?m)^([ \\t]*image:[ \\t]*['\"]?(?:docker\\.io/)?fosrl/pangolin:)(?:ee-postgresql-|ee-)[^\\s#'\"]+"
+            replace: "\\g<1>{{ pangolin_target_image_tag }}"
+
+        - name: Update the Gerbil image version
+          ansible.builtin.replace:
+            path: "{{ pangolin_compose_file }}"
+            regexp: "(?m)^([ \\t]*image:[ \\t]*['\"]?(?:docker\\.io/)?fosrl/gerbil:)[^\\s#'\"]+"
+            replace: "\\g<1>{{ gerbil_target_version }}"
+
+        - name: Update the Traefik image version
+          ansible.builtin.replace:
+            path: "{{ pangolin_compose_file }}"
+            regexp: "(?m)^([ \\t]*image:[ \\t]*['\"]?(?:docker\\.io/)?traefik:)[^\\s#'\"]+"
+            replace: "\\g<1>{{ traefik_target_version }}"
+
+        - name: Update the Badger plugin version
+          ansible.builtin.replace:
+            path: "{{ pangolin_traefik_config_file }}"
+            regexp: "(?s)(badger:\\n\\s+moduleName:[^\\n]*\\n\\s+version:[ \\t]*['\"]?)v?[0-9][^\\s#'\"]*"
+            replace: "\\g<1>{{ badger_target_version }}"
+
+        - name: Pull updated Pangolin images
+          community.docker.docker_compose_v2_pull:
+            project_src: "{{ pangolin_install_directory }}"
+            policy: always
+
+        - name: Start the updated Pangolin stack
+          community.docker.docker_compose_v2:
+            project_src: "{{ pangolin_install_directory }}"
+            state: present
+
+    - name: Report the Pangolin update result
+      ansible.builtin.debug:
+        msg: >-
+          {% if pangolin_update_required | bool %}
+          Updated Pangolin {{ pangolin_target_image_tag }}, Gerbil {{ gerbil_target_version }},
+          Traefik {{ traefik_target_version }}, and Badger {{ badger_target_version }}.
+          Backup: {{ pangolin_backup_path }}
+          {% else %}
+          Pangolin, Gerbil, Traefik, and Badger already use their latest stable releases.
+          No stack restart was needed.
+          {% endif %}

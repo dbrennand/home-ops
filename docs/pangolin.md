@@ -33,7 +33,17 @@ to the internet. For details, see Pangolin's
 ## Configuration ownership
 
 This repository provisions the VPS and its Hetzner firewall. It does not
-install or configure Pangolin, manage its DNS records, or define site
-connectors and resources. Those settings must be maintained in the Pangolin
-deployment itself. The intended network relationship is shown in the
-[architecture overview](architecture.md).
+install Pangolin or manage its DNS records, site connectors, or resources.
+Those settings must be maintained in the Pangolin deployment itself. The
+intended network relationship is shown in the [architecture overview](architecture.md).
+
+## Update automation
+
+The [`pangolin_update_playbook.yml`](../pangolin_update_playbook.yml) playbook
+updates the existing SQLite Enterprise Edition deployment. It checks the
+latest stable releases of Pangolin, Gerbil, Traefik, and Badger, reports which
+components need updating, backs up the configuration, and applies the updates.
+
+Run it from the repository root with `uv run ansible-playbook
+pangolin_update_playbook.yml`. It expects the Pangolin installation at
+`/opt/pangolin` on `ubuntu01.hetzner.dbren.uk`.
