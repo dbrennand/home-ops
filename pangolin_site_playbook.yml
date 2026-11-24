@@ -1,0 +1,29 @@
+---
+- name: Deploy Pangolin site
+  hosts: pi01.net.dbren.uk
+  become: true
+  vars:
+    pangolin_site_endpoint: "https://pangolin.apps.dbren.uk"
+    pangolin_site_id: >-
+      {{ lookup('community.general.onepassword', 'pi01', field='PANGOLIN_SITE_ID', vault='Home-Ops') }}
+    pangolin_site_secret: >-
+      {{ lookup('community.general.onepassword', 'pi01', field='PANGOLIN_SITE_SECRET', vault='Home-Ops') }}
+    pangolin_site_blueprint:
+      public-resources:
+        stirling-pdf:
+          name: "Stirling PDF"
+          mode: http
+          full-domain: "stirling.apps.dbren.uk"
+          auth:
+            sso-enabled: true
+            sso-roles:
+              - Member
+          targets:
+            - hostname: "127.0.0.1"
+              port: 8080
+              method: http
+  roles:
+    - role: geerlingguy.docker
+      vars:
+        docker_install_compose_plugin: true
+    - role: dbrennand.home_ops.pangolin_site

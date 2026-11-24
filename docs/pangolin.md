@@ -32,10 +32,21 @@ to the internet. For details, see Pangolin's
 
 ## Configuration ownership
 
-This repository provisions the VPS and its Hetzner firewall. It does not
-install Pangolin or manage its DNS records, site connectors, or resources.
-Those settings must be maintained in the Pangolin deployment itself. The
-intended network relationship is shown in the [architecture overview](architecture.md).
+The Pangolin server and its DNS records are maintained separately. This
+repository deploys the site connector on `pi01` and configures the Stirling PDF
+public resource through a site blueprint. The connector credentials are read
+from the `pi01` item in the `Home-Ops` 1Password vault. The intended
+network relationship is shown in the [architecture overview](architecture.md).
+
+Create the Pangolin site in the Pangolin dashboard before running the site
+playbook, then save its site ID and secret in that 1Password item. The public
+DNS record for `stirling.apps.dbren.uk` must resolve to the Pangolin server.
+
+Deploy Docker, the site connector, and its blueprint from the repository root:
+
+```shell
+uv run ansible-playbook pangolin_site_playbook.yml
+```
 
 ## Update automation
 
