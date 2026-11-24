@@ -3,6 +3,10 @@
   "extends": [
     "config:recommended"
   ],
+  "dependencyDashboard": true,
+  "minimumReleaseAge": "7 days",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
+  "internalChecksFilter": "strict",
   "customManagers": [
     {
       "customType": "regex",
