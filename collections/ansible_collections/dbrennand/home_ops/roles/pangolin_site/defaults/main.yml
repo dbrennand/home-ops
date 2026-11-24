@@ -1,0 +1,7 @@
+---
+pangolin_site_compose_directory: /opt/compose/pangolin-site
+pangolin_site_endpoint: ""
+pangolin_site_id: ""
+pangolin_site_secret: ""
+pangolin_site_blueprint:
+  public-resources: {}
