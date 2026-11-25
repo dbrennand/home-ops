@@ -12,9 +12,17 @@ The [`pangolin_site_playbook.yml`](../pangolin_site_playbook.yml) deploys the
 site connector and public resource blueprint. The
 [`stirling_pdf_playbook.yml`](../stirling_pdf_playbook.yml) deploys Stirling PDF.
 
-Pangolin requires SSO for the public resource and grants access to users in the
-`Member` role. Stirling's own login remains disabled; access is controlled
-through Pangolin's configured identity provider.
+The Pangolin `uk-only` shared policy denies requests from outside the UK
+and requires SSO for users in the `Member` role. Geo-blocking depends on the
+Pangolin server's GeoIP database. Stirling's own login remains disabled; access
+is controlled through Pangolin's configured identity provider.
+
+Pangolin checks the Stirling target every 30 seconds with an HTTP GET to
+`http://127.0.0.1:8080/api/v1/info/status`. The target is marked unhealthy after
+three failed checks and healthy after two successful checks. Pangolin stops
+routing requests to an unhealthy target until it recovers. See Pangolin's
+[health check documentation](https://docs.pangolin.net/manage/alerting/health-checks)
+and Stirling PDF's [usage monitoring documentation](https://docs.stirlingpdf.com/Configuration/Automation/Usage%20Monitoring/).
 
 ## Persistent data
 

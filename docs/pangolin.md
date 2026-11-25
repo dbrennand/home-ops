@@ -34,9 +34,12 @@ to the internet. For details, see Pangolin's
 
 The Pangolin server and its DNS records are maintained separately. This
 repository deploys the site connector on `pi01` and configures the Stirling PDF
-public resource through a site blueprint. The connector credentials are read
-from the `pi01` item in the `Home-Ops` 1Password vault. The intended
-network relationship is shown in the [architecture overview](architecture.md).
+public resource through a site blueprint. Its shared `uk-only` policy denies
+requests from outside the UK while requiring SSO for the `Member` role.
+Pangolin geo-blocking requires its GeoIP database to be enabled. The connector
+credentials are read from the `pi01` item in the `Home-Ops` 1Password vault.
+The intended network relationship is shown in the
+[architecture overview](architecture.md).
 
 Create the Pangolin site in the Pangolin dashboard before running the site
 playbook, then save its site ID and secret in that 1Password item. The public

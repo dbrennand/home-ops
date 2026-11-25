@@ -9,19 +9,39 @@
     pangolin_site_secret: >-
       {{ lookup('community.general.onepassword', 'pi01', field='PANGOLIN_SITE_SECRET', vault='Home-Ops') }}
     pangolin_site_blueprint:
+      public-policies:
+        uk-only:
+          name: "UK only"
+          sso: true
+          sso-roles:
+            - Member
+          apply-rules: true
+          rules:
+            - action: deny
+              match: country_is_not
+              value: GB
       public-resources:
         stirling-pdf:
           name: "Stirling PDF"
           mode: http
           full-domain: "stirling.apps.dbren.uk"
-          auth:
-            sso-enabled: true
-            sso-roles:
-              - Member
+          policy: uk-only
           targets:
             - hostname: "127.0.0.1"
               port: 8080
               method: http
+              healthcheck:
+                enabled: true
+                hostname: "127.0.0.1"
+                port: 8080
+                scheme: http
+                method: GET
+                path: /api/v1/info/status
+                status: 200
+                interval: 30
+                timeout: 5
+                healthy-threshold: 2
+                unhealthy-threshold: 3
   roles:
     - role: geerlingguy.docker
       vars:
