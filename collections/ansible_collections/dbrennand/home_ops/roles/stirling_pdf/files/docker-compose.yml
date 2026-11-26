@@ -2,7 +2,7 @@
 services:
   stirling-pdf:
     container_name: stirling-pdf
-    image: ghcr.io/stirling-tools/stirling-pdf:3.3.0
+    image: ghcr.io/stirling-tools/stirling-pdf:3.5.0
     restart: unless-stopped
     ports:
       - "127.0.0.1:8080:8080/tcp"
