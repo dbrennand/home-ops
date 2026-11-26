@@ -1,7 +1,7 @@
 ---
 roles:
   - name: geerlingguy.docker
-    version: 8.0.0
+    version: 8.0.1
 
 collections:
   - name: hetzner.hcloud
