@@ -2,7 +2,7 @@
 version: 3
 images:
   base_image:
-    name: ghcr.io/ansible-community/community-ee-minimal:2.21.3-1
+    name: ghcr.io/ansible-community/community-ee-minimal:2.21.6-1
 dependencies:
   galaxy: ../collections/requirements.yml
 additional_build_files:
